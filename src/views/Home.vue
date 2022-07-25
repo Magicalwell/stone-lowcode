@@ -1,18 +1,27 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js + TypeScript App" />
-  </div>
+  <div class="home" id="lowcode_edit" ref="lowcode_edit">11</div>
 </template>
 
-<script lang="ts">
+<script>
 import { defineComponent } from "vue";
-import HelloWorld from "@/components/HelloWorld.vue"; // @ is an alias to /src
+import Epage from "./entry";
+import config from "./editConfig";
 
 export default defineComponent({
   name: "Home",
-  components: {
-    HelloWorld,
+  components: {},
+  data() {
+    return {
+      epage: {},
+    };
+  },
+  mounted() {
+    const el = this.$refs.lowcode_edit;
+    const option = { ...config, el };
+    // 设计器
+    this.epage = new Epage(option);
+    window.ee = this.epage;
+    // this.epage.$render.store.updateModel(this.model);
   },
 });
 </script>

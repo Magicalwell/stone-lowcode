@@ -1,12 +1,12 @@
-import Hook from './Hook'
+import Hook from "./Hook";
 // 串行同步
 export default class SyncHook extends Hook {
-  constructor () {
-    super()
-    this.tasks = []
+  constructor() {
+    super();
+    this.tasks = [];
   }
 
-  call (...args) {
-    this.tasks.forEach(hook => hook(...args))
+  call(...args) {
+    this.tasks.forEach((hook) => hook(...args));
   }
 }

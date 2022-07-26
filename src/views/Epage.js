@@ -1,5 +1,6 @@
+import { createApp, h } from "vue";
 import { hook, helper, Rule, Store } from "../core";
-
+import Editor from "./index.vue";
 const { isArray, isFunction, usePlugins, isPlainObject } = helper;
 export default class Epage {
   constructor(opt = {}) {
@@ -37,6 +38,7 @@ export default class Epage {
       this.widgets || (this[this.view] ? this[this.view].widgets || [] : []);
 
     if (isArray(widgets)) {
+      // 初始化组件
       this.store.initWidgets(widgets);
 
       if (isPlainObject(this.schema)) {
@@ -54,5 +56,41 @@ export default class Epage {
     const tasks = this.$hooks[type][hook];
     if (!tasks) return;
     return tasks.call(...args);
+  }
+  setRender(instance) {
+    this.$render = instance;
+  }
+  render() {
+    const {
+      el,
+      store,
+      panels,
+      settings,
+      env,
+      view,
+      pc,
+      h5,
+      Render,
+      widgets,
+      component,
+    } = this;
+    const extension = {
+      store,
+      panels,
+      settings,
+      env,
+      view,
+      pc,
+      h5,
+      Render,
+      widgets,
+      component,
+      setRender: this.setRender.bind(this),
+      callPlugin: this.callPlugin.bind(this),
+    };
+    this.callPlugin("life", "beforeCreate", { ctx: this });
+    /* eslint-disable no-new */
+    const ins = createApp({ extension, el, render: () => h(Editor) }).mount(el);
+    return ins;
   }
 }

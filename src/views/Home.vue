@@ -1,5 +1,5 @@
 <template>
-  <div class="home" id="lowcode_edit" ref="lowcode_edit">11</div>
+  <div class="home" id="lowcode_edit" ref="lowcode_edit"></div>
 </template>
 
 <script>

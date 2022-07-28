@@ -17,5 +17,6 @@ import {
   drag,
 } from "../core";
 import Epage from "./Epage.js";
-Epage.Store = Store
+Epage.Store = Store;
+Epage.test = { i: 1 };
 export default Epage;

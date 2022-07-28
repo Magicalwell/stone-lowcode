@@ -39,8 +39,8 @@ import {
   checkValueType,
   formatDate,
   isNumberString,
-  copy
-} from './util'
+  copy,
+} from "./util";
 
 export {
   // getRootSchemaChildren,
@@ -82,4 +82,4 @@ export {
   // formatDate,
   // isNumberString,
   // copy
-}
+};

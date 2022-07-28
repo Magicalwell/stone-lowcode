@@ -1,11 +1,34 @@
 import { createApp, h } from "vue";
-import { hook, helper, Rule, Store } from "../core";
+// import { hook, helper, Rule, Store } from "../core";
+import { Store, helper } from "../core";
 import Editor from "./index.vue";
 const { isArray, isFunction, usePlugins, isPlainObject } = helper;
+const defaultView = (t) =>
+  Object.assign(
+    {
+      component: null,
+      widgets: [],
+      Render: null,
+    },
+    t || {}
+  );
 export default class Epage {
   constructor(opt = {}) {
     this.el = opt.el;
     this.widgets = opt.widgets; // 需要注册的组件
+    this.pc = defaultView(opt.pc);
+    // 移动端设计时，默认配置
+    this.h5 = defaultView(opt.h5);
+    // 当前环境，暂无特别用途
+    this.env = opt.env || "production";
+    // 默认设计视图
+    this.view = opt.view || "pc";
+    // 以下3个属性将移动到 pc | h5属性中，目前为了兼容老版本
+    this.Render = opt.Render;
+    // 待注册的widgets
+    this.widgets = opt.widgets;
+    // 渲染器入口文件，react对应.jsx文件，vue对应.vue文件
+    this.component = opt.component;
     this.$hooks = {
       // 设计器生命周期
       life: {
@@ -36,7 +59,6 @@ export default class Epage {
     this.store = new Store({ Rule: opt.Rule || Rule });
     const widgets =
       this.widgets || (this[this.view] ? this[this.view].widgets || [] : []);
-
     if (isArray(widgets)) {
       // 初始化组件
       this.store.initWidgets(widgets);

@@ -8,11 +8,11 @@ import Store from "./store";
 // // import TypeBuilder from "./store/TypeBuilder";
 // import Dict from "./store/Dict";
 // import API from "./store/API";
-import * as helper from "./helper";
+// import * as helper from "./helper";
 // import * as constant from "./constant";
 // import * as schema from "./schema";
 // import * as style from "./style";
-import * as hook from "./hook";
+// import * as hook from "./hook";
 // import * as render from "./render";
 // import * as drag from "./drag";
 
@@ -27,11 +27,11 @@ export {
   // TypeBuilder,
   // Dict,
   // API,
-  helper,
+  // helper,
   // constant,
   // schema,
   // style,
-  hook,
+  // hook,
   // render,
   // drag,
 };

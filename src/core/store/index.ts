@@ -30,7 +30,7 @@ export default class Store {
       {}
     );
   }
-  public initWidgets(widgets) {
+  public initWidgets(widgets: any) {
     if (!isArray(widgets)) {
       return console.warn("widgets should be type of array");
     }

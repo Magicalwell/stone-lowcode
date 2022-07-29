@@ -22,7 +22,6 @@
 //   cleanDefaultValue,
 //   getDefaults
 // } from './epUtil'
-
 import {
   randomStr,
   isPlainObject,
@@ -40,8 +39,7 @@ import {
   formatDate,
   isNumberString,
   copy,
-} from "./util";
-
+} from "./util.js";
 export {
   // getRootSchemaChildren,
   // getParentListByKey,

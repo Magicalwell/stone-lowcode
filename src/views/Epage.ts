@@ -13,6 +13,7 @@ const defaultView = (t) =>
     t || {}
   );
 export default class Epage {
+  Store: any;
   constructor(opt = {}) {
     this.el = opt.el;
     this.widgets = opt.widgets; // 需要注册的组件

@@ -4,7 +4,7 @@
 
 <script>
 import { defineComponent } from "vue";
-import Epage from "./entry";
+import Epage from "./entry.js";
 import config from "./editConfig";
 
 export default defineComponent({

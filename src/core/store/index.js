@@ -8,29 +8,28 @@
 // } from "../helper";
 import { isArray, isPlainObject } from "../helper";
 import types from "./types";
-// import StoreConf from './StoreConf'
+import StoreConf from "./StoreConf";
+import Rule from "../rule";
 // const Vuex = require("vuex");
 import Vuex from "vuex";
-export interface StoreOptions {
-  element: Element;
-}
 export default class Store {
-  $$store: any;
-  $$types: any;
-  constructor(option: Partial<StoreOptions> = {}) {
+  constructor(option = {}) {
     this.$$store = {};
     this.$$types = Object.assign({}, types);
     this.$$init(option);
   }
-  public $$init(option: Partial<StoreOptions>): void {
+  $$init(option) {
     this.$$store = new Vuex.Store(
-      // new StoreConf({
-      //   Rule: option.Rule || Rule,
-      // })
-      {}
+      new StoreConf({
+        Rule: option.Rule || Rule,
+      })
     );
+    console.log({
+      Rule: option.Rule || Rule,
+    });
+    console.log(this.$$store, "-----------------");
   }
-  public initWidgets(widgets: any) {
+  initWidgets(widgets) {
     if (!isArray(widgets)) {
       return console.warn("widgets should be type of array");
     }

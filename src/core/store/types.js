@@ -1,10 +1,7 @@
 /**
  * @type {Object} mutation type 全局唯一
  */
-interface types {
-  [key: string]: string;
-}
-const types: types = {};
+const types = {};
 const list = [
   // 更新设计模式当前tab
   "$TAB_UPDATE",
@@ -97,10 +94,7 @@ const list = [
   // 更新全局样式
   "$STYLE_UPDATE",
 ];
-export interface EditorOptions {
-  element: Element;
-}
-list.forEach((i: string) => {
+list.forEach((i) => {
   types[i] = i;
 });
 

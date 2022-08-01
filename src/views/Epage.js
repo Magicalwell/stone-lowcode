@@ -1,8 +1,9 @@
 import { createApp, h } from "vue";
-// import { hook, helper, Rule, Store } from "../core";
-import { Store, helper } from "../core";
+import { hook, helper, Rule, Store } from "../core";
 import Editor from "./index.vue";
-const { isArray, isFunction, usePlugins, isPlainObject } = helper;
+// const { isArray, isFunction, usePlugins, isPlainObject } = helper;
+const { isArray, isPlainObject } = helper;
+
 const defaultView = (t) =>
   Object.assign(
     {
@@ -13,8 +14,7 @@ const defaultView = (t) =>
     t || {}
   );
 export default class Epage {
-  Store: any;
-  constructor(opt = {}) {
+  constructor(opt) {
     this.el = opt.el;
     this.widgets = opt.widgets; // 需要注册的组件
     this.pc = defaultView(opt.pc);
@@ -55,9 +55,10 @@ export default class Epage {
     // usePlugins(Vue, [Vuex, iview]);   暂时不注入插件
     // 注册插件
     // this.$initPlugins();
-    // 调用设计器初始化生命周期
+    // 调用设计器初始化生命周期  调用init
     this.callPlugin("life", "init", { ctx: this });
     this.store = new Store({ Rule: opt.Rule || Rule });
+
     const widgets =
       this.widgets || (this[this.view] ? this[this.view].widgets || [] : []);
     if (isArray(widgets)) {
@@ -67,7 +68,7 @@ export default class Epage {
       if (isPlainObject(this.schema)) {
         this.store.initRootSchema(this.schema);
       }
-
+      console.log(this.store, this.widgets, "111111111111111111111");
       this.$$origin = this.render();
       this.callPlugin("life", "created", { ctx: this });
     } else {

@@ -1,3 +1,7 @@
+// import pcWidgets, { entry as pcEntry } from "../renderer";
+import { render, helper } from "../core";
+import { entry as pcEntry } from "../renderer";
+
 export default {
   env: "production",
   // el: document.getElementById('id'),
@@ -81,9 +85,9 @@ export default {
   //     widgets: h5Widgets,
   //     Render: render.VueRender,
   //   },
-  //   pc: {
-  //     component: pcEntry,
-  //     widgets: pcWidgets,
-  //     Render: render.VueRender,
-  //   }
+  pc: {
+    component: pcEntry,
+    widgets: [],
+    Render: render.VueRender,
+  },
 };

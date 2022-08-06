@@ -24,9 +24,6 @@ export default class Store {
         Rule: option.Rule || Rule,
       })
     );
-    console.log({
-      Rule: option.Rule || Rule,
-    });
     console.log(this.$$store, "-----------------");
   }
   initWidgets(widgets) {

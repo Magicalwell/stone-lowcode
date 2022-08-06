@@ -1,8 +1,10 @@
 import { createApp, h } from "vue";
+import Vue from 'vue'
 import { hook, helper, Rule, Store } from "../core";
 import Editor from "./index.vue";
+import Vuex from 'vuex'
 // const { isArray, isFunction, usePlugins, isPlainObject } = helper;
-const { isArray, isPlainObject } = helper;
+const { isArray, isPlainObject, usePlugins } = helper;
 
 const defaultView = (t) =>
   Object.assign(
@@ -52,7 +54,7 @@ export default class Epage {
         destroyed: new hook.SyncHook(),
       },
     };
-    // usePlugins(Vue, [Vuex, iview]);   暂时不注入插件
+    usePlugins(Vue, [Vuex])  // 相当于Vue.use(vuex)
     // 注册插件
     // this.$initPlugins();
     // 调用设计器初始化生命周期  调用init
@@ -68,12 +70,12 @@ export default class Epage {
       if (isPlainObject(this.schema)) {
         this.store.initRootSchema(this.schema);
       }
-      console.log(this.store, this.widgets, "111111111111111111111");
       this.$$origin = this.render();
       this.callPlugin("life", "created", { ctx: this });
     } else {
       console.error("widgets must be an array");
     }
+    console.log(this);
   }
   callPlugin(type, hook, ...args) {
     if (!this.$hooks[type]) return;

@@ -130,6 +130,7 @@ export function getSchema(_schema, stateStore = {}) {
   if (!_schema) {
     return {};
   }
+  console.log(_schema, stateStore);
   const { store, ...othersSchema } = _schema;
   let _store = {
     dicts: [],

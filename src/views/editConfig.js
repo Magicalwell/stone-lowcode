@@ -1,14 +1,14 @@
 // import pcWidgets, { entry as pcEntry } from "../renderer";
 import { render, helper } from "../core";
-import { entry as pcEntry } from "../renderer";
+import pcWidgets, { entry as pcEntry } from "../renderer";
 
 export default {
   env: "production",
   // el: document.getElementById('id'),
   // 以下3个属性将移动到 pc | h5属性中
-  // widgets: pcWidgets,
-  // Render: render.VueRender,
-  // component: pcEntry,
+  widgets: pcWidgets,
+  Render: render.VueRender,
+  component: pcEntry,
 
   //   schema,
   panels: {
@@ -87,7 +87,7 @@ export default {
   //   },
   pc: {
     component: pcEntry,
-    widgets: [],
+    widgets: pcWidgets,
     Render: render.VueRender,
   },
 };

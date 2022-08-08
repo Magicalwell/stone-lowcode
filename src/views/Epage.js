@@ -1,8 +1,8 @@
 import { createApp, h } from "vue";
-import Vue from 'vue'
+import Vue from "vue";
 import { hook, helper, Rule, Store } from "../core";
 import Editor from "./index.vue";
-import Vuex from 'vuex'
+import Vuex from "vuex";
 // const { isArray, isFunction, usePlugins, isPlainObject } = helper;
 const { isArray, isPlainObject, usePlugins } = helper;
 
@@ -54,13 +54,13 @@ export default class Epage {
         destroyed: new hook.SyncHook(),
       },
     };
-    usePlugins(Vue, [Vuex])  // 相当于Vue.use(vuex)
+    usePlugins(Vue, [Vuex]); // 相当于Vue.use(vuex)
     // 注册插件
     // this.$initPlugins();
     // 调用设计器初始化生命周期  调用init
     this.callPlugin("life", "init", { ctx: this });
     this.store = new Store({ Rule: opt.Rule || Rule });
-
+    console.log(this.pc, 11111111111111111111111);
     const widgets =
       this.widgets || (this[this.view] ? this[this.view].widgets || [] : []);
     if (isArray(widgets)) {
@@ -70,12 +70,11 @@ export default class Epage {
       if (isPlainObject(this.schema)) {
         this.store.initRootSchema(this.schema);
       }
-      this.$$origin = this.render();
+      this.$$origin = this.render(); // 这里的render主要做两件事，1从当前的this里面拿到数据并组装，2把数据传入h出来的editor
       this.callPlugin("life", "created", { ctx: this });
     } else {
       console.error("widgets must be an array");
     }
-    console.log(this);
   }
   callPlugin(type, hook, ...args) {
     if (!this.$hooks[type]) return;

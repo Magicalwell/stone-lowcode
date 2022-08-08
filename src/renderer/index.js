@@ -23,38 +23,38 @@ export const inputWidget = () => import("./widgets/input");
 // export const buttonWidget = require("./widgets/button");
 
 export default [
-  //   {
-  //     title: "表单",
-  //     key: "form",
-  //     widgets: [
-  //       inputWidget,
-  //       textareaWidget,
-  //       inputNumberWidget,
-  //       selectWidget,
-  //       cascaderWidget,
-  //       autoCompleteWidget,
-  //       radioWidget,
-  //       checkboxWidget,
-  //       datePickerWidget,
-  //       timePickerWidget,
-  //       switchWidget,
-  //       rateWidget,
-  //       uploadWidget,
-  //       buttonWidget,
-  //     ],
-  //   },
-  //   {
-  //     title: "展示",
-  //     key: "display",
-  //     widgets: [
-  //       // tableWidget,
-  //       textWidget,
-  //       lineWidget,
-  //     ],
-  //   },
-  //   {
-  //     title: "布局",
-  //     key: "layout",
-  //     widgets: [gridWidget],
-  //   },
+  {
+    title: "表单",
+    key: "form",
+    widgets: [
+      inputWidget,
+      // textareaWidget,
+      // inputNumberWidget,
+      // selectWidget,
+      // cascaderWidget,
+      // autoCompleteWidget,
+      // radioWidget,
+      // checkboxWidget,
+      // datePickerWidget,
+      // timePickerWidget,
+      // switchWidget,
+      // rateWidget,
+      // uploadWidget,
+      // buttonWidget,
+    ],
+  },
+  // {
+  //   title: "展示",
+  //   key: "display",
+  //   widgets: [
+  //     // tableWidget,
+  //     textWidget,
+  //     lineWidget,
+  //   ],
+  // },
+  // {
+  //   title: "布局",
+  //   key: "layout",
+  //   widgets: [gridWidget],
+  // },
 ];

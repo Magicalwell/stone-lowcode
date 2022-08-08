@@ -1,85 +1,86 @@
-
-import { isArray, isFunction } from '../helper'
+import { isArray, isFunction } from "../helper";
 /**
  * 规则引擎，处理schema规则并返回validator规则
  */
 
 export default class Rule {
-  constructor (schema) {
-    this.schema = schema
-    this.rules = this.recursiveResolve(this.schema)
+  constructor(schema) {
+    console.log(schema, "schemaschema");
+    console.log(123456789);
+    this.schema = schema;
+    this.rules = this.recursiveResolve(this.schema);
   }
 
-  recursiveResolve (schema) {
-    let rules = {}
+  recursiveResolve(schema) {
+    let rules = {};
     const recursive = (schema, rules) => {
-      const { key, container, children, dynamic, list } = schema
+      const { key, container, children, dynamic, list } = schema;
 
       if (dynamic && isArray(list)) {
-        list.forEach(sc => recursive(sc, rules))
+        list.forEach((sc) => recursive(sc, rules));
       }
 
       if (container && isArray(children)) {
-        children.forEach(child => {
+        children.forEach((child) => {
           if (isArray(child.list)) {
-            child.list.forEach(item => recursive(item, rules))
+            child.list.forEach((item) => recursive(item, rules));
           }
-        })
+        });
       } else {
         if (key in rules) {
-          console.warn(`${key} is already in rules`)
+          console.warn(`${key} is already in rules`);
         } else {
           if (key) {
-            rules[key] = this.resolve(schema)
+            rules[key] = this.resolve(schema);
           }
         }
       }
 
-      return rules
-    }
-    rules = recursive(schema, rules)
-    return rules
+      return rules;
+    };
+    rules = recursive(schema, rules);
+    return rules;
   }
 
-  resolve (schema) {
-    const rules = schema.rules || []
-    const rulesWithValidator = []
-    const len = rules.length
+  resolve(schema) {
+    const rules = schema.rules || [];
+    const rulesWithValidator = [];
+    const len = rules.length;
 
     for (let i = 0; i < len; i++) {
       // 默认是否必填作为第一个规则，直接copy到规则列表内
       if (i === 0) {
-        rulesWithValidator.push(rules[0])
+        rulesWithValidator.push(rules[0]);
       } else {
-        const TmpRule = Rule.rules[rules[i].type]
+        const TmpRule = Rule.rules[rules[i].type];
 
         if (isFunction(TmpRule)) {
-          rulesWithValidator.push(new TmpRule(rules[i]).rule)
+          rulesWithValidator.push(new TmpRule(rules[i]).rule);
         }
       }
     }
-    return rulesWithValidator
+    return rulesWithValidator;
   }
 
-  static set (rules) {
+  static set(rules) {
     if (rules) {
-      const map = {}
-      Object.keys(rules).forEach(k => {
-        const type = rules[k].type
+      const map = {};
+      Object.keys(rules).forEach((k) => {
+        const type = rules[k].type;
         if (type in map) {
-          return console.log(`rule warning: ${type} is already exist!`)
+          return console.log(`rule warning: ${type} is already exist!`);
         }
-        map[type] = rules[k]
-      })
+        map[type] = rules[k];
+      });
 
       if (Rule.rules) {
-        Object.assign(Rule.rules, map)
+        Object.assign(Rule.rules, map);
         // conbineList(Rule.rule.list, list)
       } else {
-        Rule.rules = map
+        Rule.rules = map;
       }
     }
   }
 }
 
-Rule.rules = {}
+Rule.rules = {};

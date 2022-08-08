@@ -6,7 +6,7 @@
 //   include,
 //   isPlainObject,
 // } from "../helper";
-import { isArray, isPlainObject } from "../helper";
+import { isArray, isPlainObject, getSchema } from "../helper";
 import types from "./types";
 import StoreConf from "./StoreConf";
 import Rule from "../rule";
@@ -24,13 +24,16 @@ export default class Store {
         Rule: option.Rule || Rule,
       })
     );
-    console.log(this.$$store, "-----------------");
   }
   initWidgets(widgets) {
     if (!isArray(widgets)) {
       return console.warn("widgets should be type of array");
     }
-
+    console.log(widgets,'widgetswidgetswidgets');
     this.$$store.commit(this.$$types.$WIDGETS_SET, { widgets });
+  }
+  getSchema() {
+    const { rootSchema, store } = this.$$store.state;
+    return getSchema(rootSchema, store);
   }
 }

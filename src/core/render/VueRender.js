@@ -20,7 +20,7 @@ export default class Render {
     this.$$origin = null;
     this.store = null;
     // 优先自定义组件渲染
-    console.log(option);
+    console.log(component,option);
     this.component = component || null;
     this.callPlugin = callPlugin || (() => 0);
     usePlugins(Vue, [Vuex]);

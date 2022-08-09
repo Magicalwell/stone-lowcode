@@ -79,6 +79,7 @@ export default defineComponent({
       const schema = this.store.getSchema();
       const { pc, h5 } = this[mode];
       const ext = this.$root.$options.extension;
+      console.log(ext, "extextextext");
       const { setRender, callPlugin, Render, widgets, component } = ext;
 
       this[mode].view = view;
@@ -88,7 +89,6 @@ export default defineComponent({
       if (!ins) return;
 
       // 这里为了兼容直接传参而非pc|h5对象
-      console.log(ext);
       const _Render = Render || ext[view].Render;
       const _widgets = widgets || ext[view].widgets;
       const _component = component || ext[view].component;
@@ -107,14 +107,14 @@ export default defineComponent({
       }
       args.component = _component;
       args.callPlugin = callPlugin;
-      this[mode][view] = new _Render(args);
+      this[mode][view] = new _Render(args); // 调用对应模式的render入口
 
       // 设计模式下，把当前设计视图的渲染器实例告诉设计器实例
       if (mode === "design") {
         setRender(this.design[view]);
       }
-      if (view === "pc") this.destoryRender(h5);
-      if (view === "h5") this.destoryRender(pc);
+      // if (view === "pc") this.destoryRender(h5);
+      // if (view === "h5") this.destoryRender(pc);
     },
     getIns(view) {
       const ext = this.$root.$options.extension || {};

@@ -6,14 +6,12 @@
       ghost-class="ep-widget-ghost"
       v-bind="{ group: { name: 'g1' } }"
       :list="childrenSchema"
-      :disabled="state.tab !== 'design'"
       :animation="200"
     >
-      <transition-group>
+      <template #item="{ element }">
         <ep-widget-item
-          v-for="item in childrenSchema"
-          :key="item.key"
-          :schema="item"
+          :key="element.key"
+          :schema="element"
           :flat-widgets="flatWidgets"
           :flat-schemas="flatSchemas"
           :selected-schema="selectedSchema"
@@ -24,7 +22,7 @@
           @on-add="onWidgetAdd"
           @on-event="onEvent"
         ></ep-widget-item>
-      </transition-group>
+      </template>
     </vue-drag>
   </div>
   <!-- <div class="ep-render-container" :style="containerStyle">
@@ -87,7 +85,16 @@
 <script>
 import { defineComponent } from "vue";
 import vueDrag from "vuedraggable";
+import EpWidgetItem from "./item";
 export default defineComponent({
-  components: { vueDrag },
+  components: { vueDrag, EpWidgetItem },
+  data() {
+    return {
+      childrenSchema: [
+        { id: 1, label: "2222" },
+        { id: 2, label: "3333" },
+      ],
+    };
+  },
 });
 </script>

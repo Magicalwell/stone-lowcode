@@ -1,5 +1,5 @@
 <template>
-  <div
+  <!-- <div
     class="ep-widget-item"
     :class="cls"
     :style="getStyle()"
@@ -233,5 +233,12 @@
         </FormItem>
       </template>
     </template>
-  </div>
+  </div> -->
+  <div>ooooo</div>
 </template>
+<script>
+import { defineComponent } from "vue";
+export default defineComponent({
+  name: "EpWidgetItem",
+});
+</script>

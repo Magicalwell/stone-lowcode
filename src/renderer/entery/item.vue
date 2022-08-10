@@ -234,11 +234,22 @@
       </template>
     </template>
   </div> -->
-  <div>ooooo</div>
+  <div>
+    <a-input v-model:value="value" placeholder="Basic usage" />
+  </div>
 </template>
 <script>
 import { defineComponent } from "vue";
+import { Input } from "ant-design-vue";
 export default defineComponent({
   name: "EpWidgetItem",
+  components: {
+    AInput: Input,
+  },
+  data() {
+    return {
+      value: "",
+    };
+  },
 });
 </script>

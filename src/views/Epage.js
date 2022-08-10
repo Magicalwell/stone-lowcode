@@ -60,7 +60,7 @@ export default class Epage {
     // 调用设计器初始化生命周期  调用init
     this.callPlugin("life", "init", { ctx: this });
     this.store = new Store({ Rule: opt.Rule || Rule });
-    console.log(this.pc, 11111111111111111111111);
+    console.log(this.pc, opt, 11111111111111111111111);
     const widgets =
       this.widgets || (this[this.view] ? this[this.view].widgets || [] : []);
     if (isArray(widgets)) {

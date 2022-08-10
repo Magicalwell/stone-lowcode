@@ -20,7 +20,6 @@ export default class Render {
     this.$$origin = null;
     this.store = null;
     // 优先自定义组件渲染
-    console.log(component,option);
     this.component = component || null;
     this.callPlugin = callPlugin || (() => 0);
     usePlugins(Vue, [Vuex]);
@@ -28,7 +27,6 @@ export default class Render {
     if (store) {
       this.store = store;
       this.$$origin = this.render();
-      console.log(this);
       this.callPlugin("render", "created", { ctx: this });
     } else {
       this.store = new Store({ Rule: CustomRule || Rule });
@@ -59,7 +57,7 @@ export default class Render {
       el: root,
       render: () => h(component),
     }).mount(root);
-
+      // 这里createApp出来的是纯净的vue实例，在main里面use(Antd)挂载的组件，这里面没有的，可以在后面.use(antd)
     return ins;
   }
 }

@@ -64,7 +64,7 @@ export {
   // cleanDefaultValue,
   // getDefaults,
 
-  // randomStr,
+  randomStr,
   isPlainObject,
   // isFunction,
   // isString,

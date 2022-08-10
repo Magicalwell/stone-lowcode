@@ -79,7 +79,6 @@ export default defineComponent({
       const schema = this.store.getSchema();
       const { pc, h5 } = this[mode];
       const ext = this.$root.$options.extension;
-      console.log(ext, "extextextext");
       const { setRender, callPlugin, Render, widgets, component } = ext;
 
       this[mode].view = view;

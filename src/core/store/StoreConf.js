@@ -17,10 +17,10 @@ export default class StoreConf {
         // 设计模式下当前tab，可选 design | preview
         tab: "",
         mode: "edit",
-        selectedSchema,
-        rootSchema,
+        selectedSchema, // 当前选中组件的schema
+        rootSchema, // 根实例的schema，也就是容器的schema
         model: {},
-        widgets: [],
+        widgets: [], //
         // 拍平所有schema
         flatSchemas: {},
         // 拍平所有规则

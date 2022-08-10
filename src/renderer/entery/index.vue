@@ -80,21 +80,43 @@
       </vue-drag>
     </Form>
   </div> -->
+
+  <a-button type="primary">Primary Button</a-button>
 </template>
 
 <script>
-import { defineComponent } from "vue";
-import vueDrag from "vuedraggable";
-import EpWidgetItem from "./item";
+import { defineComponent } from 'vue'
+import vueDrag from 'vuedraggable'
+import EpWidgetItem from './item'
 export default defineComponent({
   components: { vueDrag, EpWidgetItem },
   data() {
     return {
       childrenSchema: [
-        { id: 1, label: "2222" },
-        { id: 2, label: "3333" },
+        { id: 1, label: '2222' },
+        { id: 2, label: '3333' },
       ],
-    };
+    }
   },
-});
+  computed: {
+    store() {
+      return this.$root.$options.extension.store
+    },
+    $$store() {
+      return this.$root.$options.extension.store.$$store
+    },
+    state() {
+      return this.$$store.state
+    },
+  },
+  created() {
+    const { mode } = this.$root.$options.extension
+
+    // if (mode) {
+    //   this.mode = mode
+    //   this.changeMode(mode)
+    // }
+    console.log(this.$$store.state.widgets);
+  },
+})
 </script>

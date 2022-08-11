@@ -39,4 +39,7 @@ export default class Store {
   getRootSchema() {
     return this.$$store.state.rootSchema;
   }
+  initRootSchema (rootSchema) {
+    this.$$store.commit(this.$$types.$ROOT_SCHEMA_SET, { rootSchema })
+  }
 }

@@ -1,7 +1,7 @@
 // import pcWidgets, { entry as pcEntry } from "../renderer";
 import { render, helper } from "../core";
 import pcWidgets, { entry as pcEntry } from "../renderer";
-
+import schema from './schema.json'
 export default {
   env: "production",
   // el: document.getElementById('id'),
@@ -10,7 +10,7 @@ export default {
   Render: render.VueRender,
   component: pcEntry,
 
-  //   schema,
+  // schema,
   panels: {
     footer: {},
     // tool: false,

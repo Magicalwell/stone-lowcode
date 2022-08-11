@@ -1,7 +1,9 @@
 <template>
   <div>
     <div>999</div>
-    <div ref="design-pc"></div>
+    <div class="ep-work-design">
+      <div ref="design-pc"></div>
+    </div>
   </div>
 </template>
 

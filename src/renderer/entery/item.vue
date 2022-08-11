@@ -1,4 +1,13 @@
 <template>
+  <div class="ep-widget-item ep-widget-item-handle" :class="cls">
+    <div class="ep-widget-item-name">
+      {{ schema.name }}
+    </div>
+    <div>
+      <div>删除</div>
+      <div>复制</div>
+    </div>
+  </div>
   <!-- <div
     class="ep-widget-item"
     :class="cls"
@@ -234,9 +243,6 @@
       </template>
     </template>
   </div> -->
-  <div>
-    <a-input v-model:value="value" placeholder="Basic usage" />
-  </div>
 </template>
 <script>
 import { defineComponent } from "vue";
@@ -244,12 +250,40 @@ import { Input } from "ant-design-vue";
 export default defineComponent({
   name: "EpWidgetItem",
   components: {
-    AInput: Input,
+    // AInput: Input,
+  },
+  props: {
+    schema: {
+      type: Object,
+      default: () => ({}),
+    },
   },
   data() {
     return {
       value: "",
     };
   },
+  computed: {
+    store() {
+      return this.$root.$options.extension.store;
+    },
+    cls() {
+      return {
+        "ep-widget-selected": this.schema.key === this.selectedSchema.key,
+        "ep-widget-container": this.schema.container,
+        "ep-widget-item-handle": this.tab === "design",
+      };
+    },
+    tab() {
+      return this.store.getTab();
+    },
+  },
+  created() {
+    console.log(this);
+  },
 });
 </script>
+
+<style lang="scss" scoped>
+@import url("../styles/main.scss");
+</style>

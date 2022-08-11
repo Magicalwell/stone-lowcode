@@ -29,11 +29,14 @@ export default class Store {
     if (!isArray(widgets)) {
       return console.warn("widgets should be type of array");
     }
-    console.log(widgets,'widgetswidgetswidgets');
+    console.log(widgets, "widgetswidgetswidgets");
     this.$$store.commit(this.$$types.$WIDGETS_SET, { widgets });
   }
   getSchema() {
     const { rootSchema, store } = this.$$store.state;
     return getSchema(rootSchema, store);
+  }
+  getRootSchema() {
+    return this.$$store.state.rootSchema;
   }
 }

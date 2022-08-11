@@ -1,5 +1,5 @@
 import {
-  // getRootSchemaChildren,
+  getRootSchemaChildren,
   // getParentListByKey,
   // getIndexByKey,
   // replaceSchemaKey,
@@ -41,7 +41,7 @@ import {
   copy,
 } from "./util";
 export {
-  // getRootSchemaChildren,
+  getRootSchemaChildren,
   // getParentListByKey,
   // getIndexByKey,
   // replaceSchemaKey,
@@ -63,7 +63,6 @@ export {
   // convertNameModelToKeyModel,
   // cleanDefaultValue,
   // getDefaults,
-
   randomStr,
   isPlainObject,
   // isFunction,

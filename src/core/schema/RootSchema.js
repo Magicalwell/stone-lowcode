@@ -36,7 +36,6 @@ export default class RootSchema extends Schema {
         background: [],
       },
     };
-    console.log(this);
     // this.create(props);
     // this.createChildren(props);
   }

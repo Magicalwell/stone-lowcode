@@ -29,7 +29,6 @@ export default class Store {
     if (!isArray(widgets)) {
       return console.warn("widgets should be type of array");
     }
-    console.log(widgets, "widgetswidgetswidgets");
     this.$$store.commit(this.$$types.$WIDGETS_SET, { widgets });
   }
   getSchema() {
@@ -39,7 +38,7 @@ export default class Store {
   getRootSchema() {
     return this.$$store.state.rootSchema;
   }
-  initRootSchema (rootSchema) {
-    this.$$store.commit(this.$$types.$ROOT_SCHEMA_SET, { rootSchema })
+  initRootSchema(rootSchema) {
+    this.$$store.commit(this.$$types.$ROOT_SCHEMA_SET, { rootSchema });
   }
 }

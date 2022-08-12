@@ -1,5 +1,5 @@
 <template>
-  <div class="home" id="lowcode_edit" ref="lowcode_edit"></div>
+  <div class="page-create" id="lowcode_edit" ref="lowcode_edit"></div>
 </template>
 
 <script>
@@ -25,3 +25,12 @@ export default defineComponent({
   },
 });
 </script>
+<style lang="scss" scoped>
+.page-create {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+</style>

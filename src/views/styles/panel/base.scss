@@ -1,0 +1,68 @@
+.ep-editor {
+  background-color: #fff;
+  position: relative;
+  height: 100%;
+  /* for other panel when header display none */
+}
+.ep-layout {
+  display: flex;
+  flex-flow: column;
+  .ep-layout-header {
+    height: 40px;
+  }
+  .ep-layout-body {
+    display: flex;
+    flex: 1;
+    overflow: auto;
+  }
+  .ep-layout-left {
+    position: relative;
+    z-index: 1;
+    width: 200px;
+  }
+  .ep-layout-center {
+    flex: 1;
+  }
+  .ep-layout-right {
+    position: relative;
+    width: 200px;
+  }
+  .ep-layout-footer {
+    border-top: 1px solid #fff;
+    height: 20px;
+  }
+}
+.ep-layout-left {
+  display: flex;
+  width: 200px;
+  overflow: visible;
+  background-color: #fff;
+  box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.1);
+  .ep-layout-left-nav {
+    position: relative;
+    width: 39px;
+    text-align: center;
+    border-right: 1px solid #fff;
+    .ep-layout-left-nav-item {
+      transition: 0.1s ease background-color;
+      cursor: default;
+      padding: 10px 0;
+      font-weight: bold;
+    }
+    .ep-layout-left-nav-active {
+      background-color: #fff;
+    }
+  }
+  .ep-layout-left-content {
+    flex: 1;
+    position: relative;
+    // margin-left: 40px;
+    height: 100%;
+    overflow: auto;
+  }
+}
+.ep-side-right {
+  flex: 1;
+  overflow: visible;
+  background-color: #fff;
+}

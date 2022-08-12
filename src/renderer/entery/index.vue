@@ -80,8 +80,6 @@
       </vue-drag>
     </Form>
   </div> -->
-
-  <a-button type="primary">Primary Button</a-button>
 </template>
 
 <script>

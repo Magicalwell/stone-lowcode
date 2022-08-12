@@ -1,5 +1,5 @@
 // import model from "./model";
-// import schema from "./schema";
+import schema from "./schema";
 import widget from "./widget";
 // import logic from "./logic";
 // import rule from "./rule";
@@ -8,7 +8,7 @@ import widget from "./widget";
 
 export default {
   //   model,
-  //   schema,
+  schema,
   widget,
   //   logic,
   //   rule,

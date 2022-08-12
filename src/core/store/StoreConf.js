@@ -1,6 +1,6 @@
 import types from "./types";
 import { defaultSchema } from "../constant";
-import RootSchema from '../schema/RootSchema'
+import RootSchema from "../schema/RootSchema";
 import { isFunction, isArray } from "../helper";
 /* eslint no-unused-vars: 0 */
 import Rule from "../rule";
@@ -59,7 +59,10 @@ export default class StoreConf {
               return;
             }
             item.widgets.forEach((w) => {
-              if (isFunction(w.Schema)) {
+              console.log(w.Schema);
+              console.log(typeof w.Schema);
+              // 这里有问题
+              if (typeof w.Schema === "function") {
                 serialized[w.Schema.widget] = w;
               }
             });

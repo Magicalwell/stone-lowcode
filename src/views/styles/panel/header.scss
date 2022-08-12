@@ -19,5 +19,8 @@
   .ep-header-right {
     text-align: right;
     flex: 1;
+    .ep-header-right-item{
+      margin-left: 10px;
+    }
   }
 }

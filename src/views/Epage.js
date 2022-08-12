@@ -30,7 +30,8 @@ export default class Epage {
     this.Render = opt.Render;
     // 待注册的widgets
     this.widgets = opt.widgets;
-    this.schema = opt.schema
+    this.schema = opt.schema;
+    console.log(this.schema);
     // 渲染器入口文件，react对应.jsx文件，vue对应.vue文件
     this.component = opt.component;
     this.$hooks = {

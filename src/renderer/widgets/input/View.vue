@@ -3,8 +3,6 @@
 </template>
 <script>
 import viewExtend from "../../extends/view";
-
-export default {
-  extends: viewExtend,
-};
+import { defineComponent } from "vue";
+export default defineComponent({ extends: viewExtend });
 </script>

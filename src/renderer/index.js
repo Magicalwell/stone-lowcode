@@ -2,8 +2,7 @@
 // export const setting = _setting;
 // export { default as viewExtend } from "./extends/view";
 export { default as entry } from "./entery/index.vue";
-
-export const inputWidget = () => import("./widgets/input");
+import inputWidget from "./widgets/input";
 // export const textareaWidget = require("./widgets/textarea");
 // export const textWidget = require("./widgets/text");
 // export const inputNumberWidget = require("./widgets/inputNumber");
@@ -21,7 +20,7 @@ export const inputWidget = () => import("./widgets/input");
 // // export const tableWidget = require('./widgets/table')
 // export const gridWidget = require("./widgets/grid");
 // export const buttonWidget = require("./widgets/button");
-
+export { inputWidget };
 export default [
   {
     title: "表单",

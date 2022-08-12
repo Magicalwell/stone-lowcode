@@ -9,8 +9,8 @@ import Store from "./store";
 // import Dict from "./store/Dict";
 // import API from "./store/API";
 import * as helper from "./helper";
-// import * as constant from "./constant";
-// import * as schema from "./schema";
+import * as constant from "./constant";
+import * as schema from "./schema";
 // import * as style from "./style";
 import * as hook from "./hook";
 import * as render from "./render";
@@ -28,8 +28,8 @@ export {
   // Dict,
   // API,
   helper,
-  // constant,
-  // schema,
+  constant,
+  schema,
   // style,
   hook,
   render,

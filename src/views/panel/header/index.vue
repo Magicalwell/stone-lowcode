@@ -18,7 +18,7 @@
         v-else
         :style="(header.left || {}).style || ''"
       >
-        Epage
+        PageCreate
       </div>
       <div
         class="ep-header-center"
@@ -93,8 +93,8 @@
 </template>
 
 <script>
-import { defineComponent, toRefs } from 'vue'
-import { RadioGroup, RadioButton, Button } from 'ant-design-vue'
+import { defineComponent, toRefs } from "vue";
+import { RadioGroup, RadioButton, Button } from "ant-design-vue";
 export default defineComponent({
   components: {
     RadioGroup,
@@ -113,7 +113,7 @@ export default defineComponent({
     designView: {
       type: Object,
       default: () => ({
-        view: 'pc',
+        view: "pc",
       }),
     },
     ready: {
@@ -125,8 +125,8 @@ export default defineComponent({
     },
   },
   setup(props) {
-    const {designView:test} = toRefs(props)
-    return { test }
+    const { designView: test } = toRefs(props);
+    return { test };
   },
   mounted() {
     // if (this.header.render) {
@@ -139,32 +139,32 @@ export default defineComponent({
   },
   methods: {
     renderRef(obj, ref) {
-      console.log(obj, ref)
-      if (!obj[ref] || typeof obj[ref].render !== 'function') return
-      const el = this.$refs[ref]
-      const ctx = { $emit: this.$emit.bind(this) }
-      const { store } = this
+      console.log(obj, ref);
+      if (!obj[ref] || typeof obj[ref].render !== "function") return;
+      const el = this.$refs[ref];
+      const ctx = { $emit: this.$emit.bind(this) };
+      const { store } = this;
 
-      obj[ref].render({ el, store, ctx })
+      obj[ref].render({ el, store, ctx });
     },
     onChangeView(view) {
-      this.$emit('change-view', view)
+      this.$emit("change-view", view);
     },
     onPreview() {
-      this.$emit('preview')
+      this.$emit("preview");
     },
     onShowSchema() {
-      this.$emit('show-schema')
+      this.$emit("show-schema");
     },
     onShowLogic() {
-      this.$emit('show-logic')
+      this.$emit("show-logic");
     },
     onChangeLange(lang) {
-      this.$emit('change-lang', lang)
+      this.$emit("change-lang", lang);
     },
   },
-})
+});
 </script>
 <style lang="scss" scoped>
-@import '../../styles/panel/header.scss';
+@import "../../styles/panel/header.scss";
 </style>

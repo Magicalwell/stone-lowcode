@@ -3,7 +3,6 @@
 </template>
 <script>
 import settingExtend from "../../extends/setting";
-export default {
-  extends: settingExtend,
-};
+import { defineComponent } from "vue";
+export default defineComponent({ extends: settingExtend });
 </script>

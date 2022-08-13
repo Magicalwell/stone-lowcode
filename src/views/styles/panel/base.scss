@@ -22,14 +22,30 @@
   }
   .ep-layout-center {
     flex: 1;
+    padding: 10px;
+    position: relative;
+    background-color: #fff;
+    transition: 0.3s ease right;
+    overflow: auto;
   }
   .ep-layout-right {
     position: relative;
-    width: 200px;
+    width: 300px;
   }
   .ep-layout-footer {
     border-top: 1px solid #fff;
     height: 20px;
+  }
+  .ep-setting {
+    width: 300px;
+    height: 100%;
+    position: relative;
+    background-color: #fff;
+    box-shadow: -2px 4px 6px rgba(0, 0, 0, 0.1);
+    transition: 0.3s ease width;
+    ::v-deep(.ant-tabs) {
+      height: 100%;
+    }
   }
 }
 .ep-layout-left {
@@ -65,4 +81,9 @@
   flex: 1;
   overflow: visible;
   background-color: #fff;
+}
+.ep-work-design {
+  // border: 2px solid #aaa; aaa的颜色还不错
+  border: 2px solid #205dd9;
+  
 }

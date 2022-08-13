@@ -35,9 +35,28 @@
           </Collapse>
         </div>
       </template>
-    </div>
-    <div class="ep-work-design">
-      <div ref="design-pc"></div>
+      <div class="ep-layout-center ep-work">
+        <div class="ep-work-design">
+          <div ref="design-pc"></div>
+        </div>
+      </div>
+      <template v-if="panels.setting">
+        <div class="ep-layout-right">
+          <div
+            class="ep-setting"
+            v-if="panels.setting.render"
+            ref="setting"
+            :style="(panels.setting || {}).style || ''"
+          ></div>
+          <div
+            class="ep-setting"
+            v-else
+            :style="(panels.setting || {}).style || ''"
+          >
+            <EpSetting :store="store" :settings="settings"></EpSetting>
+          </div>
+        </div>
+      </template>
     </div>
   </div>
   <!-- <div class="ep-editor ep-layout">
@@ -113,7 +132,7 @@
 
 <script>
 import { defineComponent } from "vue";
-import { EpHeader } from "./panel";
+import { EpHeader, EpSetting } from "./panel";
 import { Collapse, CollapsePanel } from "ant-design-vue";
 import { SmileTwoTone } from "@ant-design/icons-vue";
 const defaultHeader = () => ({
@@ -133,6 +152,7 @@ const defaultPanels = () => ({
 export default defineComponent({
   components: {
     EpHeader,
+    EpSetting,
     Collapse,
     CollapsePanel,
     SmileTwoTone,
@@ -212,7 +232,7 @@ export default defineComponent({
       const args = { el, mode: "edit" };
       // 设计模式
       if (mode === "design") {
-        this.store.initWidgets(_widgets);
+        this.store.initWidgets(_widgets); // 此处挂载了两次widgets为了兼容设计和渲染模式
         args.store = this.store;
         // 预览模式
       } else {

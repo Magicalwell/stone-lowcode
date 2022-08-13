@@ -12,6 +12,7 @@ import StoreConf from "./StoreConf";
 import Rule from "../rule";
 // const Vuex = require("vuex");
 import Vuex from "vuex";
+// 这里就做两件事 new一个vuex并挂载到自己的身上
 export default class Store {
   constructor(option = {}) {
     this.$$store = {};
@@ -40,5 +41,8 @@ export default class Store {
   }
   initRootSchema(rootSchema) {
     this.$$store.commit(this.$$types.$ROOT_SCHEMA_SET, { rootSchema });
+  }
+  getFlatWidgets() {
+    return this.$$store.getters.flatWidgets;
   }
 }

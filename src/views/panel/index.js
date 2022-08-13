@@ -3,5 +3,5 @@
 // export { default as EpTool } from './tool'
 // export { default as EpSchema } from './schema'
 // export { default as EpLogic } from './logic/index.vue'
-// export { default as EpSetting } from './setting'
+export { default as EpSetting } from './setting'
 export { default as EpHeader } from './header'

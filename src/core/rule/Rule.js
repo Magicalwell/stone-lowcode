@@ -5,8 +5,6 @@ import { isArray, isFunction } from "../helper";
 
 export default class Rule {
   constructor(schema) {
-    console.log(schema, "schemaschema");
-    console.log(123456789);
     this.schema = schema;
     this.rules = this.recursiveResolve(this.schema);
   }

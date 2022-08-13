@@ -3,10 +3,23 @@
     <div class="ep-widget-item-name">
       {{ schema.name }}
     </div>
-    <div>
-      <div>删除</div>
-      <div>复制</div>
+
+    <div class="ep-widget-btn ep-widget-btn-delete ep-icon ep-icon-trash">
+      删除
     </div>
+    <div class="ep-widget-btn ep-widget-btn-clone ep-icon ep-icon-copy">
+      复制
+    </div>
+    <template v-if="schema.container">
+      <div>如果是布局组件,或内部有子组件</div>
+    </template>
+    <template v-else>
+      <div>
+        <component :is="flatWidgets[schema.widget].View"></component>
+        <div>title</div>
+        <div></div>
+      </div>
+    </template>
   </div>
   <!-- <div
     class="ep-widget-item"
@@ -257,6 +270,16 @@ export default defineComponent({
       type: Object,
       default: () => ({}),
     },
+    selectedSchema: {
+      type: Object,
+      default: () => ({
+        key: "",
+      }),
+    },
+    flatWidgets: {
+      type: Object,
+      default: () => ({}),
+    },
   },
   data() {
     return {
@@ -269,9 +292,11 @@ export default defineComponent({
     },
     cls() {
       return {
-        "ep-widget-selected": this.schema.key === this.selectedSchema.key,
+        // "ep-widget-selected": this.schema.key === this.selectedSchema.key,
         "ep-widget-container": this.schema.container,
-        "ep-widget-item-handle": this.tab === "design",
+        "ep-widget-selected": true,
+
+        "ep-widget-item-handle": true,
       };
     },
     tab() {
@@ -279,11 +304,12 @@ export default defineComponent({
     },
   },
   created() {
-    console.log(this);
+    console.log(this.flatWidgets);
   },
 });
 </script>
 
 <style lang="scss" scoped>
-@import url("../styles/main.scss");
+// @import url("../styles/main.scss");
+@import "../styles/widgets.scss";
 </style>

@@ -3,10 +3,10 @@
 /**
  * root schema
  */
-import Schema from './base/grid/Schema'
+import Schema from "./base/grid/Schema";
 export default class RootSchema extends Schema {
-  constructor() {
-    super()
+  constructor(props) {
+    super();
     this.title = "";
     this.description = "";
     this.size = "default";
@@ -36,7 +36,7 @@ export default class RootSchema extends Schema {
         background: [],
       },
     };
-    // this.create(props);
-    // this.createChildren(props);
+    this.create(props);
+    this.createChildren(props);
   }
 }

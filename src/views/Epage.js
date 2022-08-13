@@ -31,7 +31,6 @@ export default class Epage {
     // 待注册的widgets
     this.widgets = opt.widgets;
     this.schema = opt.schema;
-    console.log(this.schema);
     // 渲染器入口文件，react对应.jsx文件，vue对应.vue文件
     this.component = opt.component;
     this.$hooks = {
@@ -61,8 +60,7 @@ export default class Epage {
     // this.$initPlugins();
     // 调用设计器初始化生命周期  调用init
     this.callPlugin("life", "init", { ctx: this });
-    this.store = new Store({ Rule: opt.Rule || Rule });
-    console.log(this.pc, opt, 11111111111111111111111);
+    this.store = new Store({ Rule: opt.Rule || Rule }); // 创建总的store数据中心,传入相关的校验规则
     const widgets =
       this.widgets || (this[this.view] ? this[this.view].widgets || [] : []);
     if (isArray(widgets)) {

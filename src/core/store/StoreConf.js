@@ -12,6 +12,7 @@ const selectedSchema = defaultSchema();
 export default class StoreConf {
   constructor(option) {
     const { Rule } = option || {};
+    console.log(rootSchema, selectedSchema);
     return {
       state: {
         // 设计模式下当前tab，可选 design | preview
@@ -59,9 +60,7 @@ export default class StoreConf {
               return;
             }
             item.widgets.forEach((w) => {
-              console.log(w.Schema);
-              console.log(typeof w.Schema);
-              // 这里有问题
+              // 这里有问题  如果调用util里面的isFunction会报错 推测是webpack
               if (typeof w.Schema === "function") {
                 serialized[w.Schema.widget] = w;
               }

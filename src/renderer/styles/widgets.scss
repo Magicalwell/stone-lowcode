@@ -1,0 +1,42 @@
+.ep-widget-item {
+  transition: 0.3s ease background-color, 0.3s ease border-color;
+  position: relative;
+  &:hover {
+    background-color: fade(#205dd9, 8%);
+  }
+}
+.ep-widget-btn {
+  position: absolute;
+  bottom: -5px;
+  z-index: 5;
+  display: none;
+  width: 30px;
+  height: 20px;
+  line-height: 20px;
+  text-align: center;
+  font-size: 12px;
+
+  background-color: rgba(255, 255, 255, 0.9);
+  color: #666;
+  box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.15);
+  border-radius: 3px;
+  &.ep-widget-btn-delete {
+    cursor: pointer;
+    right: 0;
+    color: #ea4b23;
+  }
+  &.ep-widget-btn-clone {
+    cursor: pointer;
+    right: 34px;
+    font-weight: bold;
+    color: blue;
+  }
+}
+.ep-widget-selected {
+  &:hover {
+    background-color: fade-out(#205dd9, 0.35);
+  }
+  .ep-widget-btn {
+    display: block;
+  }
+}

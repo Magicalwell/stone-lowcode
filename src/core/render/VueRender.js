@@ -51,13 +51,13 @@ export default class Render {
 
     el.appendChild(root);
     this.callPlugin("render", "beforeCreate", { ctx: this });
-    console.log(component);
+    // 这里通过h函数渲染出entry中的入口
     const ins = createApp({
       extension,
       el: root,
       render: () => h(component),
     }).mount(root);
-      // 这里createApp出来的是纯净的vue实例，在main里面use(Antd)挂载的组件，这里面没有的，可以在后面.use(antd)
+    // 这里createApp出来的是纯净的vue实例，在main里面use(Antd)挂载的组件，这里面没有的，可以在后面.use(antd)
     return ins;
   }
 }

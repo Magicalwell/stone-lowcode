@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="ep-render-container">
     <vue-drag
       handle=".ep-widget-item-handle"
       draggable=".ep-widget-item"
@@ -100,7 +100,10 @@ export default defineComponent({
   computed: {
     childrenSchema() {
       const { store } = this.$root.$options.extension;
-      console.log(store.getRootSchema());
+      console.log(
+        store.getRootSchema(),
+        "getRootSchemagetRootSchemagetRootSchemagetRootSchema"
+      );
       return helper.getRootSchemaChildren(store.getRootSchema()) || [];
     },
     store() {
@@ -111,6 +114,9 @@ export default defineComponent({
     },
     state() {
       return this.$$store.state;
+    },
+    flatWidgets() {
+      return this.store.getFlatWidgets();
     },
   },
   mounted() {

@@ -74,7 +74,33 @@
             "prefix": "",
             "suffix": ""
           },
-          "name": "kASJAJwRB",
+          "name": "测试输入框1",
+          "type": "string",
+          "label": "输入框",
+          "description": "",
+          "help": "",
+          "disabled": false,
+          "rules": [
+            {
+              "required": false,
+              "message": "必填",
+              "type": "string",
+              "trigger": "blur"
+            }
+          ],
+          "placeholder": "请输入",
+          "default": ""
+        },
+        {
+          "key": "kASJAJwR4",
+          "widget": "input",
+          "hidden": true,
+          "option": {
+            "password": false,
+            "prefix": "",
+            "suffix": ""
+          },
+          "name": "测试输入框2",
           "type": "string",
           "label": "输入框",
           "description": "",

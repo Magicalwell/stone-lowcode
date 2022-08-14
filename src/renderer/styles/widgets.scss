@@ -3,6 +3,16 @@
   position: relative;
   &:hover {
     background-color: fade(#205dd9, 8%);
+    .ep-widget-item-name{
+      display: inline-block;
+    }
+  }
+  .ep-widget-item-name{
+    position: absolute;
+    top:0;
+    right: 0;
+    z-index: 5;
+    display: none;
   }
 }
 .ep-widget-btn {
@@ -34,7 +44,7 @@
 }
 .ep-widget-selected {
   &:hover {
-    background-color: fade-out(#205dd9, 0.35);
+    background-color: fade-out(#205dd9, 0.80);
   }
   .ep-widget-btn {
     display: block;

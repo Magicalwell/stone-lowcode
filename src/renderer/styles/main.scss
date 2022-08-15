@@ -1,5 +1,17 @@
 .ep-widget-item {
   padding: 8px;
+  .ep-widget-item-label {
+    white-space: nowrap;
+  }
+  .ep-widget-item-default {
+    display: flex;
+  }
+  .ep-widget-item-fullcol {
+    display: block;
+    .ep-widget-item-label {
+      display: block;
+    }
+  }
 }
 .ivu-form-item {
   margin-bottom: 0;

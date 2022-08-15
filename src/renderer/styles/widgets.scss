@@ -1,6 +1,7 @@
 .ep-widget-item {
   transition: 0.3s ease background-color, 0.3s ease border-color;
   position: relative;
+  user-select: none;
   &:hover {
     background-color: fade(#205dd9, 8%);
     .ep-widget-item-name{
@@ -38,6 +39,12 @@
   &.ep-widget-btn-clone {
     cursor: pointer;
     right: 34px;
+    font-weight: bold;
+    color: blue;
+  }
+  &.ep-widget-btn-move{
+    cursor: move;
+    right: 68px;
     font-weight: bold;
     color: blue;
   }

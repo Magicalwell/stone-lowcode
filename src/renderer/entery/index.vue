@@ -1,7 +1,7 @@
 <template>
   <div class="ep-render-container">
     <vue-drag
-      handle=".ep-widget-item-handle"
+      handle=".ep-widget-btn-move"
       draggable=".ep-widget-item"
       ghost-class="ep-widget-ghost"
       v-bind="{ group: { name: 'g1' } }"
@@ -25,6 +25,7 @@
       </template>
     </vue-drag>
   </div>
+  <button @click="showElement">show</button>
   <!-- <div class="ep-render-container" :style="containerStyle">
     <Form
       class="ep-widget-form"
@@ -100,10 +101,6 @@ export default defineComponent({
   computed: {
     childrenSchema() {
       const { store } = this.$root.$options.extension;
-      console.log(
-        store.getRootSchema(),
-        "getRootSchemagetRootSchemagetRootSchemagetRootSchema"
-      );
       return helper.getRootSchemaChildren(store.getRootSchema()) || [];
     },
     store() {
@@ -125,6 +122,11 @@ export default defineComponent({
     //   this.mode = mode
     //   this.changeMode(mode)
     // }
+  },
+  methods: {
+    showElement() {
+      console.log(this.childrenSchema);
+    },
   },
 });
 </script>

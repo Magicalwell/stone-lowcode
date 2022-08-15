@@ -6,7 +6,7 @@
 //   include,
 //   isPlainObject,
 // } from "../helper";
-import { isArray, isPlainObject, getSchema } from "../helper";
+import { isArray, isPlainObject, getSchema, isNotEmptyString } from "../helper";
 import types from "./types";
 import StoreConf from "./StoreConf";
 import Rule from "../rule";
@@ -44,5 +44,15 @@ export default class Store {
   }
   getFlatWidgets() {
     return this.$$store.getters.flatWidgets;
+  }
+  getTab() {
+    return this.$$store.state.tab;
+  }
+  updateTab(tab) {
+    if (!isNotEmptyString(tab)) {
+      return;
+    }
+
+    this.$$store.commit(this.$$types.$TAB_UPDATE, { tab });
   }
 }

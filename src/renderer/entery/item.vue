@@ -3,22 +3,111 @@
     <div class="ep-widget-item-name">
       {{ schema.name }}
     </div>
+    <div v-if="tab === 'design'">
+      <div class="ep-widget-btn ep-widget-btn-delete ep-icon ep-icon-trash">
+        删除
+      </div>
+      <div class="ep-widget-btn ep-widget-btn-clone ep-icon ep-icon-copy">
+        复制
+      </div>
+      <div class="ep-widget-btn ep-widget-btn-move ep-icon ep-icon-move">
+        移动
+      </div>
+    </div>
 
-    <div class="ep-widget-btn ep-widget-btn-delete ep-icon ep-icon-trash">
-      删除
-    </div>
-    <div class="ep-widget-btn ep-widget-btn-clone ep-icon ep-icon-copy">
-      复制
-    </div>
     <template v-if="schema.container">
       <div>如果是布局组件,或内部有子组件</div>
     </template>
-    <template v-else>
+    <!-- <template v-else>
       <div>
         <component :is="flatWidgets[schema.widget].View"></component>
-        <div>title</div>
-        <div></div>
       </div>
+    </template> -->
+    <template v-else>
+      <div
+        v-if="!schema.dynamic || tab === 'design'"
+        class="ep-widget-item-default"
+        :class="{ 'ep-widget-item-fullcol': !schema.label }"
+        :label="schema.label"
+        :prop="schema.key"
+      >
+        <span v-if="schema.label" class="ep-widget-item-label">{{
+          schema.label
+        }}</span>
+        <!-- <component
+          class="ep-widget-control"
+          :is="flatWidgets[schema.widget].View"
+          :schema="schema"
+          @on-event="onEvent"
+        ></component> -->
+        <div class="ep-widget-description" v-if="schema.description">
+          {{ schema.description }}
+        </div>
+        <AButton
+          v-if="schema.dynamic"
+          style="margin-top: 5px"
+          :size="schema.size || rootSchema.size"
+          type="dashed"
+          >添加</AButton
+        >
+      </div>
+      <template v-else>
+        <!-- list为空的情况 -->
+        <div
+          v-if="schema.list.length === 0"
+          :class="{ 'ep-widget-item-fullcol': !schema.label }"
+          :label="schema.label"
+        >
+          <AButton
+            style="margin-top: 5px"
+            :size="schema.size || rootSchema.size"
+            type="dashed"
+            @click="onOriginDynamicAdd($event, schema)"
+            >添加</AButton
+          >
+        </div>
+        <div
+          v-for="(sc, index) in schema.list"
+          :key="sc.key"
+          :class="{ 'ep-widget-item-fullcol': !sc.label }"
+          :label="index === 0 ? schema.label : undefined"
+          :prop="sc.key"
+        >
+          <span v-if="sc.help"
+            >{{ sc.label }}
+            <!-- <Tooltip :content="sc.help" :transfer="true">
+              <Icon type="ios-information-outline"></Icon>
+            </Tooltip> -->
+          </span>
+          <component
+            class="ep-widget-control"
+            :is="flatWidgets[sc.widget].View"
+            :schema="schema.list[index]"
+            @on-event="onEvent"
+          ></component>
+          <div class="ep-widget-description" v-if="sc.description">
+            {{ sc.description }}
+          </div>
+          <div
+            class="epiv-widget-dynamic-remove ep-icon ep-icon-minus"
+            title="删除"
+            @click="onOriginDynamicRemove($event, schema, index)"
+          ></div>
+        </div>
+        <div
+          v-if="schema.list.length !== 0"
+          :class="{ 'ep-widget-item-fullcol': !schema.label }"
+          label=" "
+        >
+          <AButton
+            type="dashed"
+            style="margin-top: 5px"
+            :size="schema.size || rootSchema.size"
+            @click="onOriginDynamicAdd($event, schema)"
+            >添加</AButton
+          >
+        </div>
+      </template>
     </template>
   </div>
   <!-- <div
@@ -259,11 +348,11 @@
 </template>
 <script>
 import { defineComponent } from "vue";
-import { Input } from "ant-design-vue";
+import { Button } from "ant-design-vue";
 export default defineComponent({
   name: "EpWidgetItem",
   components: {
-    // AInput: Input,
+    AButton: Button,
   },
   props: {
     schema: {
@@ -295,8 +384,7 @@ export default defineComponent({
         // "ep-widget-selected": this.schema.key === this.selectedSchema.key,
         "ep-widget-container": this.schema.container,
         "ep-widget-selected": true,
-
-        "ep-widget-item-handle": true,
+        // "ep-widget-item-handle": true,
       };
     },
     tab() {
@@ -304,12 +392,42 @@ export default defineComponent({
     },
   },
   created() {
-    console.log(this.flatWidgets);
+    console.log(this.store);
+    console.log(this.flatWidgets, this.schema);
+  },
+  methods: {
+    onEvent(key, eventType, ...args) {
+      // this.dispatchEvent(key, eventType);
+      this.$emit("on-event", ...arguments);
+    },
+    // dispatchEvent(key, eventType) {
+    //   const valueLogics = this.rootSchema.logics.filter(
+    //     (logic) =>
+    //       logic.key && logic.key === this.schema.key && logic.type === "event"
+    //   );
+    //   const { store, $el } = this;
+    //   const ctx = new Context({
+    //     $el,
+    //     $render: this.$root.$options.extension.$render,
+    //     store,
+    //     instance: this,
+    //     state: {},
+    //   });
+    //   function callback(scripts) {
+    //     scripts.forEach((script) => {
+    //       const sc = new Script(ctx);
+    //       sc.exec(script);
+    //     });
+    //   }
+    //   if (valueLogics.length) {
+    //     this.store.updateWidgetByEvent(this.schema.key, eventType, callback);
+    //   }
+    // },
   },
 });
 </script>
 
 <style lang="scss" scoped>
-// @import url("../styles/main.scss");
+@import "../styles/main.scss";
 @import "../styles/widgets.scss";
 </style>

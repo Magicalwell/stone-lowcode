@@ -191,7 +191,7 @@ export default defineComponent({
     // this.renderRef(this.panels, "tool");   // 用于手动生成tool
     // this.renderRef(this.panels, "footer");   // 用于手动生成footer
     // // 切换到设计模式用于更新tab
-    // this.store.updateTab("design");
+    this.store.updateTab("design");
   },
   methods: {
     setReady() {

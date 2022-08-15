@@ -5,11 +5,12 @@
       draggable=".ep-widget-item"
       ghost-class="ep-widget-ghost"
       v-bind="{ group: { name: 'g1' } }"
-      :list="childrenSchema"
+      v-model="childrenSchema"
       :animation="200"
+      item-key="key"
     >
       <template #item="{ element }">
-        <ep-widget-item
+        <EpWidgetItem
           :key="element.key"
           :schema="element"
           :flat-widgets="flatWidgets"
@@ -21,7 +22,7 @@
           @on-copy="onWidgetCopy"
           @on-add="onWidgetAdd"
           @on-event="onEvent"
-        ></ep-widget-item>
+        ></EpWidgetItem>
       </template>
     </vue-drag>
   </div>
@@ -85,7 +86,7 @@
 
 <script>
 import { defineComponent } from "vue";
-import vueDrag from "vuedraggable";
+import vueDrag from "vuedraggable-es";
 import EpWidgetItem from "./item";
 import { helper } from "../../core";
 export default defineComponent({
@@ -125,7 +126,7 @@ export default defineComponent({
   },
   methods: {
     showElement() {
-      console.log(this.childrenSchema);
+      console.log(this.childrenSchema, this.flatWidgets);
     },
   },
 });

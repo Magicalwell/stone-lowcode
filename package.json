@@ -11,7 +11,7 @@
     "ant-design-vue": "^3.2.11",
     "vue": "^3.0.0",
     "vue-router": "^4.0.0-0",
-    "vuedraggable": "^4.1.0",
+    "vuedraggable-es": "^4.1.1",
     "vuex": "^4.0.0-0"
   },
   "devDependencies": {

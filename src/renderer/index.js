@@ -1,6 +1,6 @@
-// import * as _setting from "./setting";
-// export const setting = _setting;
-// export { default as viewExtend } from "./extends/view";
+import * as _setting from "./setting";
+export const setting = _setting;
+export { default as viewExtend } from "./extends/view";
 export { default as entry } from "./entery/index.vue";
 import inputWidget from "./widgets/input";
 // export const textareaWidget = require("./widgets/textarea");

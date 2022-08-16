@@ -66,7 +66,7 @@ export {
   randomStr,
   isPlainObject,
   isFunction,
-  // isString,
+  isString,
   isNumber,
   isArray,
   jsonClone,

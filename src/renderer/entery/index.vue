@@ -1,6 +1,6 @@
 <template>
   <div class="ep-render-container">
-    <vue-drag
+    <!-- <vue-drag
       handle=".ep-widget-btn-move"
       draggable=".ep-widget-item"
       ghost-class="ep-widget-ghost"
@@ -24,7 +24,23 @@
           @on-event="onEvent"
         ></EpWidgetItem>
       </template>
-    </vue-drag>
+    </vue-drag> -->
+    <div class="vue-drag" ref="vuedrag">
+      <EpWidgetItem
+        v-for="element in childrenSchema"
+        :key="element.key"
+        :schema="element"
+        :flat-widgets="flatWidgets"
+        :flat-schemas="flatSchemas"
+        :selected-schema="selectedSchema"
+        :root-schema="rootSchema"
+        @on-select="onWidgetSelect"
+        @on-delete="onWidgetDelete"
+        @on-copy="onWidgetCopy"
+        @on-add="onWidgetAdd"
+        @on-event="onEvent"
+      ></EpWidgetItem>
+    </div>
   </div>
   <button @click="showElement">show</button>
   <!-- <div class="ep-render-container" :style="containerStyle">
@@ -86,11 +102,12 @@
 
 <script>
 import { defineComponent } from "vue";
-import vueDrag from "vuedraggable-es";
+// import vueDrag from "vuedraggable-es"; vue版本兼容问题，改为直接用sortable
 import EpWidgetItem from "./item";
+import Sortable from "sortablejs";
 import { helper } from "../../core";
 export default defineComponent({
-  components: { vueDrag, EpWidgetItem },
+  components: { EpWidgetItem },
   data() {
     return {
       // childrenSchema: [
@@ -123,10 +140,30 @@ export default defineComponent({
     //   this.mode = mode
     //   this.changeMode(mode)
     // }
+    const sortable = new Sortable(this.$refs.vuedrag, {
+      handle: ".ep-widget-btn-move",
+      draggable: ".ep-widget-item",
+      ghostClass: "ep-widget-ghost",
+      sort: true,
+      animation: 150,
+      easing: "cubic-bezier(1, 0, 0, 1)",
+    });
   },
   methods: {
     showElement() {
       console.log(this.childrenSchema, this.flatWidgets);
+    },
+    onWidgetSelect(currentSchema) {
+      const { tab, selectedSchema } = this.store.getState();
+      console.log(currentSchema);
+      if (
+        tab === "design" &&
+        selectedSchema &&
+        selectedSchema.key !== currentSchema.key
+      ) {
+        this.store.selectWidget(currentSchema.key);
+        this.$emit("on-select", currentSchema);
+      }
     },
   },
 });

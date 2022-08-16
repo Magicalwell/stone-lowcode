@@ -2,9 +2,11 @@
   padding: 8px;
   .ep-widget-item-label {
     white-space: nowrap;
+    width: 80px;
   }
   .ep-widget-item-default {
     display: flex;
+    align-items: center;
   }
   .ep-widget-item-fullcol {
     display: block;

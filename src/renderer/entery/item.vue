@@ -1,5 +1,9 @@
 <template>
-  <div class="ep-widget-item ep-widget-item-handle" :class="cls">
+  <div
+    class="ep-widget-item ep-widget-item-handle"
+    :class="cls"
+    @click="onOriginViewSelect($event, schema)"
+  >
     <div class="ep-widget-item-name">
       {{ schema.name }}
     </div>
@@ -34,12 +38,12 @@
         <span v-if="schema.label" class="ep-widget-item-label">{{
           schema.label
         }}</span>
-        <!-- <component
+        <component
           class="ep-widget-control"
           :is="flatWidgets[schema.widget].View"
           :schema="schema"
           @on-event="onEvent"
-        ></component> -->
+        ></component>
         <div class="ep-widget-description" v-if="schema.description">
           {{ schema.description }}
         </div>
@@ -347,12 +351,12 @@
   </div> -->
 </template>
 <script>
-import { defineComponent } from "vue";
+import { defineComponent, markRaw } from "vue";
 import { Button } from "ant-design-vue";
 export default defineComponent({
   name: "EpWidgetItem",
   components: {
-    AButton: Button,
+    AButton: markRaw(Button),
   },
   props: {
     schema: {
@@ -399,6 +403,11 @@ export default defineComponent({
     onEvent(key, eventType, ...args) {
       // this.dispatchEvent(key, eventType);
       this.$emit("on-event", ...arguments);
+    },
+    onOriginViewSelect(e, schema) {
+      // 预览模式下，为了级联、下拉框菜单点击空白处收起，需要事件冒泡到document
+      // this.store.getTab() === "design" && e.stopPropagation();
+      this.$emit("on-select", schema);
     },
     // dispatchEvent(key, eventType) {
     //   const valueLogics = this.rootSchema.logics.filter(

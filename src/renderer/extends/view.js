@@ -29,7 +29,7 @@ export default {
         return this.store.getModel();
       },
       set(model) {
-        this.store.setModel(model);
+        this.store.updateModel(model);
       },
     },
   },

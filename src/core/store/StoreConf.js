@@ -71,6 +71,7 @@ export default class StoreConf {
 
         settingWidget: (state, getters) => {
           const { widget: widgetName, key } = state.selectedSchema;
+          console.log(state.selectedSchema);
           const widget = getters.flatWidgets[widgetName] || null;
 
           if (!key || !widget || !widget.Setting) return null;

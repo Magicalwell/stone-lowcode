@@ -66,7 +66,7 @@ export default class Epage {
     if (isArray(widgets)) {
       // 初始化组件
       this.store.initWidgets(widgets);
-
+      console.log(this.schema, widgets, ",,,,,,,,,,,,,,,,,,,,,,,");
       if (isPlainObject(this.schema)) {
         this.store.initRootSchema(this.schema);
       }

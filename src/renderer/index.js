@@ -9,7 +9,7 @@ import inputWidget from "./widgets/input";
 // export const selectWidget = require("./widgets/select");
 // export const cascaderWidget = require("./widgets/cascader");
 // export const autoCompleteWidget = require("./widgets/autoComplete");
-// export const radioWidget = require("./widgets/radio");
+import radioWidget from "./widgets/radio";
 // export const checkboxWidget = require("./widgets/checkbox");
 // export const datePickerWidget = require("./widgets/datePicker");
 // export const timePickerWidget = require("./widgets/timePicker");
@@ -20,7 +20,7 @@ import inputWidget from "./widgets/input";
 // // export const tableWidget = require('./widgets/table')
 // export const gridWidget = require("./widgets/grid");
 // export const buttonWidget = require("./widgets/button");
-export { inputWidget };
+export { inputWidget, radioWidget };
 export default [
   {
     title: "表单",
@@ -32,7 +32,7 @@ export default [
       // selectWidget,
       // cascaderWidget,
       // autoCompleteWidget,
-      // radioWidget,
+      radioWidget,
       // checkboxWidget,
       // datePickerWidget,
       // timePickerWidget,

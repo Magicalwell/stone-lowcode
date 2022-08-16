@@ -55,4 +55,35 @@ export default class Store {
 
     this.$$store.commit(this.$$types.$TAB_UPDATE, { tab });
   }
+  getSettingWidget() {
+    return this.$$store.getters.settingWidget;
+  }
+  isSelected() {
+    return this.$$store.getters.isSelected;
+  }
+  getState() {
+    return this.$$store.state;
+  }
+  selectWidget(key) {
+    if (!isNotEmptyString(key)) {
+      return;
+    }
+    this.$$store.commit(this.$$types.$WIDGET_SELECT, { key });
+  }
+  getSelectedSchema() {
+    return this.$$store.state.selectedSchema;
+  }
+  getModel(option) {
+    console.log(option, "--------------------------");
+    if (!option) {
+      return this.$$store.state.model;
+    }
+    if (typeof option === "string") {
+      return this.$$store.state.model[option];
+    }
+  }
+  updateModel(model = {}, useName = false) {
+    console.log(model);
+    this.$$store.commit(this.$$types.$MODEL_SET, { model, useName });
+  }
 }

@@ -81,12 +81,13 @@
           type="ghost"
           @click="onPreview"
           >预览</Button
-        ><a
+        >
+        <!-- <a
           class="ep-header-right-item"
           href="http://epage.didichuxing.com"
           target="_blank"
           ><i class="ep-icon ep-icon-help"></i><span>&nbsp;帮助</span></a
-        >
+        > -->
       </div>
     </div>
   </div>

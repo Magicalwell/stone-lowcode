@@ -1,5 +1,9 @@
 <template>
-  <Input v-if="schema.key" v-model.trim="model[schema.key]"></Input>
+  <Input
+    v-if="schema.key"
+    v-model.trim="model[schema.key]"
+    :placeholder="schema.placeholder"
+  ></Input>
 </template>
 <script>
 import viewExtend from "../../extends/view";

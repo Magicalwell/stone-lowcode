@@ -93,4 +93,7 @@ export default class Store {
 
     this.$$store.commit(this.$$types.$WIDGET_COPY, { key });
   }
+  getWidgets () {
+    return this.$$store.state.widgets
+  }
 }

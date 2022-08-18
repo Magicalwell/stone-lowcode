@@ -18,7 +18,7 @@
         v-else
         :style="(header.left || {}).style || ''"
       >
-        PageCreate
+        EasePageCreator
       </div>
       <div
         class="ep-header-center"

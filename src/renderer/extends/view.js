@@ -29,6 +29,7 @@ export default {
         return this.store.getModel();
       },
       set(model) {
+        console.log(12355555);
         this.store.updateModel(model);
       },
     },

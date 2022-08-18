@@ -3,14 +3,14 @@
   position: relative;
   user-select: none;
   &:hover {
-    background-color: fade(#205dd9, 8%);
-    .ep-widget-item-name{
+    background-color: fade-out(#205dd9, 0.8);
+    .ep-widget-item-name {
       display: inline-block;
     }
   }
-  .ep-widget-item-name{
+  .ep-widget-item-name {
     position: absolute;
-    top:0;
+    top: 0;
     right: 0;
     z-index: 5;
     display: none;
@@ -42,7 +42,7 @@
     font-weight: bold;
     color: blue;
   }
-  &.ep-widget-btn-move{
+  &.ep-widget-btn-move {
     cursor: move;
     right: 68px;
     font-weight: bold;
@@ -50,9 +50,10 @@
   }
 }
 .ep-widget-selected {
-  &:hover {
-    background-color: fade-out(#205dd9, 0.80);
-  }
+  background-color: fade-out(#205dd9, 0.8);
+  // &:hover {
+  //   background-color: fade-out(#205dd9, 0.8);
+  // }
   .ep-widget-btn {
     display: block;
   }

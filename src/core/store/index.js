@@ -83,7 +83,14 @@ export default class Store {
     }
   }
   updateModel(model = {}, useName = false) {
-    console.log(model);
+    console.log(model, "????????????");
     this.$$store.commit(this.$$types.$MODEL_SET, { model, useName });
+  }
+  copyWidget(key) {
+    if (!isNotEmptyString(key)) {
+      return;
+    }
+
+    this.$$store.commit(this.$$types.$WIDGET_COPY, { key });
   }
 }

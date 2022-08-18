@@ -1,11 +1,19 @@
 <template>
-  <div>6666666</div>
+  <SettingForm :store="store" :orders="order" :key-list="keyList"></SettingForm>
 </template>
 <script>
 import settingExtend from "../../extends/setting";
-
-export default {
+import SettingForm from "../../setting-form/index.vue";
+import { defineComponent, markRaw } from "vue";
+export default defineComponent({
   extends: settingExtend,
-  methods: {},
-};
+  components: {
+    SettingForm: markRaw(SettingForm),
+  },
+  data() {
+    return {
+      keyList: ["key", "label"],
+    };
+  },
+});
 </script>

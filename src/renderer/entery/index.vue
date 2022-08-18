@@ -9,21 +9,6 @@
       :animation="200"
       item-key="key"
     >
-      <template #item="{ element }">
-        <EpWidgetItem
-          :key="element.key"
-          :schema="element"
-          :flat-widgets="flatWidgets"
-          :flat-schemas="flatSchemas"
-          :selected-schema="selectedSchema"
-          :root-schema="rootSchema"
-          @on-select="onWidgetSelect"
-          @on-delete="onWidgetDelete"
-          @on-copy="onWidgetCopy"
-          @on-add="onWidgetAdd"
-          @on-event="onEvent"
-        ></EpWidgetItem>
-      </template>
     </vue-drag> -->
     <div class="vue-drag" ref="vuedrag">
       <EpWidgetItem
@@ -42,7 +27,6 @@
       ></EpWidgetItem>
     </div>
   </div>
-  <button @click="showElement">show</button>
   <!-- <div class="ep-render-container" :style="containerStyle">
     <Form
       class="ep-widget-form"
@@ -101,7 +85,7 @@
 </template>
 
 <script>
-import { defineComponent } from "vue";
+import { defineComponent, markRaw } from "vue";
 // import vueDrag from "vuedraggable-es"; vue版本兼容问题，改为直接用sortable
 import EpWidgetItem from "./item";
 import Sortable from "sortablejs";
@@ -133,6 +117,9 @@ export default defineComponent({
     flatWidgets() {
       return this.store.getFlatWidgets();
     },
+    selectedSchema() {
+      return this.store.getSelectedSchema();
+    },
   },
   mounted() {
     const { mode } = this.$root.$options.extension;
@@ -155,7 +142,6 @@ export default defineComponent({
     },
     onWidgetSelect(currentSchema) {
       const { tab, selectedSchema } = this.store.getState();
-      console.log(currentSchema);
       if (
         tab === "design" &&
         selectedSchema &&
@@ -164,6 +150,23 @@ export default defineComponent({
         this.store.selectWidget(currentSchema.key);
         this.$emit("on-select", currentSchema);
       }
+    },
+    onWidgetDelete(selectedSchema) {
+      this.store.removeWidget(selectedSchema.key);
+      this.$emit("on-delete", selectedSchema);
+    },
+    onWidgetCopy(selectedSchema) {
+      this.store.copyWidget(selectedSchema.key);
+      this.$emit("on-copy", selectedSchema);
+    },
+
+    onWidgetAdd(schema) {
+      this.store.addWidgetChild(
+        schema.key,
+        schema.children.length,
+        schema.children[0]
+      );
+      this.$emit("on-add", schema);
     },
   },
 });

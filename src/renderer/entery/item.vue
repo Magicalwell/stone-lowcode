@@ -11,7 +11,10 @@
       <div class="ep-widget-btn ep-widget-btn-delete ep-icon ep-icon-trash">
         删除
       </div>
-      <div class="ep-widget-btn ep-widget-btn-clone ep-icon ep-icon-copy">
+      <div
+        class="ep-widget-btn ep-widget-btn-clone ep-icon ep-icon-copy"
+        @click="onCopyWidget($event, schema)"
+      >
         复制
       </div>
       <div class="ep-widget-btn ep-widget-btn-move ep-icon ep-icon-move">
@@ -38,6 +41,7 @@
         <span v-if="schema.label" class="ep-widget-item-label">{{
           schema.label
         }}</span>
+        <!-- 这个地方的component把实例转成了响应式对象 需要优化 -->
         <component
           class="ep-widget-control"
           :is="flatWidgets[schema.widget].View"
@@ -376,6 +380,7 @@ export default defineComponent({
   },
   data() {
     return {
+      markRaw,
       value: "",
     };
   },
@@ -385,9 +390,10 @@ export default defineComponent({
     },
     cls() {
       return {
-        // "ep-widget-selected": this.schema.key === this.selectedSchema.key,
+        "ep-widget-selected": this.schema.key === this.selectedSchema.key,
         "ep-widget-container": this.schema.container,
-        "ep-widget-selected": true,
+        // "ep-widget-item-handle": this.tab === "design",
+        // "ep-widget-selected": true,
         // "ep-widget-item-handle": true,
       };
     },
@@ -396,8 +402,7 @@ export default defineComponent({
     },
   },
   created() {
-    console.log(this.store);
-    console.log(this.flatWidgets, this.schema);
+    console.log(this.flatWidgets, this.schema, "+++++++++++++++++++++++");
   },
   methods: {
     onEvent(key, eventType, ...args) {
@@ -409,6 +414,11 @@ export default defineComponent({
       // this.store.getTab() === "design" && e.stopPropagation();
       this.$emit("on-select", schema);
     },
+    onCopyWidget(e, schema) {
+      e.stopPropagation();
+      this.$emit("on-copy", schema);
+    },
+
     // dispatchEvent(key, eventType) {
     //   const valueLogics = this.rootSchema.logics.filter(
     //     (logic) =>

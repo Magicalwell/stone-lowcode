@@ -95,7 +95,6 @@ export default defineComponent({
   },
   mounted() {
     this.selectedSettings()
-    console.log(this.settingWidget)
   },
   methods: {
     selectedSettings() {

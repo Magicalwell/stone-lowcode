@@ -1,8 +1,9 @@
 <template>
   <Input
     v-if="schema.key"
-    v-model.trim="model[schema.key]"
+    v-model:value="model[schema.key]"
     :placeholder="schema.placeholder"
+    @input="show"
   ></Input>
 </template>
 <script>
@@ -14,8 +15,10 @@ export default defineComponent({
   components: {
     Input: markRaw(Input),
   },
-  mounted() {
-    console.log(this);
+  methods: {
+    show() {
+      console.log(this.model, this.schema.key, this.store);
+    },
   },
 });
 </script>

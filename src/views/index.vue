@@ -15,24 +15,7 @@
           :style="(panels.tool || {}).style || ''"
         ></div>
         <div v-else class="ep-layout-left">
-          <Collapse
-            v-model:activeKey="activeKey"
-            :bordered="false"
-            style="width: 100%; background-color: #fff"
-          >
-            <template #expandIcon="{ isActive }">
-              <SmileTwoTone :rotate="isActive ? 90 : 0" />
-            </template>
-            <CollapsePanel key="1" header="表单组件">
-              <p>11111111</p>
-            </CollapsePanel>
-            <CollapsePanel key="2" header="This is panel header 2">
-              <p>22222222</p>
-            </CollapsePanel>
-            <CollapsePanel key="3" header="This is panel header 3">
-              <p>33333333</p>
-            </CollapsePanel>
-          </Collapse>
+          <EpTool></EpTool>
         </div>
       </template>
       <div class="ep-layout-center ep-work">
@@ -132,9 +115,7 @@
 
 <script>
 import { defineComponent } from "vue";
-import { EpHeader, EpSetting } from "./panel";
-import { Collapse, CollapsePanel } from "ant-design-vue";
-import { SmileTwoTone } from "@ant-design/icons-vue";
+import { EpHeader, EpSetting, EpTool } from "./panel";
 const defaultHeader = () => ({
   left: {},
   center: {},
@@ -153,9 +134,7 @@ export default defineComponent({
   components: {
     EpHeader,
     EpSetting,
-    Collapse,
-    CollapsePanel,
-    SmileTwoTone,
+    EpTool,
   },
   data() {
     return {

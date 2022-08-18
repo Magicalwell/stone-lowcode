@@ -4,11 +4,14 @@
     :label-col="{ style: { width: '100px' } }"
     @click="show"
   >
-    <a-form-item label="唯一标识key:">
+    <a-form-item label="唯一标识key:" v-if="keyList.includes('key')">
       <a-input :disabled="true" v-model:value="selectedSchema.key" />
     </a-form-item>
-    <a-form-item label="占位文本:">
+    <a-form-item label="占位文本:" v-if="keyList.includes('placeholder')">
       <a-input v-model:value="selectedSchema.placeholder" />
+    </a-form-item>
+    <a-form-item label="标题:" v-if="keyList.includes('label')">
+      <a-input v-model:value="selectedSchema.label" />
     </a-form-item>
     <!-- <a-form-item label="Resources">
       <a-radio-group v-model:value="formState.resource">
@@ -61,6 +64,7 @@ export default {
         state: {},
       }),
     },
+    keyList: { type: Array, default: () => ["key", "label"] },
   },
   data() {
     return {};

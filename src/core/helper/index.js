@@ -1,6 +1,6 @@
 import {
   getRootSchemaChildren,
-  // getParentListByKey,
+  getParentListByKey,
   // getIndexByKey,
   // replaceSchemaKey,
   flattenSchema,
@@ -42,7 +42,7 @@ import {
 } from "./util";
 export {
   getRootSchemaChildren,
-  // getParentListByKey,
+  getParentListByKey,
   // getIndexByKey,
   // replaceSchemaKey,
   flattenSchema,

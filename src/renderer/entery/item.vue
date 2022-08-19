@@ -412,6 +412,7 @@ export default defineComponent({
     onOriginViewSelect(e, schema) {
       // 预览模式下，为了级联、下拉框菜单点击空白处收起，需要事件冒泡到document
       // this.store.getTab() === "design" && e.stopPropagation();
+      console.log("click");
       this.$emit("on-select", schema);
     },
     onCopyWidget(e, schema) {

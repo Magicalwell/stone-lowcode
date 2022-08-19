@@ -34,6 +34,7 @@ export default class FormSchema extends Schema {
   create(props) {
     const { clone, dynamic, flatSchemas } = props || {};
     Schema.prototype.create.call(this, props);
+    console.log("write");
     setKeyAndName(this, clone, dynamic, flatSchemas);
   }
 

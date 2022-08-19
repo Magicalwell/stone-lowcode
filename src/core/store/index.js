@@ -68,6 +68,7 @@ export default class Store {
     if (!isNotEmptyString(key)) {
       return;
     }
+    console.log("selcetwidgets");
     this.$$store.commit(this.$$types.$WIDGET_SELECT, { key });
   }
   getSelectedSchema() {
@@ -93,7 +94,24 @@ export default class Store {
 
     this.$$store.commit(this.$$types.$WIDGET_COPY, { key });
   }
-  getWidgets () {
-    return this.$$store.state.widgets
+  getWidgets() {
+    return this.$$store.state.widgets;
+  }
+  addWidget(widget) {
+    console.log(!isNotEmptyString(widget), widget, "widgetwidgetwidget");
+    if (!isNotEmptyString(widget)) {
+      if (isPlainObject(widget) && isNotEmptyString(widget.widget)) {
+        this.$$store.commit(this.$$types.$WIDGET_ADD, {
+          widget: null,
+          schema: widget,
+        });
+      } else {
+        return console.warn(
+          "widget should be a non-empty string or schema object"
+        );
+      }
+    } else {
+      this.$$store.commit(this.$$types.$WIDGET_ADD, { widget, schema: null });
+    }
   }
 }

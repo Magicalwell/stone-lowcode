@@ -9,18 +9,15 @@
       <template #tab>
         <AppstoreOutlined :style="{ fontSize: '18px', color: '#2468f2' }" />
       </template>
-      <Collapse
-        v-model:activeKey="activeKey"
-        :bordered="false"
-        style="width: 100%; background-color: #fff"
-      >
-        <template #expandIcon="{ isActive }">
-          <SmileTwoTone :rotate="isActive ? 90 : 0" />
-        </template>
-        <CollapsePanel  header="表单组件" v-for="item in widgets[0].widgets" :key='item.key'>
-          <p>11111111</p>
-        </CollapsePanel>
-      </Collapse>
+      <component
+        :is="i.component"
+        :widgets="widgets"
+        @on-add="
+          (val) => {
+            $emit('on-add', val);
+          }
+        "
+      ></component>
     </TabPane>
   </Tabs>
   <div class="draw-btn">
@@ -29,13 +26,14 @@
 </template>
 
 <script>
-import { defineComponent } from 'vue'
-import { Collapse, CollapsePanel, Tabs, TabPane } from 'ant-design-vue'
+import { defineComponent, markRaw } from "vue";
+import { Collapse, CollapsePanel, Tabs, TabPane } from "ant-design-vue";
 import {
   SmileTwoTone,
   CaretLeftOutlined,
   AppstoreOutlined,
-} from '@ant-design/icons-vue'
+} from "@ant-design/icons-vue";
+import ComponentBox from "./component.vue";
 export default defineComponent({
   components: {
     Collapse,
@@ -52,21 +50,21 @@ export default defineComponent({
       default: () => [],
     },
   },
-  mounted(){
-    console.log(this.widgets);
-  },
   data() {
     return {
       // 这里工具栏做成amis的样子 把widgets和tooldata合并，导出位置在render中的widgets/index，在每个item外面套上vuedraggable提供拖拽
       toolData: [
-        { id: 'components', label: '组件', component: '' },
-        { id: 'outline', label: '文档树', component: '' },
-        { id: 'code', label: '代码', component: '' },
+        { id: "components", label: "组件", component: markRaw(ComponentBox) },
+        { id: "outline", label: "文档树", component: "" },
+        { id: "code", label: "代码", component: "" },
       ],
-    }
+    };
   },
   methods: {},
-})
+  mounted() {
+    console.log(this.widgets);
+  },
+});
 </script>
 <style lang="scss" scoped>
 .ep-toolbar {
@@ -76,7 +74,7 @@ export default defineComponent({
       padding-left: 0 !important;
     }
   }
-  ::v-deep(.ant-tabs-nav-list) {
+  > ::v-deep(.ant-tabs-nav) {
     .ant-tabs-tab {
       padding: 12px 12px;
       .anticon {
@@ -90,6 +88,9 @@ export default defineComponent({
       width: 100%;
       text-align: center;
     }
+  }
+  > ::v-deep(.ant-tabs-content-holder) {
+    padding: 10px;
   }
 }
 .draw-btn {

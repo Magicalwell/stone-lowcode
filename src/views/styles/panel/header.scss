@@ -1,25 +1,25 @@
-.ep-header {
+.epc-header-main {
   height: 40px;
   line-height: 40px;
   border-bottom: 1px solid #ddd;
   padding-left: 10px;
   padding-right: 10px;
   display: flex;
-  .ep-header-left {
+  .epc-main-left {
     font-weight: bold;
     font-size: 14px;
     flex: 1;
   }
 
-  .ep-header-center {
+  .epc-main-center {
     text-align: center;
     flex: 1;
   }
 
-  .ep-header-right {
+  .epc-main-right {
     text-align: right;
     flex: 1;
-    .ep-header-right-item{
+    .epc-main-right-item{
       margin-left: 10px;
     }
   }

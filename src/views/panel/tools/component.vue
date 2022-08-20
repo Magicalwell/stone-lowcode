@@ -60,7 +60,6 @@ export default defineComponent({
     addWidget(widget) {
       if (!widget) return;
       //   if (!isFunction(widget.Schema)) return;
-      console.log(widget.Schema.widget);
       this.$emit("on-add", widget.Schema.widget);
     },
   },

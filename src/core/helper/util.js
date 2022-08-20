@@ -116,7 +116,7 @@ export function isPlainObject (value) {
   if (proto === null) {
     return true
   }
-  const Ctor = hasOwnProperty.call(proto, 'constructor') && proto.constructor
+  const Ctor = Object.hasOwnProperty.call(proto, 'constructor') && proto.constructor
   return typeof Ctor === 'function'
 }
 

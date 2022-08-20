@@ -1,33 +1,33 @@
 <template>
-  <div class="ep-header-container">
+  <div class="epc-header-container">
     <div
-      class="ep-header"
+      class="epc-header-main"
       v-if="header.render"
       ref="header"
       :style="header.style || ''"
     ></div>
-    <div class="ep-header" v-else :style="header.style || ''">
+    <div class="epc-header-main" v-else :style="header.style || ''">
       <div
-        class="ep-header-left"
-        v-if="header.left &amp;&amp; header.left.render"
+        class="epc-main-left"
+        v-if="header.left && header.left.render"
         ref="left"
         :style="(header.left || {}).style || ''"
       ></div>
       <div
-        class="ep-header-left"
+        class="epc-main-left"
         v-else
         :style="(header.left || {}).style || ''"
       >
         EasePageCreator
       </div>
       <div
-        class="ep-header-center"
-        v-if="header.center &amp;&amp; header.center.render"
+        class="epc-main-center"
+        v-if="header.center && header.center.render"
         ref="center"
         :style="(header.center || {}).style || ''"
       ></div>
       <div
-        class="ep-header-center"
+        class="epc-main-center"
         v-else
         :style="(header.center || {}).style || ''"
       >
@@ -51,51 +51,45 @@
         </RadioGroup>
       </div>
       <div
-        class="ep-header-right"
-        v-if="header.right &amp;&amp; header.right.render"
+        class="epc-main-right"
+        v-if="header.right && header.right.render"
         ref="right"
         :style="(header.right || {}).style || ''"
       ></div>
       <div
-        class="ep-header-right"
+        class="epc-main-right"
         v-else
         :style="(header.right || {}).style || ''"
       >
         <Button
-          class="ep-header-right-item"
+          class="epc-main-right-item"
           size="small"
           type="ghost"
           @click="onShowLogic"
           >logic</Button
         >
         <Button
-          class="ep-header-right-item"
+          class="epc-main-right-item"
           size="small"
           type="ghost"
           @click="onShowSchema"
           >schema</Button
         >
         <Button
-          class="ep-header-right-item"
+          class="epc-main-right-item"
           size="small"
           type="ghost"
           @click="onPreview"
           >预览</Button
         >
-        <!-- <a
-          class="ep-header-right-item"
-          href="http://epage.didichuxing.com"
-          target="_blank"
-          ><i class="ep-icon ep-icon-help"></i><span>&nbsp;帮助</span></a
-        > -->
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { defineComponent, toRefs } from "vue";
-import { RadioGroup, RadioButton, Button } from "ant-design-vue";
+import { defineComponent, toRefs } from 'vue'
+import { RadioGroup, RadioButton, Button } from 'ant-design-vue'
 export default defineComponent({
   components: {
     RadioGroup,
@@ -114,7 +108,7 @@ export default defineComponent({
     designView: {
       type: Object,
       default: () => ({
-        view: "pc",
+        view: 'pc',
       }),
     },
     ready: {
@@ -126,8 +120,8 @@ export default defineComponent({
     },
   },
   setup(props) {
-    const { designView: test } = toRefs(props);
-    return { test };
+    const { designView: test } = toRefs(props)
+    return { test }
   },
   mounted() {
     // if (this.header.render) {
@@ -140,32 +134,31 @@ export default defineComponent({
   },
   methods: {
     renderRef(obj, ref) {
-      console.log(obj, ref);
-      if (!obj[ref] || typeof obj[ref].render !== "function") return;
-      const el = this.$refs[ref];
-      const ctx = { $emit: this.$emit.bind(this) };
-      const { store } = this;
+      if (!obj[ref] || typeof obj[ref].render !== 'function') return
+      const el = this.$refs[ref]
+      const ctx = { $emit: this.$emit.bind(this) }
+      const { store } = this
 
-      obj[ref].render({ el, store, ctx });
+      obj[ref].render({ el, store, ctx })
     },
     onChangeView(view) {
-      this.$emit("change-view", view);
+      this.$emit('change-view', view)
     },
     onPreview() {
-      this.$emit("preview");
+      this.$emit('preview')
     },
     onShowSchema() {
-      this.$emit("show-schema");
+      this.$emit('show-schema')
     },
     onShowLogic() {
-      this.$emit("show-logic");
+      this.$emit('show-logic')
     },
     onChangeLange(lang) {
-      this.$emit("change-lang", lang);
+      this.$emit('change-lang', lang)
     },
   },
-});
+})
 </script>
 <style lang="scss" scoped>
-@import "../../styles/panel/header.scss";
+@import '../../styles/panel/header.scss';
 </style>

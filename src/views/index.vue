@@ -1,38 +1,39 @@
 <template>
-  <div class="ep-editor ep-layout">
+  <div class="epc-editor-container epc-layout">
     <EpHeader
       :header="panels.header"
       :store="store"
       :design-view="design"
       :ready="ready"
     />
-    <div class="ep-layout-body">
+    <div class="epc-layout-body">
       <template v-if="panels.tool">
         <div
-          class="ep-layout-left"
+          class="epc-layout-left"
           v-if="panels.tool.render"
           ref="tool"
           :style="(panels.tool || {}).style || ''"
         ></div>
-        <div v-else class="ep-layout-left">
+        <div v-else class="epc-layout-left">
           <EpTool :widgets="widgets" @on-add="onAddWidget"></EpTool>
         </div>
       </template>
-      <div class="ep-layout-center ep-work">
-        <div class="ep-work-design">
+      <div class="epc-layout-main epc-workspace">
+        <div class="epc-workspace-design">
           <div ref="design-pc"></div>
+          <div ref="design-h5"> </div>
         </div>
       </div>
       <template v-if="panels.setting">
-        <div class="ep-layout-right">
+        <div class="epc-layout-right">
           <div
-            class="ep-setting"
+            class="epc-setting-box"
             v-if="panels.setting.render"
             ref="setting"
             :style="(panels.setting || {}).style || ''"
           ></div>
           <div
-            class="ep-setting"
+            class="epc-setting-box"
             v-else
             :style="(panels.setting || {}).style || ''"
           >

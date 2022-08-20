@@ -1,27 +1,22 @@
-.ep-editor {
+.epc-editor-container {
   background-color: #fff;
   position: relative;
   height: 100%;
   /* for other panel when header display none */
 }
-.ep-layout {
+.epc-layout {
   display: flex;
   flex-flow: column;
-  .ep-layout-header {
+  .epc-layout-header {
     height: 40px;
   }
-  .ep-layout-body {
+  .epc-layout-body {
     display: flex;
     flex: 1;
     overflow: auto;
     background-color: #f7f7f9;
   }
-  .ep-layout-left {
-    position: relative;
-    z-index: 1;
-    width: 308px;
-  }
-  .ep-layout-center {
+  .epc-layout-main {
     flex: 1;
     position: relative;
     background-color: #fff;
@@ -30,15 +25,15 @@
     border: 2px solid #205dd9;
     margin: 10px 20px 10px 20px;
   }
-  .ep-layout-right {
+  .epc-layout-right {
     position: relative;
     width: 300px;
   }
-  .ep-layout-footer {
-    border-top: 1px solid #fff;
-    height: 20px;
-  }
-  .ep-setting {
+  // .epc-layout-footer {
+  //   border-top: 1px solid #fff;
+  //   height: 20px;
+  // }
+  .epc-setting-box {
     width: 300px;
     height: 100%;
     position: relative;
@@ -50,40 +45,42 @@
     }
   }
 }
-.ep-layout-left {
+.epc-layout-left {
   // display: flex;
-  width: 200px;
+  position: relative;
+  width: 308px;
+  z-index: 1;
   overflow: visible;
   background-color: #fff;
   box-shadow: 2px 0 20px 0 rgba(0, 0, 0, 0.1);
-  .ep-layout-left-nav {
-    position: relative;
-    width: 39px;
-    text-align: center;
-    border-right: 1px solid #fff;
-    .ep-layout-left-nav-item {
-      transition: 0.1s ease background-color;
-      cursor: default;
-      padding: 10px 0;
-      font-weight: bold;
-    }
-    .ep-layout-left-nav-active {
-      background-color: #fff;
-    }
-  }
-  .ep-layout-left-content {
-    flex: 1;
-    position: relative;
-    // margin-left: 40px;
-    height: 100%;
-    overflow: auto;
-  }
+  // .ep-layout-left-nav {
+  //   position: relative;
+  //   width: 39px;
+  //   text-align: center;
+  //   border-right: 1px solid #fff;
+  //   .ep-layout-left-nav-item {
+  //     transition: 0.1s ease background-color;
+  //     cursor: default;
+  //     padding: 10px 0;
+  //     font-weight: bold;
+  //   }
+  //   .ep-layout-left-nav-active {
+  //     background-color: #fff;
+  //   }
+  // }
+  // .ep-layout-left-content {
+  //   flex: 1;
+  //   position: relative;
+  //   // margin-left: 40px;
+  //   height: 100%;
+  //   overflow: auto;
+  // }
 }
-.ep-side-right {
-  flex: 1;
-  overflow: visible;
-  background-color: #fff;
-}
+// .ep-side-right {
+//   flex: 1;
+//   overflow: visible;
+//   background-color: #fff;
+// }
 // .ep-work-design {
 //   border: 2px solid #aaa; aaa的颜色还不错
 //   padding: 10px;  

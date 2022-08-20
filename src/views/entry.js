@@ -16,6 +16,6 @@ import {
   // render,
   // drag,
 } from "../core";
-import Epage from "./Epage";
-Epage.Store = Store;
-export default Epage;
+import EPCpage from "./EPCpage";
+EPCpage.Store = Store;
+export default EPCpage;

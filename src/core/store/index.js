@@ -68,14 +68,12 @@ export default class Store {
     if (!isNotEmptyString(key)) {
       return;
     }
-    console.log("selcetwidgets");
     this.$$store.commit(this.$$types.$WIDGET_SELECT, { key });
   }
   getSelectedSchema() {
     return this.$$store.state.selectedSchema;
   }
   getModel(option) {
-    console.log(option, "--------------------------");
     if (!option) {
       return this.$$store.state.model;
     }
@@ -84,7 +82,6 @@ export default class Store {
     }
   }
   updateModel(model = {}, useName = false) {
-    console.log(model, "????????????");
     this.$$store.commit(this.$$types.$MODEL_SET, { model, useName });
   }
   copyWidget(key) {
@@ -98,7 +95,6 @@ export default class Store {
     return this.$$store.state.widgets;
   }
   addWidget(widget) {
-    console.log(!isNotEmptyString(widget), widget, "widgetwidgetwidget");
     if (!isNotEmptyString(widget)) {
       if (isPlainObject(widget) && isNotEmptyString(widget.widget)) {
         this.$$store.commit(this.$$types.$WIDGET_ADD, {

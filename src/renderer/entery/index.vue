@@ -147,7 +147,6 @@ export default defineComponent({
         selectedSchema &&
         selectedSchema.key !== currentSchema.key
       ) {
-        console.log('select');
         this.store.selectWidget(currentSchema.key);
         this.$emit("on-select", currentSchema);
       }

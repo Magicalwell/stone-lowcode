@@ -84,14 +84,12 @@ export default defineComponent({
       return this.store.isSelected();
     },
     selectedSchema() {
-      console.log(this.store.getSelectedSchema(), "computedcomputedcomputedcomputed");
       return this.store.getSelectedSchema();
     },
   },
   watch: {
     selectedSchema() {
       // 监听计算属性返回的被选中的seting
-      console.log("watch");
       this.selectedSettings();
     },
   },
@@ -124,11 +122,9 @@ export default defineComponent({
           component: markRaw(this.settingWidget),
         });
       }
-      console.log(settings, defaultSettings, globalSettings);
       let result = [];
       result = [].concat(settings, globalSettings, defaultSettings); // 合并三个菜单
       result = this.unique(result); // 利用对象去重
-      console.log(result);
       if (this.isSelected) {
         // 若被选择了，则
         this.filterSettings = [...result];

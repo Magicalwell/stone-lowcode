@@ -15,12 +15,12 @@ const defaultView = (t) =>
     },
     t || {}
   );
-export default class Epage {
+export default class EPCpage {
   constructor(opt) {
     this.el = opt.el;
     this.widgets = opt.widgets; // 需要注册的组件
     this.pc = defaultView(opt.pc);
-    // 移动端设计时，默认配置
+    // 默认配置，内部为自定义的widgets和入口文件
     this.h5 = defaultView(opt.h5);
     // 当前环境，暂无特别用途
     this.env = opt.env || "production";
@@ -66,7 +66,6 @@ export default class Epage {
     if (isArray(widgets)) {
       // 初始化组件
       this.store.initWidgets(widgets);
-      console.log(this.schema, widgets, ",,,,,,,,,,,,,,,,,,,,,,,");
       if (isPlainObject(this.schema)) {
         this.store.initRootSchema(this.schema);
       }

@@ -12,7 +12,6 @@ const selectedSchema = defaultSchema();
 export default class StoreConf {
   constructor(option) {
     const { Rule } = option || {};
-    console.log(rootSchema, selectedSchema);
     return {
       state: {
         // 设计模式下当前tab，可选 design | preview
@@ -44,8 +43,8 @@ export default class StoreConf {
               value: {},
             },
           },
-          dicts: [],
-          apis: [],
+          dicts: [], // 字典
+          apis: [], // apis
         },
       },
       getters: {
@@ -55,12 +54,13 @@ export default class StoreConf {
           if (!isArray(widgets)) {
             return serialized;
           }
+          // 这里的widgets是传入的总widgets，需要去把内部的widgets循环注册出来，并取出内个schema的name
+          console.log(widgets,'------------------------------');
           widgets.forEach((item) => {
             if (!isArray(item.widgets)) {
               return;
             }
             item.widgets.forEach((w) => {
-              // 这里有问题  如果调用util里面的isFunction会报错 推测是webpack
               if (typeof w.Schema === "function") {
                 serialized[w.Schema.widget] = w;
               }
@@ -71,11 +71,9 @@ export default class StoreConf {
 
         settingWidget: (state, getters) => {
           const { widget: widgetName, key } = state.selectedSchema;
-          console.log(state.selectedSchema);
           const widget = getters.flatWidgets[widgetName] || null;
 
           if (!key || !widget || !widget.Setting) return null;
-
           return isArray(widget.Setting)
             ? [...widget.Setting]
             : { ...widget.Setting };

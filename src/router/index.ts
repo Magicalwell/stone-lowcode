@@ -10,8 +10,10 @@ const routes: Array<RouteRecordRaw> = [
 ];
 
 const router = createRouter({
-  history: createWebHashHistory(),
-  routes,
-});
+  history: createWebHashHistory(
+    window.__MICRO_APP_BASE_ROUTE__ || process.env.BASE_URL
+  ),
+  routes
+})
 
 export default router;

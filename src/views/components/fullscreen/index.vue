@@ -1,12 +1,12 @@
 <template>
-  <div class="ep-fullscreen" v-show="visible">
-    <div class="ep-fullscreen-header" v-if="$slots.header">
+  <div class="epc-fullview" v-show="visible">
+    <div class="epc-fullview-header" v-if="$slots.header">
       <slot name="header"></slot>
-      <span class="ep-fullscreen-close" @click="onClose">
+      <span class="epc-fullview-close" @click="onClose">
         <CloseCircleOutlined />
       </span>
     </div>
-    <div class="ep-fullscreen-body">
+    <div class="epc-fullview-body">
       <slot></slot>
     </div>
   </div>
@@ -31,16 +31,16 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.ep-fullscreen {
+.epc-fullview {
   position: fixed;
   z-index: 9;
-  top: 0;
+  top: 50px;
   bottom: 0;
   left: 0;
   right: 0;
   background-color: #fff;
   transition: 0.3s ease right;
-  .ep-fullscreen-header {
+  .epc-fullview-header {
     padding-left: 16px;
     padding-right: 16px;
     position: absolute;
@@ -53,7 +53,7 @@ export default {
     justify-content: center;
     align-items: center;
   }
-  .ep-fullscreen-close {
+  .epc-fullview-close {
     position: absolute;
     z-index: 10;
     top: 0;
@@ -73,7 +73,7 @@ export default {
       // background-color:rgba(0,0,0,.2);
     }
   }
-  .ep-fullscreen-body {
+  .epc-fullview-body {
     padding: 16px;
     position: absolute;
     width: 100%;

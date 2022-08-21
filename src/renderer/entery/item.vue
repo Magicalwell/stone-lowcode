@@ -1,144 +1,27 @@
 <template>
   <div
-    class="ep-widget-item ep-widget-item-handle"
+    class="epc-widget-item"
     :class="cls"
     @click="onOriginViewSelect($event, schema)"
   >
-    <div class="ep-widget-item-name">
+    <div class="epc-widget-item-name">
       {{ schema.name }}
     </div>
     <div v-if="tab === 'design'">
-      <div class="ep-widget-btn ep-widget-btn-delete ep-icon ep-icon-trash">
+      <div class="epc-widget-btn epc-widget-btn-delete">
         删除
       </div>
       <div
-        class="ep-widget-btn ep-widget-btn-clone ep-icon ep-icon-copy"
+        class="epc-widget-btn epc-widget-btn-clone"
         @click="onCopyWidget($event, schema)"
       >
         复制
       </div>
-      <div class="ep-widget-btn ep-widget-btn-move ep-icon ep-icon-move">
+      <div class="epc-widget-btn epc-widget-btn-move">
         移动
       </div>
     </div>
-
-    <template v-if="schema.container">
-      <div>如果是布局组件,或内部有子组件</div>
-    </template>
-    <!-- <template v-else>
-      <div>
-        <component :is="flatWidgets[schema.widget].View"></component>
-      </div>
-    </template> -->
-    <template v-else>
-      <div
-        v-if="!schema.dynamic || tab === 'design'"
-        class="ep-widget-item-default"
-        :class="{ 'ep-widget-item-fullcol': !schema.label }"
-        :label="schema.label"
-        :prop="schema.key"
-      >
-        <span v-if="schema.label" class="ep-widget-item-label">{{
-          schema.label
-        }}</span>
-        <!-- 这个地方的component把实例转成了响应式对象 需要优化 -->
-        <component
-          class="ep-widget-control"
-          :is="flatWidgets[schema.widget].View"
-          :schema="schema"
-          @on-event="onEvent"
-        ></component>
-        <div class="ep-widget-description" v-if="schema.description">
-          {{ schema.description }}
-        </div>
-        <AButton
-          v-if="schema.dynamic"
-          style="margin-top: 5px"
-          :size="schema.size || rootSchema.size"
-          type="dashed"
-          >添加</AButton
-        >
-      </div>
-      <template v-else>
-        <!-- list为空的情况 -->
-        <div
-          v-if="schema.list.length === 0"
-          :class="{ 'ep-widget-item-fullcol': !schema.label }"
-          :label="schema.label"
-        >
-          <AButton
-            style="margin-top: 5px"
-            :size="schema.size || rootSchema.size"
-            type="dashed"
-            @click="onOriginDynamicAdd($event, schema)"
-            >添加</AButton
-          >
-        </div>
-        <div
-          v-for="(sc, index) in schema.list"
-          :key="sc.key"
-          :class="{ 'ep-widget-item-fullcol': !sc.label }"
-          :label="index === 0 ? schema.label : undefined"
-          :prop="sc.key"
-        >
-          <span v-if="sc.help"
-            >{{ sc.label }}
-            <!-- <Tooltip :content="sc.help" :transfer="true">
-              <Icon type="ios-information-outline"></Icon>
-            </Tooltip> -->
-          </span>
-          <component
-            class="ep-widget-control"
-            :is="flatWidgets[sc.widget].View"
-            :schema="schema.list[index]"
-            @on-event="onEvent"
-          ></component>
-          <div class="ep-widget-description" v-if="sc.description">
-            {{ sc.description }}
-          </div>
-          <div
-            class="epiv-widget-dynamic-remove ep-icon ep-icon-minus"
-            title="删除"
-            @click="onOriginDynamicRemove($event, schema, index)"
-          ></div>
-        </div>
-        <div
-          v-if="schema.list.length !== 0"
-          :class="{ 'ep-widget-item-fullcol': !schema.label }"
-          label=" "
-        >
-          <AButton
-            type="dashed"
-            style="margin-top: 5px"
-            :size="schema.size || rootSchema.size"
-            @click="onOriginDynamicAdd($event, schema)"
-            >添加</AButton
-          >
-        </div>
-      </template>
-    </template>
-  </div>
-  <!-- <div
-    class="ep-widget-item"
-    :class="cls"
-    :style="getStyle()"
-    @click="onOriginViewSelect($event, schema)"
-  >
-    <div class="ep-widget-item-name" v-if="tab === 'design'">
-      {{ schema.name }}
-    </div>
-    <div v-if="tab === 'design'">
-      <div
-        class="ep-widget-btn ep-widget-btn-delete ep-icon ep-icon-trash"
-        title="删除"
-        @click="onOriginViewDelete($event, schema)"
-      ></div>
-      <div
-        class="ep-widget-btn ep-widget-btn-clone ep-icon ep-icon-copy"
-        title="复制"
-        @click="onOriginViewCopy($event, schema)"
-      ></div>
-    </div>
+    <!-- 有嵌套的情况下 -->
     <template v-if="schema.container">
       <template v-if="!schema.dynamic || tab === 'design'">
         <Row
@@ -155,9 +38,10 @@
             :offset="item.offset"
           >
             <template v-if="Array.isArray(item.list)">
+              <!-- 区分渲染设计模式和预览模式 -->
               <template v-if="tab !== 'design'">
                 <ep-widget-item
-                  v-for="(child, j) in item.list"
+                  v-for="child in item.list"
                   :key="child.key"
                   :schema="child"
                   :flat-widgets="flatWidgets"
@@ -171,7 +55,7 @@
                 ></ep-widget-item>
               </template>
               <vue-drag
-                v-else="v-else"
+                v-else
                 handle=".ep-widget-item-handle"
                 draggable=".ep-widget-item"
                 ghost-class="ep-widget-ghost"
@@ -186,9 +70,9 @@
                     key="placeholder"
                     :class="getPlaceholderCls()"
                   ></div>
-                  <template v-else="v-else">
+                  <template v-else>
                     <ep-widget-item
-                      v-for="(child, j) in item.list"
+                      v-for="child in item.list"
                       :key="child.key"
                       :schema="child"
                       :flat-widgets="flatWidgets"
@@ -213,154 +97,164 @@
         <div class="ep-widget-description" v-if="schema.description">
           {{ schema.description }}
         </div>
-      </template>
-      <template v-else="v-else">
-        <div v-for="(sub, s) in schema.list" style="position: relative">
-          <Row
-            v-if="sub.option"
-            type="flex"
-            :gutter="sub.option.gutter"
-            :align="sub.option.align"
-            :justify="sub.option.justify"
-            :class="tab !== 'design' ? 'ep-widget-dynamic-container' : ''"
-          >
-            <Col
-              v-for="(item, k) in sub.children"
-              :key="k"
-              :span="item.span"
-              :offset="item.offset"
-            >
-              <template
-                v-if='Array.isArray(item.list) &amp;&amp; tab !== "design"'
-              >
-                <ep-widget-item
-                  v-for="(child, j) in item.list"
-                  :key="child.key"
-                  :schema="child"
-                  :flat-widgets="flatWidgets"
-                  :flat-schemas="flatSchemas"
-                  :root-schema="rootSchema"
-                  @on-add="onViewAdd"
-                  @on-event="onEvent"
-                  @on-dynamic-add="onDynamicAdd"
-                  @on-dynamic-remove="onDynamicRemove"
-                ></ep-widget-item>
-              </template>
-            </Col>
-          </Row>
-          <div class="ep-widget-description" v-if="sub.description">
-            {{ sub.description }}
-          </div>
+        <template v-else>
           <div
-            class="epiv-widget-dynamic-remove ep-icon ep-icon-minus"
-            title="删除"
-            @click="onOriginDynamicRemove($event, schema, s)"
-          ></div>
-        </div>
+            v-for="(sub, s) in schema.list"
+            style="position: relative"
+            :key="s"
+          >
+            <Row
+              v-if="sub.option"
+              type="flex"
+              :gutter="sub.option.gutter"
+              :align="sub.option.align"
+              :justify="sub.option.justify"
+              :class="tab !== 'design' ? 'ep-widget-dynamic-container' : ''"
+            >
+              <Col
+                v-for="(item, k) in sub.children"
+                :key="k"
+                :span="item.span"
+                :offset="item.offset"
+              >
+                <template
+                  v-if='Array.isArray(item.list) &amp;&amp; tab !== "design"'
+                >
+                  <ep-widget-item
+                    v-for="child in item.list"
+                    :key="child.key"
+                    :schema="child"
+                    :flat-widgets="flatWidgets"
+                    :flat-schemas="flatSchemas"
+                    :root-schema="rootSchema"
+                    @on-add="onViewAdd"
+                    @on-event="onEvent"
+                    @on-dynamic-add="onDynamicAdd"
+                    @on-dynamic-remove="onDynamicRemove"
+                  ></ep-widget-item>
+                </template>
+              </Col>
+            </Row>
+            <div class="ep-widget-description" v-if="sub.description">
+              {{ sub.description }}
+            </div>
+            <div
+              class="epiv-widget-dynamic-remove ep-icon ep-icon-minus"
+              title="删除"
+              @click="onOriginDynamicRemove($event, schema, s)"
+            ></div>
+          </div>
+        </template>
+        <AButton
+          v-show="schema.dynamic"
+          type="dashed"
+          style="margin-top: 5px"
+          :size="schema.size || rootSchema.size"
+          @click="onOriginDynamicAdd($event, schema)"
+          >添加</AButton
+        >
       </template>
-      <Button
-        v-show="schema.dynamic"
-        type="dashed"
-        style="margin-top: 5px"
-        :size="schema.size || rootSchema.size"
-        @click="onOriginDynamicAdd($event, schema)"
-        >添加</Button
-      >
     </template>
-    <template v-else="v-else">
-      <FormItem
+    <template v-else>
+      <div
         v-if="!schema.dynamic || tab === 'design'"
-        :class="{ 'ep-widget-item-fullcol': !schema.label }"
+        class="epc-widget-item-default"
+        :class="{ 'ep-widget-item-full': !schema.label }"
         :label="schema.label"
         :prop="schema.key"
-        ><span v-if="schema.help" slot="label"
-          >{{ schema.label }}
-          <Tooltip :content="schema.help" :transfer="true">
-            <Icon type="ios-information-outline"></Icon>
-          </Tooltip>
-        </span>
+      >
+        <span v-if="schema.label" class="epc-widget-item-label">{{
+          schema.label
+        }}</span>
+        <!-- 这个地方的component把实例转成了响应式对象 需要优化 -->
         <component
-          class="ep-widget-control"
+          class="ep-widget-instance"
           :is="flatWidgets[schema.widget].View"
           :schema="schema"
           @on-event="onEvent"
         ></component>
-        <div class="ep-widget-description" v-if="schema.description">
+        <div class="epc-widget-description" v-if="schema.description">
           {{ schema.description }}
         </div>
-        <Button
+        <AButton
           v-if="schema.dynamic"
           style="margin-top: 5px"
           :size="schema.size || rootSchema.size"
           type="dashed"
-          >添加</Button
+          >添加</AButton
         >
-      </FormItem>
-      <template v-else="v-else">
-        <FormItem
+      </div>
+      <template v-else>
+        <!-- list为空的情况 -->
+        <div
           v-if="schema.list.length === 0"
-          :class="{ 'ep-widget-item-fullcol': !schema.label }"
+          :class="{ 'epc-widget-item-full': !schema.label }"
           :label="schema.label"
         >
-          <Button
+          <AButton
             style="margin-top: 5px"
             :size="schema.size || rootSchema.size"
             type="dashed"
             @click="onOriginDynamicAdd($event, schema)"
-            >添加</Button
+            >添加</AButton
           >
-        </FormItem>
-        <FormItem
+        </div>
+        <div
           v-for="(sc, index) in schema.list"
           :key="sc.key"
-          :class="{ 'ep-widget-item-fullcol': !sc.label }"
+          :class="{ 'epc-widget-item-full': !sc.label }"
           :label="index === 0 ? schema.label : undefined"
           :prop="sc.key"
-          ><span v-if="sc.help" slot="label"
+        >
+          <span v-if="sc.help"
             >{{ sc.label }}
-            <Tooltip :content="sc.help" :transfer="true">
+            <!-- <Tooltip :content="sc.help" :transfer="true">
               <Icon type="ios-information-outline"></Icon>
-            </Tooltip>
+            </Tooltip> -->
           </span>
           <component
-            class="ep-widget-control"
+            class="epc-widget-instance"
             :is="flatWidgets[sc.widget].View"
             :schema="schema.list[index]"
             @on-event="onEvent"
           ></component>
-          <div class="ep-widget-description" v-if="sc.description">
+          <div class="epc-widget-description" v-if="sc.description">
             {{ sc.description }}
           </div>
           <div
-            class="epiv-widget-dynamic-remove ep-icon ep-icon-minus"
+            class="epc-view-widget-remove"
             title="删除"
             @click="onOriginDynamicRemove($event, schema, index)"
           ></div>
-        </FormItem>
-        <FormItem
+        </div>
+        <div
           v-if="schema.list.length !== 0"
-          :class="{ 'ep-widget-item-fullcol': !schema.label }"
+          :class="{ 'epc-widget-item-full': !schema.label }"
           label=" "
         >
-          <Button
+          <AButton
             type="dashed"
             style="margin-top: 5px"
             :size="schema.size || rootSchema.size"
             @click="onOriginDynamicAdd($event, schema)"
-            >添加</Button
+            >添加</AButton
           >
-        </FormItem>
+        </div>
       </template>
     </template>
-  </div> -->
+  </div>
 </template>
 <script>
-import { defineComponent, markRaw } from "vue";
-import { Button } from "ant-design-vue";
+import { defineComponent, markRaw } from 'vue'
+import { Button, Col, Row } from 'ant-design-vue'
+import vueDrag from './vuedrag.vue'
 export default defineComponent({
-  name: "EpWidgetItem",
+  name: 'EpWidgetItem',
   components: {
+    vueDrag,
     AButton: markRaw(Button),
+    Col,
+    Row,
   },
   props: {
     schema: {
@@ -370,7 +264,7 @@ export default defineComponent({
     selectedSchema: {
       type: Object,
       default: () => ({
-        key: "",
+        key: '',
       }),
     },
     flatWidgets: {
@@ -381,73 +275,61 @@ export default defineComponent({
   data() {
     return {
       markRaw,
-      value: "",
-    };
+      value: '',
+      testList: [
+        { id: 1, label: '11111' },
+        { id: 2, label: '22222' },
+      ],
+    }
   },
   computed: {
     store() {
-      return this.$root.$options.extension.store;
+      return this.$root.$options.extension.store
     },
     cls() {
       return {
-        "ep-widget-selected": this.schema.key === this.selectedSchema.key,
-        "ep-widget-container": this.schema.container,
+        'epc-widget-selected': this.schema.key === this.selectedSchema.key,
+        'epc-widget-container': this.schema.container,
         // "ep-widget-item-handle": this.tab === "design",
         // "ep-widget-selected": true,
         // "ep-widget-item-handle": true,
-      };
+      }
     },
     tab() {
-      return this.store.getTab();
+      return this.store.getTab()
     },
   },
   created() {
-    console.log(this.flatWidgets, this.schema, "+++++++++++++++++++++++");
+    console.log(this.flatWidgets, this.schema, '+++++++++++++++++++++++')
   },
   methods: {
+    getPlaceholderCls() {
+      const placeholder =
+        !Object.keys(this.$slots).length && this.tab === 'design'
+      return placeholder ? 'ep-widget-grid-placeholder' : ''
+    },
     onEvent(key, eventType, ...args) {
       // this.dispatchEvent(key, eventType);
-      this.$emit("on-event", ...arguments);
+      this.$emit('on-event', ...arguments)
     },
     onOriginViewSelect(e, schema) {
       // 预览模式下，为了级联、下拉框菜单点击空白处收起，需要事件冒泡到document
       // this.store.getTab() === "design" && e.stopPropagation();
-      console.log("click");
-      this.$emit("on-select", schema);
+      console.log('click')
+      this.$emit('on-select', schema)
     },
     onCopyWidget(e, schema) {
-      e.stopPropagation();
-      this.$emit("on-copy", schema);
+      e.stopPropagation()
+      this.$emit('on-copy', schema)
     },
-
-    // dispatchEvent(key, eventType) {
-    //   const valueLogics = this.rootSchema.logics.filter(
-    //     (logic) =>
-    //       logic.key && logic.key === this.schema.key && logic.type === "event"
-    //   );
-    //   const { store, $el } = this;
-    //   const ctx = new Context({
-    //     $el,
-    //     $render: this.$root.$options.extension.$render,
-    //     store,
-    //     instance: this,
-    //     state: {},
-    //   });
-    //   function callback(scripts) {
-    //     scripts.forEach((script) => {
-    //       const sc = new Script(ctx);
-    //       sc.exec(script);
-    //     });
-    //   }
-    //   if (valueLogics.length) {
-    //     this.store.updateWidgetByEvent(this.schema.key, eventType, callback);
-    //   }
-    // },
+    onDynamicAdd(){
+      console.log('动态数据');
+    }
   },
-});
+})
 </script>
 
 <style lang="scss" scoped>
-@import "../styles/main.scss";
-@import "../styles/widgets.scss";
+@import '../styles/main.scss';
+@import '../styles/widgets.scss';
 </style>

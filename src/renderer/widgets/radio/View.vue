@@ -1,5 +1,5 @@
 <template>
-  <a-radio v-model:value="model[schema.key]">Radio</a-radio>
+  <a-radio v-model:value="model[schema.key]"></a-radio>
 </template>
 <script>
 import viewExtend from "../../extends/view";

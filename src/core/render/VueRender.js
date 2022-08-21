@@ -29,8 +29,10 @@ export default class Render {
       this.$$origin = this.render();
       this.callPlugin("render", "created", { ctx: this });
     } else {
+      // 没有store则为预览模式，store不与视图的数据进行关联
       this.store = new Store({ Rule: CustomRule || Rule });
       if (isArray(widgets)) {
+
         this.store.initWidgets(widgets);
         if (isPlainObject(schema)) {
           this.store.initRootSchema(schema);
@@ -48,7 +50,7 @@ export default class Render {
     const { el, store, mode, component } = this;
     const extension = { store, $render: this, mode: option.mode || mode };
     const root = document.createElement("div");
-
+    console.log(store,'----------------------');
     el.appendChild(root);
     this.callPlugin("render", "beforeCreate", { ctx: this });
     // 这里通过h函数渲染出entry中的入口
@@ -56,8 +58,19 @@ export default class Render {
       extension,
       el: root,
       render: () => h(component),
-    }).mount(root);
+    })
+    ins.mount(root);
     // 这里createApp出来的是纯净的vue实例，在main里面use(Antd)挂载的组件，这里面没有的，可以在后面.use(antd)
     return ins;
+  }
+  destroy () {
+    console.log(this.$$origin);
+    if (this.$$origin) {
+      this.$$origin.unmount()
+      console.log('destroy1');
+      if (!this.el.contains(this.$$origin.$el)) return
+      this.el.removeChild(this.$$origin.$el)
+      console.log('destroy2');
+    }
   }
 }

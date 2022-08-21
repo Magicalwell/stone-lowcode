@@ -1,16 +1,16 @@
-.ep-widget-item {
+.epc-widget-item {
   padding: 8px;
-  .ep-widget-item-label {
+  .epc-widget-item-label {
     white-space: nowrap;
     width: 80px;
   }
-  .ep-widget-item-default {
+  .epc-widget-item-default {
     display: flex;
     align-items: center;
   }
-  .ep-widget-item-fullcol {
+  .epc-widget-item-full {
     display: block;
-    .ep-widget-item-label {
+    .epc-widget-item-label {
       display: block;
     }
   }

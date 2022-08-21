@@ -1,14 +1,14 @@
-.ep-widget-item {
+.epc-widget-item {
   transition: 0.3s ease background-color, 0.3s ease border-color;
   position: relative;
   user-select: none;
   &:hover {
     background-color: fade-out(#205dd9, 0.8);
-    .ep-widget-item-name {
+    .epc-widget-item-name {
       display: inline-block;
     }
   }
-  .ep-widget-item-name {
+  .epc-widget-item-name {
     position: absolute;
     top: 0;
     right: 0;
@@ -16,7 +16,7 @@
     display: none;
   }
 }
-.ep-widget-btn {
+.epc-widget-btn {
   position: absolute;
   bottom: -5px;
   z-index: 5;
@@ -31,30 +31,30 @@
   color: #666;
   box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.15);
   border-radius: 3px;
-  &.ep-widget-btn-delete {
+  &.epc-widget-btn-delete {
     cursor: pointer;
     right: 0;
     color: #ea4b23;
   }
-  &.ep-widget-btn-clone {
+  &.epc-widget-btn-clone {
     cursor: pointer;
     right: 34px;
     font-weight: bold;
     color: blue;
   }
-  &.ep-widget-btn-move {
+  &.epc-widget-btn-move {
     cursor: move;
     right: 68px;
     font-weight: bold;
     color: blue;
   }
 }
-.ep-widget-selected {
+.epc-widget-selected {
   background-color: fade-out(#205dd9, 0.8);
   // &:hover {
   //   background-color: fade-out(#205dd9, 0.8);
   // }
-  .ep-widget-btn {
+  .epc-widget-btn {
     display: block;
   }
 }

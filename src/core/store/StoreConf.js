@@ -54,8 +54,7 @@ export default class StoreConf {
           if (!isArray(widgets)) {
             return serialized;
           }
-          // 这里的widgets是传入的总widgets，需要去把内部的widgets循环注册出来，并取出内个schema的name
-          console.log(widgets,'------------------------------');
+          // 这里的widgets是传入的总widgets，需要去把内部的widgets循环注册出来，并取出每个schema的name
           widgets.forEach((item) => {
             if (!isArray(item.widgets)) {
               return;

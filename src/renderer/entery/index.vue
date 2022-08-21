@@ -1,47 +1,11 @@
 <template>
-  <div class="ep-render-container">
-    <!-- <vue-drag
-      handle=".ep-widget-btn-move"
-      draggable=".ep-widget-item"
-      ghost-class="ep-widget-ghost"
-      v-bind="{ group: { name: 'g1' } }"
-      v-model="childrenSchema"
-      :animation="200"
-      item-key="key"
-    >
-    </vue-drag> -->
+  <div class="epc-main-render">
     <div class="vue-drag" ref="vuedrag">
-      <EpWidgetItem
-        v-for="element in childrenSchema"
-        :key="element.key"
-        :schema="element"
-        :flat-widgets="flatWidgets"
-        :flat-schemas="flatSchemas"
-        :selected-schema="selectedSchema"
-        :root-schema="rootSchema"
-        @on-select="onWidgetSelect"
-        @on-delete="onWidgetDelete"
-        @on-copy="onWidgetCopy"
-        @on-add="onWidgetAdd"
-        @on-event="onEvent"
-      ></EpWidgetItem>
-    </div>
-  </div>
-  <!-- <div class="ep-render-container" :style="containerStyle">
-    <Form
-      class="ep-widget-form"
-      ref="epForm"
-      :rules="rules"
-      :model="model"
-      :label-width="rootSchema.label.width"
-      :label-position="rootSchema.label.position"
-      :class="`ep-mode-${mode}`"
-      :style="contentStyle"
-    >
       <template v-if="state.tab !== 'design'">
-        <ep-widget-item
-          v-for="(item, k) in childrenSchema"
-          v-show="!item.hidden"
+        <!-- 这里区分设计和渲染模式的显示，设计模式没有隐藏，隐藏体现在setting里面，所以要分开显示 -->
+        <!-- 这里考虑使用计算属性过滤一遍 -->
+        <EpcWidgetItem
+          v-for="item in childrenSchema"
           :key="item.key"
           :schema="item"
           :flat-widgets="flatWidgets"
@@ -51,113 +15,102 @@
           @on-event="onEvent"
           @on-dynamic-add="onDynamicAdd"
           @on-dynamic-remove="onDynamicRemove"
-        ></ep-widget-item>
+        ></EpcWidgetItem>
       </template>
-      <vue-drag
-        v-else="v-else"
-        handle=".ep-widget-item-handle"
-        draggable=".ep-widget-item"
-        ghost-class="ep-widget-ghost"
-        v-bind="{ group: { name: 'g1' } }"
-        :list="childrenSchema"
-        :disabled="state.tab !== 'design'"
-        :animation="200"
-      >
-        <transition-group>
-          <ep-widget-item
-            v-for="(item, k) in childrenSchema"
-            :key="item.key"
-            :schema="item"
-            :flat-widgets="flatWidgets"
-            :flat-schemas="flatSchemas"
-            :selected-schema="selectedSchema"
-            :root-schema="rootSchema"
-            @on-select="onWidgetSelect"
-            @on-delete="onWidgetDelete"
-            @on-copy="onWidgetCopy"
-            @on-add="onWidgetAdd"
-            @on-event="onEvent"
-          ></ep-widget-item>
-        </transition-group>
-      </vue-drag>
-    </Form>
-  </div> -->
+      <template v-else>
+        <!-- 这里区分设计和渲染模式的显示，设计模式没有隐藏，隐藏体现在setting里面，所以要分开显示 -->
+        <EpcWidgetItem
+          v-for="element in childrenSchema"
+          :key="element.key"
+          :schema="element"
+          :flat-widgets="flatWidgets"
+          :flat-schemas="flatSchemas"
+          :selected-schema="selectedSchema"
+          :root-schema="rootSchema"
+          @on-select="onWidgetSelect"
+          @on-delete="onWidgetDelete"
+          @on-copy="onWidgetCopy"
+          @on-add="onWidgetAdd"
+          @on-event="onEvent"
+        ></EpcWidgetItem>
+      </template>
+    </div>
+  </div>
 </template>
 
 <script>
-import { defineComponent, markRaw } from "vue";
+import { defineComponent } from 'vue'
 // import vueDrag from "vuedraggable-es"; vue版本兼容问题，改为直接用sortable
-import EpWidgetItem from "./item";
-import Sortable from "sortablejs";
-import { helper } from "../../core";
+import EpcWidgetItem from './item'
+import Sortable from 'sortablejs'
+import { helper } from '../../core'
 export default defineComponent({
-  components: { EpWidgetItem },
+  components: { EpcWidgetItem },
   data() {
-    return {
-      // childrenSchema: [
-      //   { id: 1, label: "2222", name: "啊啊啊啊" },
-      //   { id: 2, label: "3333", name: "噢噢噢噢" },
-      // ],
-    };
+    return {}
   },
   computed: {
     childrenSchema() {
-      const { store } = this.$root.$options.extension;
-      return helper.getRootSchemaChildren(store.getRootSchema()) || [];
+      const { store } = this.$root.$options.extension
+      console.log(store, 'storestorestorestore')
+      return helper.getRootSchemaChildren(store.getRootSchema()) || []
     },
     store() {
-      return this.$root.$options.extension.store;
+      return this.$root.$options.extension.store
     },
     $$store() {
-      return this.$root.$options.extension.store.$$store;
+      return this.$root.$options.extension.store.$$store
     },
     state() {
-      return this.$$store.state;
+      return this.$$store.state
     },
     flatWidgets() {
-      return this.store.getFlatWidgets();
+      return this.store.getFlatWidgets()
     },
     selectedSchema() {
-      return this.store.getSelectedSchema();
+      return this.store.getSelectedSchema()
+    },
+    rootSchema() {
+      return this.store.getRootSchema()
+    },
+    flatSchemas() {
+      return this.store.getFlatSchemas()
     },
   },
   mounted() {
-    const { mode } = this.$root.$options.extension;
+    const { mode } = this.$root.$options.extension
     // if (mode) {
     //   this.mode = mode
     //   this.changeMode(mode)
     // }
     const sortable = new Sortable(this.$refs.vuedrag, {
-      handle: ".ep-widget-btn-move",
-      draggable: ".ep-widget-item",
-      ghostClass: "ep-widget-ghost",
+      handle: '.epc-widget-btn-move',
+      draggable: '.epc-widget-item',
+      ghostClass: 'epc-widget-ghost',
       sort: true,
       animation: 150,
-      easing: "cubic-bezier(1, 0, 0, 1)",
-    });
+      easing: 'cubic-bezier(1, 0, 0, 1)',
+    })
   },
   methods: {
-    showElement() {
-      console.log(this.childrenSchema, this.flatWidgets);
-    },
     onWidgetSelect(currentSchema) {
-      const { tab, selectedSchema } = this.store.getState();
+      const { tab, selectedSchema } = this.store.getState()
       if (
-        tab === "design" &&
+        tab === 'design' &&
         selectedSchema &&
         selectedSchema.key !== currentSchema.key
       ) {
-        this.store.selectWidget(currentSchema.key);
-        this.$emit("on-select", currentSchema);
+        this.store.selectWidget(currentSchema.key)
+        this.$emit('on-select', currentSchema)
       }
     },
     onWidgetDelete(selectedSchema) {
-      this.store.removeWidget(selectedSchema.key);
-      this.$emit("on-delete", selectedSchema);
+      this.store.removeWidget(selectedSchema.key)
+      this.$emit('on-delete', selectedSchema)
     },
     onWidgetCopy(selectedSchema) {
-      this.store.copyWidget(selectedSchema.key);
-      this.$emit("on-copy", selectedSchema);
+      this.store.copyWidget(selectedSchema.key)
+      this.$emit('on-copy', selectedSchema)
     },
 
     onWidgetAdd(schema) {
@@ -165,9 +118,18 @@ export default defineComponent({
         schema.key,
         schema.children.length,
         schema.children[0]
-      );
-      this.$emit("on-add", schema);
+      )
+      this.$emit('on-add', schema)
     },
+    onEvent() {
+      console.log('event')
+    },
+    onDynamicAdd() {
+      console.log('动态数据')
+    },
+    onDynamicRemove(){
+      console.log('移出动态数据');
+    }
   },
-});
+})
 </script>

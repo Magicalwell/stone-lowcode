@@ -68,6 +68,7 @@ export default defineComponent({
   },
   data() {
     return {
+      activeKey:0,
       markRaw,
       filterSettings: [],
       defaultSettings: [...globalDefaultSettings],

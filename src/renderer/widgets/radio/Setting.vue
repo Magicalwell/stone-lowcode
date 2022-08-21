@@ -1,5 +1,5 @@
 <template>
-  <SettingForm :store="store" :orders="order" :key-list="keyList"></SettingForm>
+  <SettingForm :store="store" :key-list="keyList"></SettingForm>
 </template>
 <script>
 import settingExtend from "../../extends/setting";

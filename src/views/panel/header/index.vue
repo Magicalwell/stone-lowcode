@@ -61,12 +61,12 @@
         v-else
         :style="(header.right || {}).style || ''"
       >
-        <Button
+        <!-- <Button
           class="epc-main-right-item"
           size="small"
           type="ghost"
           @click="onShowLogic"
-          >logic</Button
+          >事件</Button
         >
         <Button
           class="epc-main-right-item"
@@ -74,7 +74,7 @@
           type="ghost"
           @click="onShowSchema"
           >schema</Button
-        >
+        > -->
         <Button
           class="epc-main-right-item"
           size="small"

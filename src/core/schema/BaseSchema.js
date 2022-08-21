@@ -15,17 +15,13 @@ const IGNORE_PROP_LIST = ['list']
 export default class BaseSchema {
   constructor (props) {
     const { schema } = props || {}
-    // globally unique
     this.key = randomStr()
-    // widget type
     this.widget = ''
-    // should be hidden
     this.hidden = false
-    // extra options for this schema
     this.option = {}
     this.style = {}
-    // create schema instance from schema object
     this.create(props)
+    // 检测是否是new出来的
     if (!this.widget) {
       this.widget = new.target
         ? new.target.widget

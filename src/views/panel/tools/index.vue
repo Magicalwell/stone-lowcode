@@ -3,7 +3,7 @@
     v-model:activeKey="activeKey"
     tab-position="left"
     @tabScroll="callback"
-    class="ep-toolbar"
+    class="epc-toolbar"
   >
     <TabPane v-for="i in toolData" :key="i.id">
       <template #tab>
@@ -44,6 +44,7 @@ export default defineComponent({
     CaretLeftOutlined,
     AppstoreOutlined,
   },
+  emits:['on-add'],
   props: {
     widgets: {
       type: Array,
@@ -58,16 +59,24 @@ export default defineComponent({
         { id: "outline", label: "文档树", component: "" },
         { id: "code", label: "代码", component: "" },
       ],
+      activeKey:'components'
     };
   },
-  methods: {},
+  methods: {
+    switchBar(){
+      console.log('伸缩');
+    },
+    callback(){
+      console.log('nothing');
+    }
+  },
   mounted() {
     console.log(this.widgets);
   },
 });
 </script>
 <style lang="scss" scoped>
-.ep-toolbar {
+.epc-toolbar {
   height: 100%;
   ::v-deep(.ant-tabs-content) {
     .ant-tabs-tabpane {

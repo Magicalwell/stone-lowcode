@@ -3,6 +3,7 @@
     :model="store"
     :label-col="{ style: { width: '100px' } }"
     @click="show"
+    class="epc-setting-default-style"
   >
     <a-form-item label="唯一标识key:" v-if="keyList.includes('key')">
       <a-input :disabled="true" v-model:value="selectedSchema.key" />
@@ -13,50 +14,33 @@
     <a-form-item label="标题:" v-if="keyList.includes('label')">
       <a-input v-model:value="selectedSchema.label" />
     </a-form-item>
-    <!-- <a-form-item label="Resources">
-      <a-radio-group v-model:value="formState.resource">
-        <a-radio value="1">Sponsor</a-radio>
-        <a-radio value="2">Venue</a-radio>
-      </a-radio-group>
-    </a-form-item>
-    <a-form-item label="Activity form">
-      <a-input v-model:value="formState.desc" type="textarea" />
-    </a-form-item>
-    <a-form-item :wrapper-col="{ span: 14, offset: 4 }">
-      <a-button type="primary" @click="onSubmit">Create</a-button>
-      <a-button style="margin-left: 10px">Cancel</a-button>
-    </a-form-item> -->
   </a-form>
-  <EpWidgetRule />
 </template>
 <script>
 import EpWidgetRule from "./rule.vue";
-import { Form, FormItem, Radio, RadioGroup, Input } from "ant-design-vue";
+import { Form, FormItem, Input } from "ant-design-vue";
 export default {
   components: {
-    EpWidgetRule,
     AForm: Form,
     AFormItem: FormItem,
-    // ARadio: Radio,
-    // ARadioGroup: RadioGroup,
     AInput: Input,
   },
   props: {
-    orders: {
-      type: Array,
-      default: () => [
-        { key: "key" },
-        { key: "name" },
-        { key: "label" },
-        { key: "placeholder" },
-        { key: "description" },
-        { key: "help" },
-        { key: "hidden" },
-        { key: "disabled" },
-        { key: "dynamic" },
-        { key: "rule" },
-      ],
-    },
+    // orders: {
+    //   type: Array,
+    //   default: () => [
+    //     { key: "key" },
+    //     { key: "name" },
+    //     { key: "label" },
+    //     { key: "placeholder" },
+    //     { key: "description" },
+    //     { key: "help" },
+    //     { key: "hidden" },
+    //     { key: "disabled" },
+    //     { key: "dynamic" },
+    //     { key: "rule" },
+    //   ],
+    // },
     store: {
       type: Object,
       default: () => ({

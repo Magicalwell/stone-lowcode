@@ -8,6 +8,7 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "@ckpack/vue-color": "^1.2.0",
     "ant-design-vue": "^3.2.11",
     "sortablejs": "^1.15.0",
     "terser-webpack-plugin": "^5.3.5",

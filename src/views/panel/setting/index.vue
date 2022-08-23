@@ -5,7 +5,12 @@
       :tab="item.name"
       v-for="(item, index) in widgetSettings"
     >
-      <component :is="item.component" :store="store"></component>
+      <component
+        :is="item.component"
+        :store="store"
+        :schema="selectedSchema"
+        :root="item.key === 'global'"
+      ></component>
     </TabPane>
   </Tabs>
   <!-- <ep-tabs :value="tab" :tabs="widgetSettings" @on-click="onChangeTab">
@@ -33,21 +38,20 @@ import { defineComponent, markRaw } from "vue";
 import { helper } from "../../../core";
 import { Tabs, TabPane } from "ant-design-vue";
 import EpStyleSetting from "./style.vue";
+import PageSetting from "./page.vue";
 
 const { isArray, isFunction, isPlainObject, isString } = helper;
 // 预设的菜单
 const globalDefaultSettings = [
   {
     key: "style",
-    name: "样式",
-    framework: "vue",
+    name: "外观",
     component: markRaw(EpStyleSetting),
   },
   {
     key: "global",
     name: "页面",
-    framework: "vue",
-    // component: FormSetting,
+    component: markRaw(PageSetting),
   },
 ];
 export default defineComponent({
@@ -68,7 +72,7 @@ export default defineComponent({
   },
   data() {
     return {
-      activeKey:0,
+      activeKey: 0,
       markRaw,
       filterSettings: [],
       defaultSettings: [...globalDefaultSettings],
@@ -81,15 +85,20 @@ export default defineComponent({
     settingWidget() {
       return this.store.getSettingWidget(); // 获取实例上之前挂载的setting
     },
+    stylesWidget() {
+      return this.store.getStylesWidget(); // 获取实例上之前挂载的style  考虑样式是单个页面还是一起
+    },
     isSelected() {
       return this.store.isSelected();
     },
     selectedSchema() {
+      console.log("change");
       return this.store.getSelectedSchema();
     },
   },
   watch: {
     selectedSchema() {
+      console.log(this.stylesWidget, "gogogogogogogo");
       // 监听计算属性返回的被选中的seting
       this.selectedSettings();
     },
@@ -99,6 +108,7 @@ export default defineComponent({
   },
   methods: {
     selectedSettings() {
+      // 合并默认的setting和选中的setting
       const defaultSettings = [...globalDefaultSettings];
       const globalSettings = [...this.settings];
       let settings = [];
@@ -119,7 +129,6 @@ export default defineComponent({
         settings.unshift({
           key: "prop",
           name: "属性",
-          framework: "vue",
           component: markRaw(this.settingWidget),
         });
       }

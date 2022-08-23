@@ -1,5 +1,6 @@
 <template>
-  <div class="epc-main-render">
+  <div class="epc-main-render" :style="rootStyles">
+    <h3 :style="titleStyle" v-if="rootSchema.title">{{ rootSchema.title }}</h3>
     <div class="vue-drag" ref="vuedrag">
       <template v-if="state.tab !== 'design'">
         <!-- 这里区分设计和渲染模式的显示，设计模式没有隐藏，隐藏体现在setting里面，所以要分开显示 -->
@@ -39,78 +40,95 @@
 </template>
 
 <script>
-import { defineComponent } from 'vue'
+import { defineComponent } from "vue";
 // import vueDrag from "vuedraggable-es"; vue版本兼容问题，改为直接用sortable
-import EpcWidgetItem from './item'
-import Sortable from 'sortablejs'
-import { helper } from '../../core'
+import EpcWidgetItem from "./item";
+import Sortable from "sortablejs";
+import { helper } from "../../core";
 export default defineComponent({
   components: { EpcWidgetItem },
   data() {
-    return {}
+    return {};
   },
   computed: {
     childrenSchema() {
-      const { store } = this.$root.$options.extension
-      console.log(store, 'storestorestorestore')
-      return helper.getRootSchemaChildren(store.getRootSchema()) || []
+      const { store } = this.$root.$options.extension;
+      console.log(store, "storestorestorestore");
+      return helper.getRootSchemaChildren(store.getRootSchema()) || [];
     },
     store() {
-      return this.$root.$options.extension.store
+      return this.$root.$options.extension.store;
     },
     $$store() {
-      return this.$root.$options.extension.store.$$store
+      return this.$root.$options.extension.store.$$store;
     },
     state() {
-      return this.$$store.state
+      return this.$$store.state;
     },
     flatWidgets() {
-      return this.store.getFlatWidgets()
+      return this.store.getFlatWidgets();
     },
     selectedSchema() {
-      return this.store.getSelectedSchema()
+      return this.store.getSelectedSchema();
     },
     rootSchema() {
-      return this.store.getRootSchema()
+      return this.store.getRootSchema();
     },
     flatSchemas() {
-      return this.store.getFlatSchemas()
+      return this.store.getFlatSchemas();
+    },
+    rootStyles() {
+      const rootStyle = this.store.getRootSchema().style || {};
+      const style = Object.keys(rootStyle)
+        .map((attr) => {
+          if (typeof rootStyle[attr] === "object") return "";
+          return `${attr}:${rootStyle[attr]};`;
+        })
+        .join("");
+
+      return style;
+    },
+    titleStyle() {
+      const rootStyle = this.store.getRootSchema().style || {};
+      const titleStyle = rootStyle.title || {};
+      return titleStyle;
     },
   },
   mounted() {
-    const { mode } = this.$root.$options.extension
+    const { mode } = this.$root.$options.extension;
     // if (mode) {
     //   this.mode = mode
     //   this.changeMode(mode)
     // }
     const sortable = new Sortable(this.$refs.vuedrag, {
-      handle: '.epc-widget-btn-move',
-      draggable: '.epc-widget-item',
-      ghostClass: 'epc-widget-ghost',
+      handle: ".epc-widget-btn-move",
+      draggable: ".epc-widget-item",
+      ghostClass: "epc-widget-ghost",
       sort: true,
       animation: 150,
-      easing: 'cubic-bezier(1, 0, 0, 1)',
-    })
+      easing: "cubic-bezier(1, 0, 0, 1)",
+    });
+    console.log(this.rootSchema, "rootSchemarootSchemarootSchema");
   },
   methods: {
     onWidgetSelect(currentSchema) {
-      const { tab, selectedSchema } = this.store.getState()
+      const { tab, selectedSchema } = this.store.getState();
       if (
-        tab === 'design' &&
+        tab === "design" &&
         selectedSchema &&
         selectedSchema.key !== currentSchema.key
       ) {
-        this.store.selectWidget(currentSchema.key)
-        this.$emit('on-select', currentSchema)
+        this.store.selectWidget(currentSchema.key);
+        this.$emit("on-select", currentSchema);
       }
     },
     onWidgetDelete(selectedSchema) {
-      this.store.removeWidget(selectedSchema.key)
-      this.$emit('on-delete', selectedSchema)
+      this.store.removeWidget(selectedSchema.key);
+      this.$emit("on-delete", selectedSchema);
     },
     onWidgetCopy(selectedSchema) {
-      this.store.copyWidget(selectedSchema.key)
-      this.$emit('on-copy', selectedSchema)
+      this.store.copyWidget(selectedSchema.key);
+      this.$emit("on-copy", selectedSchema);
     },
 
     onWidgetAdd(schema) {
@@ -118,18 +136,18 @@ export default defineComponent({
         schema.key,
         schema.children.length,
         schema.children[0]
-      )
-      this.$emit('on-add', schema)
+      );
+      this.$emit("on-add", schema);
     },
     onEvent() {
-      console.log('event')
+      console.log("event");
     },
     onDynamicAdd() {
-      console.log('动态数据')
+      console.log("动态数据");
     },
-    onDynamicRemove(){
-      console.log('移出动态数据');
-    }
+    onDynamicRemove() {
+      console.log("移出动态数据");
+    },
   },
-})
+});
 </script>

@@ -7,7 +7,7 @@ import Schema from "./base/grid/Schema";
 export default class RootSchema extends Schema {
   constructor(props) {
     super();
-    this.title = "";
+    this.title = "这是一个新的页面";
     this.description = "";
     this.size = "default";
     this.container = true;
@@ -35,6 +35,11 @@ export default class RootSchema extends Schema {
         "background-color": "",
         background: [],
       },
+      title: {
+        padding: "10px",
+        "border-bottom": "1px dashed #aaa",
+      },
+      "font-size": 0,
     };
     this.create(props);
     this.createChildren(props);

@@ -65,6 +65,10 @@ export default class Store {
   getSettingWidget() {
     return this.$$store.getters.settingWidget;
   }
+  // 获取styles的模板
+  getStylesWidget() {
+    return this.$$store.getters.styleWidget;
+  }
   // 是否有选中的widgets
   isSelected() {
     return this.$$store.getters.isSelected;
@@ -126,7 +130,7 @@ export default class Store {
     }
   }
   // 返回被拍平的schema
-  getFlatSchemas () {
-    return this.$$store.state.flatSchemas
+  getFlatSchemas() {
+    return this.$$store.state.flatSchemas;
   }
 }

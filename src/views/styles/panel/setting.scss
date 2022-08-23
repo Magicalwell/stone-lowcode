@@ -1,3 +1,10 @@
-// .ep-setting {
-
-// }
+.epc-setting-default-style {
+  .ant-col.ant-form-item-label {
+    label {
+      font-size: 12px;
+    }
+  }
+  .ant-popover-inner-content {
+    padding: 0;
+  }
+}

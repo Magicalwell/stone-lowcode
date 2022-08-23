@@ -8,18 +8,14 @@
       {{ schema.name }}
     </div>
     <div v-if="tab === 'design'">
-      <div class="epc-widget-btn epc-widget-btn-delete">
-        删除
-      </div>
+      <div class="epc-widget-btn epc-widget-btn-delete">删除</div>
       <div
         class="epc-widget-btn epc-widget-btn-clone"
         @click="onCopyWidget($event, schema)"
       >
         复制
       </div>
-      <div class="epc-widget-btn epc-widget-btn-move">
-        移动
-      </div>
+      <div class="epc-widget-btn epc-widget-btn-move">移动</div>
     </div>
     <!-- 有嵌套的情况下 -->
     <template v-if="schema.container">
@@ -245,11 +241,12 @@
   </div>
 </template>
 <script>
-import { defineComponent, markRaw } from 'vue'
-import { Button, Col, Row } from 'ant-design-vue'
-import vueDrag from './vuedrag.vue'
+import { defineComponent, markRaw } from "vue";
+import { Button, Col, Row } from "ant-design-vue";
+import vueDrag from "./vuedrag.vue";
 export default defineComponent({
-  name: 'EpWidgetItem',
+  inheritAttrs: false,
+  name: "EpWidgetItem",
   components: {
     vueDrag,
     AButton: markRaw(Button),
@@ -264,7 +261,7 @@ export default defineComponent({
     selectedSchema: {
       type: Object,
       default: () => ({
-        key: '',
+        key: "",
       }),
     },
     flatWidgets: {
@@ -275,61 +272,62 @@ export default defineComponent({
   data() {
     return {
       markRaw,
-      value: '',
+      value: "",
       testList: [
-        { id: 1, label: '11111' },
-        { id: 2, label: '22222' },
+        { id: 1, label: "11111" },
+        { id: 2, label: "22222" },
       ],
-    }
+    };
   },
   computed: {
     store() {
-      return this.$root.$options.extension.store
+      return this.$root.$options.extension.store;
     },
     cls() {
       return {
-        'epc-widget-selected': this.schema.key === this.selectedSchema.key,
-        'epc-widget-container': this.schema.container,
+        "epc-widget-selected": this.schema.key === this.selectedSchema.key,
+        "epc-widget-container": this.schema.container,
         // "ep-widget-item-handle": this.tab === "design",
         // "ep-widget-selected": true,
         // "ep-widget-item-handle": true,
-      }
+      };
     },
     tab() {
-      return this.store.getTab()
+      return this.store.getTab();
     },
   },
   created() {
-    console.log(this.flatWidgets, this.schema, '+++++++++++++++++++++++')
+    console.log(this.flatWidgets, this.schema, "+++++++++++++++++++++++");
   },
   methods: {
     getPlaceholderCls() {
       const placeholder =
-        !Object.keys(this.$slots).length && this.tab === 'design'
-      return placeholder ? 'ep-widget-grid-placeholder' : ''
+        !Object.keys(this.$slots).length && this.tab === "design";
+      return placeholder ? "ep-widget-grid-placeholder" : "";
     },
     onEvent(key, eventType, ...args) {
       // this.dispatchEvent(key, eventType);
-      this.$emit('on-event', ...arguments)
+      this.$emit("on-event", ...arguments);
     },
     onOriginViewSelect(e, schema) {
       // 预览模式下，为了级联、下拉框菜单点击空白处收起，需要事件冒泡到document
       // this.store.getTab() === "design" && e.stopPropagation();
-      console.log('click')
-      this.$emit('on-select', schema)
+      console.log("click");
+      console.log(schema);
+      this.$emit("on-select", schema);
     },
     onCopyWidget(e, schema) {
-      e.stopPropagation()
-      this.$emit('on-copy', schema)
+      e.stopPropagation();
+      this.$emit("on-copy", schema);
     },
-    onDynamicAdd(){
-      console.log('动态数据');
-    }
+    onDynamicAdd() {
+      console.log("动态数据");
+    },
   },
-})
+});
 </script>
 
 <style lang="scss" scoped>
-@import '../styles/main.scss';
-@import '../styles/widgets.scss';
+@import "../styles/main.scss";
+@import "../styles/widgets.scss";
 </style>

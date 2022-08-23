@@ -135,7 +135,7 @@
       ]
     }
   ],
-  "title": "测试",
+  "title": "这是一个新的页面",
   "description": "",
   "size": "default",
   "logics": [
@@ -200,7 +200,9 @@
     "background-image": "",
     "background-size": "",
     "background-repeat": "",
-    "background-position": ""
+    "background-position": "",
+    "font-size": "14px",
+    "color": "#000"
   },
   "store": {
     "dicts": [],

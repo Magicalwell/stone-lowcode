@@ -5,16 +5,17 @@ export default class FormSchema extends Schema {
   constructor(props) {
     const { schema, widgets = {} } = props || {};
     super();
-    // form name
     this.name = "";
-    // type of widget value
     this.type = getSchemaType(schema, new.target);
-    // label name
     this.label = "";
     this.description = "";
+    this.labelOptions = {
+      width: "80px",
+      "text-align": "left",
+      visibility: 'visible',
+    };
     this.help = "";
     this.disabled = false;
-    // 校验规则，参考 [async-validator](https://github.com/yiminghe/async-validator)
     this.rules = [
       {
         required: false,

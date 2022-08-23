@@ -77,7 +77,15 @@ export default class StoreConf {
             ? [...widget.Setting]
             : { ...widget.Setting };
         },
+        styleWidget: (state, getters) => {
+          const { widget: widgetName, key } = state.selectedSchema;
+          const widget = getters.flatWidgets[widgetName] || null;
 
+          if (!key || !widget || !widget.Styles) return null;
+          return isArray(widget.Styles)
+            ? [...widget.Styles]
+            : { ...widget.Styles };
+        },
         // widget schema 声明需要哪些规则validator
         widgetsValidators: (state, { flatWidgets }) => {
           const map = {};

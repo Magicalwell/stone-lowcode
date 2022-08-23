@@ -16,7 +16,7 @@
       style="display: block"
       :label-col="{ style: { width: '120px' } }"
     >
-      <Slider @afterChange="test" />
+      <Slider v-model:value="size" @afterChange="test" />
     </FormItem>
     <FormItem
       label="全局默认字体颜色"
@@ -66,7 +66,7 @@ export default defineComponent({
   },
   data() {
     return {
-      size: "small",
+      size: 14,
       popoverSetting: {
         getPopupContainer: () => document.querySelector("#globel_page_setting"),
       },

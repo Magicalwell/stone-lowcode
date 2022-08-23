@@ -34,26 +34,26 @@
 </template>
 
 <script>
-import { defineComponent, markRaw } from "vue";
-import { helper } from "../../../core";
-import { Tabs, TabPane } from "ant-design-vue";
-import EpStyleSetting from "./style.vue";
-import PageSetting from "./page.vue";
+import { defineComponent, markRaw } from 'vue'
+import { helper } from '../../../core'
+import { Tabs, TabPane } from 'ant-design-vue'
+import EpStyleSetting from './style.vue'
+import PageSetting from './page.vue'
 
-const { isArray, isFunction, isPlainObject, isString } = helper;
+const { isArray, isFunction, isPlainObject, isString } = helper
 // 预设的菜单
 const globalDefaultSettings = [
   {
-    key: "style",
-    name: "外观",
-    component: markRaw(EpStyleSetting),
-  },
-  {
-    key: "global",
-    name: "页面",
+    key: 'global',
+    name: '页面',
     component: markRaw(PageSetting),
   },
-];
+]
+const defaultWidgetsSetting = {
+  key: 'style',
+  name: '外观',
+  component: markRaw(EpStyleSetting),
+}
 export default defineComponent({
   components: { Tabs: markRaw(Tabs), TabPane: markRaw(TabPane) },
   props: {
@@ -76,110 +76,110 @@ export default defineComponent({
       markRaw,
       filterSettings: [],
       defaultSettings: [...globalDefaultSettings],
-    };
+    }
   },
   computed: {
     widgetSettings() {
-      return this.isSelected ? this.filterSettings : this.defaultSettings;
+      return this.isSelected ? this.filterSettings : this.defaultSettings
     },
     settingWidget() {
-      return this.store.getSettingWidget(); // 获取实例上之前挂载的setting
+      return this.store.getSettingWidget() // 获取实例上之前挂载的setting
     },
     stylesWidget() {
-      return this.store.getStylesWidget(); // 获取实例上之前挂载的style  考虑样式是单个页面还是一起
+      return this.store.getStylesWidget() // 获取实例上之前挂载的style  考虑样式是单个页面还是一起
     },
     isSelected() {
-      return this.store.isSelected();
+      return this.store.isSelected()
     },
     selectedSchema() {
-      console.log("change");
-      return this.store.getSelectedSchema();
+      console.log('change')
+      return this.store.getSelectedSchema()
     },
   },
   watch: {
     selectedSchema() {
-      console.log(this.stylesWidget, "gogogogogogogo");
+      console.log(this.stylesWidget, 'gogogogogogogo')
       // 监听计算属性返回的被选中的seting
-      this.selectedSettings();
+      this.selectedSettings()
     },
   },
   mounted() {
-    this.selectedSettings();
+    this.selectedSettings()
   },
   methods: {
     selectedSettings() {
       // 合并默认的setting和选中的setting
-      const defaultSettings = [...globalDefaultSettings];
-      const globalSettings = [...this.settings];
-      let settings = [];
+      const defaultSettings = [...globalDefaultSettings]
+      const globalSettings = [...this.settings]
+      let settings = []
       if (isArray(this.settingWidget)) {
-        settings = settings.concat(this.settingWidget);
+        settings = settings.concat(this.settingWidget)
 
         // function ({ el, store }) {}
       } else if (isFunction(this.settingWidget)) {
         settings.unshift({
-          key: "prop",
-          name: "属性",
+          key: 'prop',
+          name: '属性',
           component: markRaw(this.settingWidget),
-        });
+        })
 
         // default vue component
         // { el, data, render, ... }
       } else if (isPlainObject(this.settingWidget)) {
         settings.unshift({
-          key: "prop",
-          name: "属性",
+          key: 'prop',
+          name: '属性',
           component: markRaw(this.settingWidget),
-        });
+        })
       }
-      let result = [];
-      result = [].concat(settings, globalSettings, defaultSettings); // 合并三个菜单
-      result = this.unique(result); // 利用对象去重
+      let result = []
+      result = [].concat(settings, globalSettings, defaultSettings) // 合并三个菜单
+      result = this.unique(result) // 利用对象去重
       if (this.isSelected) {
         // 若被选择了，则
-        this.filterSettings = [...result];
+        this.filterSettings = [...result, defaultWidgetsSetting]
       } else {
-        this.defaultSettings = [...result];
+        this.defaultSettings = [...result]
       }
-      this.renderSettings();
+      this.renderSettings()
     },
     unique(settings = []) {
-      const keys = {};
+      const keys = {}
       return settings.filter((setting) => {
-        if (!setting || !setting.component) return false;
-        if (!setting.key || !isString(setting.key)) return false;
-        if (setting.key in keys) return false;
-        keys[setting.key] = true;
-        return true;
-      });
+        if (!setting || !setting.component) return false
+        if (!setting.key || !isString(setting.key)) return false
+        if (setting.key in keys) return false
+        keys[setting.key] = true
+        return true
+      })
     },
     renderSettings() {
       // 这里因为之前在store上面存的component和setting是一个函数，在这里直接传入el调用即可
       this.$nextTick(() => {
-        const els = this.$refs.settings;
+        const els = this.$refs.settings
         if (
           !els ||
           els.length <= 0 ||
           els.length !== this.widgetSettings.length
         )
-          return;
+          return
 
         this.widgetSettings.forEach((setting, index) => {
-          const el = els[index];
-          const { component } = setting;
+          const el = els[index]
+          const { component } = setting
 
           if (isFunction(component)) {
-            component({ el, store: this.store });
+            component({ el, store: this.store })
           }
-        });
-      });
+        })
+      })
     },
     show() {
-      console.log(this.isSelected, this.widgetSettings);
+      console.log(this.isSelected, this.widgetSettings)
     },
   },
-});
+})
 </script>
 <style lang="scss" scoped>
-@import "../../styles/panel/setting.scss";
+@import '../../styles/panel/setting.scss';
 </style>

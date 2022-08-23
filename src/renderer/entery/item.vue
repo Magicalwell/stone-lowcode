@@ -59,33 +59,31 @@
                 :list="item.list"
                 :animation="200"
               >
-                <transition-group mode="fade">
-                  <div
-                    class="ep-widget-item"
-                    v-if="item.list.length === 0"
-                    key="placeholder"
-                    :class="getPlaceholderCls()"
-                  ></div>
-                  <template v-else>
-                    <ep-widget-item
-                      v-for="child in item.list"
-                      :key="child.key"
-                      :schema="child"
-                      :flat-widgets="flatWidgets"
-                      :flat-schemas="flatSchemas"
-                      :selected-schema="selectedSchema"
-                      :root-schema="rootSchema"
-                      :class="{
-                        'ep-widget-selected': child.key === selectedSchema.key,
-                      }"
-                      @on-select="onViewSelect"
-                      @on-delete="onViewDelete"
-                      @on-copy="onViewCopy"
-                      @on-add="onViewAdd"
-                      @on-event="onEvent"
-                    ></ep-widget-item>
-                  </template>
-                </transition-group>
+                <div
+                  class="ep-widget-item"
+                  v-if="item.list.length === 0"
+                  key="placeholder"
+                  :class="getPlaceholderCls()"
+                ></div>
+                <template v-else>
+                  <ep-widget-item
+                    v-for="child in item.list"
+                    :key="child.key"
+                    :schema="child"
+                    :flat-widgets="flatWidgets"
+                    :flat-schemas="flatSchemas"
+                    :selected-schema="selectedSchema"
+                    :root-schema="rootSchema"
+                    :class="{
+                      'ep-widget-selected': child.key === selectedSchema.key,
+                    }"
+                    @on-select="onViewSelect"
+                    @on-delete="onViewDelete"
+                    @on-copy="onViewCopy"
+                    @on-add="onViewAdd"
+                    @on-event="onEvent"
+                  ></ep-widget-item>
+                </template>
               </vue-drag>
             </template>
           </Col>
@@ -113,9 +111,7 @@
                 :span="item.span"
                 :offset="item.offset"
               >
-                <template
-                  v-if='Array.isArray(item.list) &amp;&amp; tab !== "design"'
-                >
+                <template v-if="Array.isArray(item.list) && tab !== 'design'">
                   <ep-widget-item
                     v-for="child in item.list"
                     :key="child.key"
@@ -145,7 +141,6 @@
           v-show="schema.dynamic"
           type="dashed"
           style="margin-top: 5px"
-          :size="schema.size || rootSchema.size"
           @click="onOriginDynamicAdd($event, schema)"
           >添加</AButton
         >
@@ -159,9 +154,15 @@
         :label="schema.label"
         :prop="schema.key"
       >
-        <span v-if="schema.label" class="epc-widget-item-label">{{
-          schema.label
-        }}</span>
+        <span
+          v-if="schema.label && !schema.labelOptions.hidden"
+          class="epc-widget-item-label"
+          :style="{
+            'text-align': schema.labelOptions['text-align'] || '',
+            width: schema.labelOptions.width,
+          }"
+          >{{ schema.label }}</span
+        >
         <!-- 这个地方的component把实例转成了响应式对象 需要优化 -->
         <component
           class="ep-widget-instance"
@@ -172,11 +173,7 @@
         <div class="epc-widget-description" v-if="schema.description">
           {{ schema.description }}
         </div>
-        <AButton
-          v-if="schema.dynamic"
-          style="margin-top: 5px"
-          :size="schema.size || rootSchema.size"
-          type="dashed"
+        <AButton v-if="schema.dynamic" style="margin-top: 5px" type="dashed"
           >添加</AButton
         >
       </div>
@@ -189,7 +186,6 @@
         >
           <AButton
             style="margin-top: 5px"
-            :size="schema.size || rootSchema.size"
             type="dashed"
             @click="onOriginDynamicAdd($event, schema)"
             >添加</AButton
@@ -231,7 +227,6 @@
           <AButton
             type="dashed"
             style="margin-top: 5px"
-            :size="schema.size || rootSchema.size"
             @click="onOriginDynamicAdd($event, schema)"
             >添加</AButton
           >
@@ -241,12 +236,12 @@
   </div>
 </template>
 <script>
-import { defineComponent, markRaw } from "vue";
-import { Button, Col, Row } from "ant-design-vue";
-import vueDrag from "./vuedrag.vue";
+import { defineComponent, markRaw } from 'vue'
+import { Button, Col, Row } from 'ant-design-vue'
+import vueDrag from './vuedrag.vue'
 export default defineComponent({
   inheritAttrs: false,
-  name: "EpWidgetItem",
+  name: 'EpWidgetItem',
   components: {
     vueDrag,
     AButton: markRaw(Button),
@@ -261,7 +256,7 @@ export default defineComponent({
     selectedSchema: {
       type: Object,
       default: () => ({
-        key: "",
+        key: '',
       }),
     },
     flatWidgets: {
@@ -272,62 +267,62 @@ export default defineComponent({
   data() {
     return {
       markRaw,
-      value: "",
+      value: '',
       testList: [
-        { id: 1, label: "11111" },
-        { id: 2, label: "22222" },
+        { id: 1, label: '11111' },
+        { id: 2, label: '22222' },
       ],
-    };
+    }
   },
   computed: {
     store() {
-      return this.$root.$options.extension.store;
+      return this.$root.$options.extension.store
     },
     cls() {
       return {
-        "epc-widget-selected": this.schema.key === this.selectedSchema.key,
-        "epc-widget-container": this.schema.container,
+        'epc-widget-selected': this.schema.key === this.selectedSchema.key,
+        'epc-widget-container': this.schema.container,
         // "ep-widget-item-handle": this.tab === "design",
         // "ep-widget-selected": true,
         // "ep-widget-item-handle": true,
-      };
+      }
     },
     tab() {
-      return this.store.getTab();
+      return this.store.getTab()
     },
   },
   created() {
-    console.log(this.flatWidgets, this.schema, "+++++++++++++++++++++++");
+    console.log(this.flatWidgets, this.schema, '+++++++++++++++++++++++')
   },
   methods: {
     getPlaceholderCls() {
       const placeholder =
-        !Object.keys(this.$slots).length && this.tab === "design";
-      return placeholder ? "ep-widget-grid-placeholder" : "";
+        !Object.keys(this.$slots).length && this.tab === 'design'
+      return placeholder ? 'epc-widget-grid-placeholder' : ''
     },
     onEvent(key, eventType, ...args) {
       // this.dispatchEvent(key, eventType);
-      this.$emit("on-event", ...arguments);
+      this.$emit('on-event', ...arguments)
     },
     onOriginViewSelect(e, schema) {
       // 预览模式下，为了级联、下拉框菜单点击空白处收起，需要事件冒泡到document
       // this.store.getTab() === "design" && e.stopPropagation();
-      console.log("click");
-      console.log(schema);
-      this.$emit("on-select", schema);
+      console.log('click')
+      console.log(schema)
+      this.$emit('on-select', schema)
     },
     onCopyWidget(e, schema) {
-      e.stopPropagation();
-      this.$emit("on-copy", schema);
+      e.stopPropagation()
+      this.$emit('on-copy', schema)
     },
     onDynamicAdd() {
-      console.log("动态数据");
+      console.log('动态数据')
     },
   },
-});
+})
 </script>
 
 <style lang="scss" scoped>
-@import "../styles/main.scss";
-@import "../styles/widgets.scss";
+@import '../styles/main.scss';
+@import '../styles/widgets.scss';
 </style>

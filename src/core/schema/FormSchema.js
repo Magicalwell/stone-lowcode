@@ -12,7 +12,7 @@ export default class FormSchema extends Schema {
     this.labelOptions = {
       width: "80px",
       "text-align": "left",
-      visibility: 'visible',
+      hidden: false,
     };
     this.help = "";
     this.disabled = false;

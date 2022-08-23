@@ -107,6 +107,7 @@ export default defineComponent({
       sort: true,
       animation: 150,
       easing: "cubic-bezier(1, 0, 0, 1)",
+      group:{name:'g1'}
     });
     console.log(this.rootSchema, "rootSchemarootSchemarootSchema");
   },

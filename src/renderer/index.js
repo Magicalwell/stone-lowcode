@@ -18,9 +18,9 @@ import radioWidget from "./widgets/radio";
 // export const uploadWidget = require("./widgets/upload");
 // export const lineWidget = require("./widgets/line");
 // // export const tableWidget = require('./widgets/table')
-// export const gridWidget = require("./widgets/grid");
+import gridWidget from "./widgets/grid"
 // export const buttonWidget = require("./widgets/button");
-export { inputWidget, radioWidget };
+export { inputWidget, radioWidget, gridWidget };
 export default [
   {
     title: "表单",
@@ -51,9 +51,9 @@ export default [
   //     lineWidget,
   //   ],
   // },
-  // {
-  //   title: "布局",
-  //   key: "layout",
-  //   widgets: [gridWidget],
-  // },
+  {
+    title: "布局容器",
+    key: "layout",
+    widgets: [gridWidget],
+  },
 ];

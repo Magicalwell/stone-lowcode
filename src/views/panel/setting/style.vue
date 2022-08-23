@@ -5,14 +5,14 @@
     class="epc-setting-default-style"
   >
     <FormItem label="布局">
-      <RadioGroup v-model:value="value1" button-style="solid" size="small">
+      <RadioGroup v-model:value="getLabelStyle['text-align']" button-style="solid" size="small">
         <RadioButton value="a">内联</RadioButton>
         <RadioButton value="a">水平</RadioButton>
         <RadioButton value="a">垂直</RadioButton>
       </RadioGroup>
     </FormItem>
     <FormItem label="隐藏标题">
-      <Switch v-model:checked="getLabelStyle.visibility" />
+      <Switch v-model:checked="getLabelStyle.hidden" />
     </FormItem>
     <FormItem label="标题对齐方式">
       <RadioGroup

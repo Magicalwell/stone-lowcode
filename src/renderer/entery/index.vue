@@ -1,5 +1,5 @@
 <template>
-  <div class="epc-main-render" :style="rootStyles">
+  <div class="epc-main-render" :style="rootStyles" @click="checkdata">
     <h3 :style="titleStyle" v-if="rootSchema.title">{{ rootSchema.title }}</h3>
     <div class="vue-drag" ref="vuedrag">
       <template v-if="state.tab !== 'design'">
@@ -42,6 +42,7 @@
 <script>
 import { defineComponent } from "vue";
 // import vueDrag from "vuedraggable-es"; vue版本兼容问题，改为直接用sortable
+import vueDrag from "vuedraggable"; // vue3版本可用
 import EpcWidgetItem from "./item";
 import Sortable from "sortablejs";
 import { helper } from "../../core";
@@ -53,7 +54,6 @@ export default defineComponent({
   computed: {
     childrenSchema() {
       const { store } = this.$root.$options.extension;
-      console.log(store, "storestorestorestore");
       return helper.getRootSchemaChildren(store.getRootSchema()) || [];
     },
     store() {
@@ -69,6 +69,10 @@ export default defineComponent({
       return this.store.getFlatWidgets();
     },
     selectedSchema() {
+      console.log(
+        this.store.getSelectedSchema(),
+        "---------------------------"
+      );
       return this.store.getSelectedSchema();
     },
     rootSchema() {
@@ -107,7 +111,22 @@ export default defineComponent({
       sort: true,
       animation: 150,
       easing: "cubic-bezier(1, 0, 0, 1)",
-      group:{name:'g1'}
+      group: { name: "g1" },
+      list: this.childrenSchema,
+      // onEnd: ({ to, from, oldIndex, newIndex }) => {
+      //   console.log(this.childrenSchema);
+      //   this.childrenSchema.splice(
+      //     newIndex,
+      //     0,
+      //     this.childrenSchema.splice(oldIndex, 1)[0]
+      //   );
+      // },
+      setData: function (dataTransfer, dragEl) {
+        dataTransfer.setData("Text", dragEl.textContent); // `dataTransfer` object of HTML5 DragEvent
+      },
+      onRemove: () => {
+        console.log("remove");
+      },
     });
     console.log(this.rootSchema, "rootSchemarootSchemarootSchema");
   },
@@ -148,6 +167,9 @@ export default defineComponent({
     },
     onDynamicRemove() {
       console.log("移出动态数据");
+    },
+    checkdata() {
+      console.log(this.childrenSchema);
     },
   },
 });

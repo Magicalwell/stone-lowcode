@@ -26,7 +26,6 @@
   line-height: 20px;
   text-align: center;
   font-size: 12px;
-
   background-color: rgba(255, 255, 255, 0.9);
   color: #666;
   box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.15);
@@ -51,14 +50,15 @@
 }
 .epc-widget-selected {
   background-color: fade-out(#205dd9, 0.8);
-  // &:hover {
-  //   background-color: fade-out(#205dd9, 0.8);
-  // }
-  .epc-widget-btn {
+  > .epc-widget-btn-box > .epc-widget-btn {
     display: block;
   }
 }
-.epc-widget-grid-placeholder{
+.epc-widget-grid-placeholder {
   height: 32px;
-  padding: 8px 0;
+  background: rgba(10, 19, 37, 0.05);
+  border: 1px dashed #ced0d3;
+  text-align: center;
+  line-height: 32px;
+  padding: 0;
 }

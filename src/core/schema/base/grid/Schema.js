@@ -21,7 +21,7 @@ export default class GridSchema extends BaseSchema {
     // this.group = false
     this.children = getDefaultChildren()
     this.option = {
-      gutter: 0,
+      gutter: 12,
       align: 'top',
       justify: 'start'
     }

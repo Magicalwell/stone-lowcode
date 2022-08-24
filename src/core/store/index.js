@@ -133,4 +133,7 @@ export default class Store {
   getFlatSchemas() {
     return this.$$store.state.flatSchemas;
   }
+  setDragSchemaData() {
+    // 这里考虑用发布订阅或观察者模式 最次就是挂载到store上
+  }
 }

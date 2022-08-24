@@ -44,7 +44,7 @@ export default defineComponent({
     CaretLeftOutlined,
     AppstoreOutlined,
   },
-  emits:['on-add'],
+  emits: ["on-add"],
   props: {
     widgets: {
       type: Array,
@@ -59,16 +59,16 @@ export default defineComponent({
         { id: "outline", label: "文档树", component: "" },
         { id: "code", label: "代码", component: "" },
       ],
-      activeKey:'components'
+      activeKey: "components",
     };
   },
   methods: {
-    switchBar(){
-      console.log('伸缩');
+    switchBar() {
+      console.log("伸缩");
     },
-    callback(){
-      console.log('nothing');
-    }
+    callback() {
+      console.log("nothing");
+    },
   },
   mounted() {
     console.log(this.widgets);

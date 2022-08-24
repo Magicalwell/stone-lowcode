@@ -6,7 +6,6 @@ export default {
   },
   [types.$WIDGET_SELECT](state, { key }) {
     const schema = state.flatSchemas[key];
-    console.log(schema);
     const isSameWidget = state.selectedSchema.key === key;
     if (state.tab !== "design" || isSameWidget || !schema) {
       return;

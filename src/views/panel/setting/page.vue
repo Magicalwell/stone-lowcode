@@ -22,9 +22,12 @@
       label="全局默认字体颜色"
       :label-col="{ style: { width: '120px' } }"
     >
-      <Popover trigger="click" v-bind="popoverSetting">
+      <ColorPicker
+        v-model:pureColor="rootSchema.style['color']"
+        pickerType="fk"
+      ></ColorPicker>
+      <!-- <Popover trigger="click" v-bind="popoverSetting">
         <template #content>
-          <Sketch v-model="rootSchema.style['color']" />
         </template>
         <div
           :style="{
@@ -34,7 +37,7 @@
             'border-radius': '12px',
           }"
         ></div>
-      </Popover>
+      </Popover> -->
     </FormItem>
     <FormItem label="全局默认字体" :label-col="{ style: { width: '120px' } }">
       <small>暂不支持更改字体噢！</small>
@@ -45,7 +48,7 @@
 <script>
 import { defineComponent } from "vue";
 import { Form, FormItem, Input, Slider, Popover } from "ant-design-vue";
-import { Sketch } from "@ckpack/vue-color";
+import { ColorPicker } from "vue3-colorpicker";
 import EpcCommonStyle from "./common.vue";
 
 export default defineComponent({
@@ -54,8 +57,8 @@ export default defineComponent({
     FormItem,
     Input,
     Slider,
-    Popover,
-    Sketch,
+    // Popover,
+    ColorPicker,
     EpcCommonStyle,
   },
   props: {
@@ -66,6 +69,7 @@ export default defineComponent({
   },
   data() {
     return {
+      pureColor: "#194d33",
       size: 14,
       popoverSetting: {
         getPopupContainer: () => document.querySelector("#globel_page_setting"),

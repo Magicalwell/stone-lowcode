@@ -77,6 +77,10 @@ export default defineComponent({
     display: flex;
     flex-wrap: wrap;
   }
+  ::v-deep(.ant-collapse-header) {
+    height: 34px;
+    align-items: center !important;
+  }
 }
 .epc-widgets-single-item {
   width: 110px;

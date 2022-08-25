@@ -13,14 +13,14 @@ export default defineComponent({
       type: Object,
       default: () => ({ name: "g1" }),
     },
-    list: {
-      type: Array,
-      default: () => [],
+  },
+  computed: {
+    store() {
+      return this.$root.$options.extension.store;
     },
   },
   mounted() {
-    console.log(this.$attrs, "this.$attrsthis.$attrsthis.$attrsthis.$attrs");
-    const { handle, draggable, ghostClass } = this.$attrs;
+    const { handle, draggable, ghostClass, list } = this.$attrs;
     const sortable = new Sortable(this.$refs.vuedrag, {
       handle,
       draggable,
@@ -29,10 +29,17 @@ export default defineComponent({
       animation: 150,
       easing: "cubic-bezier(1, 0, 0, 1)",
       group: "g1",
-      list: this.list,
       fallbackOnBody: true,
-      onAdd: (...arg) => {
-        console.log(arg);
+      onAdd: ({ oldIndex, newIndex }) => {
+        list.splice(newIndex, 0, this.store.$$drag.list.splice(oldIndex, 1)[0]);
+        console.log(oldIndex, newIndex, this.list);
+      },
+      onStart: (evt) => {
+        this.store.setDragSchemaData({ list: this.list, index: evt.oldIndex });
+        console.log(this.store.$$drag);
+      },
+      onEnd: ({ newIndex, oldIndex }) => {
+        console.log("end");
       },
     });
   },

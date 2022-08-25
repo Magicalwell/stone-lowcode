@@ -278,9 +278,6 @@ export default defineComponent({
     };
   },
   computed: {
-    store() {
-      return this.$root.$options.extension.store;
-    },
     cls() {
       return {
         "epc-widget-selected": this.schema.key === this.selectedSchema.key,
@@ -294,6 +291,7 @@ export default defineComponent({
   },
   created() {
     console.log(this.flatWidgets, this.schema, "+++++++++++++++++++++++");
+    console.log(this.store.$$drag);
   },
   methods: {
     getPlaceholderCls() {

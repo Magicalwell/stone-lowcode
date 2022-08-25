@@ -1,5 +1,10 @@
 <template>
   <div class="epc-main-render" :style="rootStyles" @click="checkdata">
+    <!-- <vue-drag :list="test1" item-key="id">
+      <template #item="{ element }">
+        <div>{{ element.value }}</div>
+      </template>
+    </vue-drag> -->
     <h3 :style="titleStyle" v-if="rootSchema.title">{{ rootSchema.title }}</h3>
     <div class="vue-drag" ref="vuedrag">
       <template v-if="state.tab !== 'design'">
@@ -42,14 +47,19 @@
 <script>
 import { defineComponent } from "vue";
 // import vueDrag from "vuedraggable-es"; vue版本兼容问题，改为直接用sortable
-import vueDrag from "vuedraggable"; // vue3版本可用
+import vueDrag from "../../components/vuedrag"; // vue3版本可用
 import EpcWidgetItem from "./item";
 import Sortable from "sortablejs";
 import { helper } from "../../core";
 export default defineComponent({
   components: { EpcWidgetItem },
   data() {
-    return {};
+    return {
+      test1: [
+        { id: 1, value: 1 },
+        { id: 2, value: 2 },
+      ],
+    };
   },
   computed: {
     childrenSchema() {
@@ -112,7 +122,6 @@ export default defineComponent({
       animation: 150,
       easing: "cubic-bezier(1, 0, 0, 1)",
       group: { name: "g1" },
-      list: this.childrenSchema,
       // onEnd: ({ to, from, oldIndex, newIndex }) => {
       //   console.log(this.childrenSchema);
       //   this.childrenSchema.splice(
@@ -121,8 +130,11 @@ export default defineComponent({
       //     this.childrenSchema.splice(oldIndex, 1)[0]
       //   );
       // },
-      setData: function (dataTransfer, dragEl) {
-        dataTransfer.setData("Text", dragEl.textContent); // `dataTransfer` object of HTML5 DragEvent
+      onStart: (evt) => {
+        this.store.setDragSchemaData({
+          list: this.childrenSchema,
+          index: evt.oldIndex,
+        });
       },
       onRemove: () => {
         console.log("remove");

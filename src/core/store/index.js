@@ -17,6 +17,7 @@ export default class Store {
   constructor(option = {}) {
     this.$$store = {};
     this.$$types = Object.assign({}, types);
+    this.$$drag = null;
     this.$$init(option);
   }
   $$init(option) {
@@ -133,7 +134,14 @@ export default class Store {
   getFlatSchemas() {
     return this.$$store.state.flatSchemas;
   }
-  setDragSchemaData() {
+  setDragSchemaData({ list, index }) {
+    this.$$drag = {
+      list,
+      index,
+    };
     // 这里考虑用发布订阅或观察者模式 最次就是挂载到store上
+  }
+  cleanDragSchemaData() {
+    this.$$drag = null;
   }
 }

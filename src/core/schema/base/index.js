@@ -1,6 +1,7 @@
 import grid from "./grid";
 import input from "./input";
 import radio from "./radio";
+import table from './table'
 export default {
   //   autoComplete: require("./autoComplete").default,
   //   button: require("./button").default,
@@ -11,6 +12,7 @@ export default {
   grid,
   input,
   radio,
+  table,
   //   input: require("./input").default,
   //   inputNumber: require("./inputNumber").default,
   //   radio: require("./radio").default,

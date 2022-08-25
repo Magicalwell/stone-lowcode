@@ -17,10 +17,10 @@ import radioWidget from "./widgets/radio";
 // export const rateWidget = require("./widgets/rate");
 // export const uploadWidget = require("./widgets/upload");
 // export const lineWidget = require("./widgets/line");
-// // export const tableWidget = require('./widgets/table')
+import tableWidget from './widgets/table'
 import gridWidget from "./widgets/grid"
 // export const buttonWidget = require("./widgets/button");
-export { inputWidget, radioWidget, gridWidget };
+export { inputWidget, radioWidget, gridWidget, tableWidget };
 export default [
   {
     title: "表单",
@@ -42,15 +42,13 @@ export default [
       // buttonWidget,
     ],
   },
-  // {
-  //   title: "展示",
-  //   key: "display",
-  //   widgets: [
-  //     // tableWidget,
-  //     textWidget,
-  //     lineWidget,
-  //   ],
-  // },
+  {
+    title: "展示",
+    key: "display",
+    widgets: [
+      tableWidget,
+    ],
+  },
   {
     title: "布局容器",
     key: "layout",

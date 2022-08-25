@@ -53,8 +53,11 @@ export default defineComponent({
   data() {
     return {
       activeKey: "1",
-      collapseActiveKey: 1,
+      collapseActiveKey: 0,
     };
+  },
+  created(){
+    console.log(this.widgets,'-------------------');
   },
   methods: {
     addWidget(widget) {

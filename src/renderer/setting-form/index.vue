@@ -14,16 +14,26 @@
     <a-form-item label="标题:" v-if="keyList.includes('label')">
       <a-input v-model:value="selectedSchema.label" />
     </a-form-item>
+    <a-form-item label="栅格间距:" v-if="keyList.includes('gutter')">
+      <InputNumber
+        id="inputNumber"
+        v-model:value="selectedSchema.option.gutter"
+        :min="0"
+        :max="50"
+      />
+    </a-form-item>
+    <slot></slot>
   </a-form>
 </template>
 <script>
-import EpWidgetRule from "./rule.vue";
-import { Form, FormItem, Input } from "ant-design-vue";
+import EpWidgetRule from './rule.vue'
+import { Form, FormItem, Input, InputNumber } from 'ant-design-vue'
 export default {
   components: {
     AForm: Form,
     AFormItem: FormItem,
     AInput: Input,
+    InputNumber,
   },
   props: {
     // orders: {
@@ -48,48 +58,48 @@ export default {
         state: {},
       }),
     },
-    keyList: { type: Array, default: () => ["key", "label"] },
+    keyList: { type: Array, default: () => ['key', 'label'] },
   },
   data() {
-    return {};
+    return {}
   },
   computed: {
     selectedSchema() {
-      return this.store.getSelectedSchema();
+      return this.store.getSelectedSchema()
     },
 
     rules() {
-      return this.store.getSelectedSchema().rules || [];
+      return this.store.getSelectedSchema().rules || []
     },
 
     selectedValidators() {
-      const widgetsValidators = this.store.getWidgetsValidators();
-      return widgetsValidators[this.selectedSchema.widget] || [];
+      const widgetsValidators = this.store.getWidgetsValidators()
+      return widgetsValidators[this.selectedSchema.widget] || []
     },
   },
   methods: {
     show() {
-      console.log(this.selectedSchema);
+      console.log(this.selectedSchema)
     },
     onRuleTypeChange(type, index) {
-      const { key } = this.selectedSchema;
-      this.store.updateRule(key, index, { type });
+      const { key } = this.selectedSchema
+      this.store.updateRule(key, index, { type })
     },
 
     onRuleMessageChange({ index, message }) {
-      const { key } = this.selectedSchema;
-      this.store.updateRule(key, index, { message });
+      const { key } = this.selectedSchema
+      this.store.updateRule(key, index, { message })
     },
 
     addRule() {
-      const { key } = this.selectedSchema;
-      this.store.addRule(key);
+      const { key } = this.selectedSchema
+      this.store.addRule(key)
     },
 
     deleteRule(index) {
-      const { key } = this.selectedSchema;
-      this.store.removeRule(key, index);
+      const { key } = this.selectedSchema
+      this.store.removeRule(key, index)
     },
   },
-};
+}
 </script>

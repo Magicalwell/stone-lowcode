@@ -7,12 +7,23 @@
   .epc-widget-item-default {
     display: flex;
     align-items: center;
+    min-height: 32px;
+  }
+  .epc-widget-instance{
+    flex: 1;
   }
   .epc-widget-item-full {
     display: block;
     .epc-widget-item-label {
       display: block;
     }
+  }
+}
+.epc-widget-item.epc-widget-container{
+  padding: 8px 0;
+  >.ant-row{
+    margin-left: 0 !important;
+    margin-right: 0 !important;
   }
 }
 .ivu-form-item {

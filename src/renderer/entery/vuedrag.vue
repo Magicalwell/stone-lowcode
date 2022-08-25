@@ -29,13 +29,14 @@ export default defineComponent({
       animation: 150,
       easing: "cubic-bezier(1, 0, 0, 1)",
       group: "g1",
-      fallbackOnBody: true,
-      onAdd: ({ oldIndex, newIndex }) => {
+      onAdd: ({ oldIndex, newIndex,item}) => {
         list.splice(newIndex, 0, this.store.$$drag.list.splice(oldIndex, 1)[0]);
-        console.log(oldIndex, newIndex, this.list);
+        item.remove()
+        console.log(oldIndex, newIndex, list);
       },
       onStart: (evt) => {
-        this.store.setDragSchemaData({ list: this.list, index: evt.oldIndex });
+        this.store.setDragSchemaData({ list, index: evt.oldIndex });
+        console.log(list);
         console.log(this.store.$$drag);
       },
       onEnd: ({ newIndex, oldIndex }) => {

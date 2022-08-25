@@ -122,14 +122,10 @@ export default defineComponent({
       animation: 150,
       easing: "cubic-bezier(1, 0, 0, 1)",
       group: { name: "g1" },
-      // onEnd: ({ to, from, oldIndex, newIndex }) => {
-      //   console.log(this.childrenSchema);
-      //   this.childrenSchema.splice(
-      //     newIndex,
-      //     0,
-      //     this.childrenSchema.splice(oldIndex, 1)[0]
-      //   );
-      // },
+      onAdd: ({ oldIndex, newIndex,item}) => {
+        this.childrenSchema.splice(newIndex, 0, this.store.$$drag.list.splice(oldIndex, 1)[0]);
+        item.remove()
+      },
       onStart: (evt) => {
         this.store.setDragSchemaData({
           list: this.childrenSchema,

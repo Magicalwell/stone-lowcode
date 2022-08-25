@@ -167,7 +167,7 @@
         >
         <!-- 这个地方的component把实例转成了响应式对象 需要优化 -->
         <component
-          class="ep-widget-instance"
+          class="epc-widget-instance"
           :is="flatWidgets[schema.widget].View"
           :schema="schema"
           @on-event="onEvent"
@@ -264,7 +264,10 @@ export default defineComponent({
       type: Object,
       default: () => ({}),
     },
-    flatSchema: {},
+    flatSchemas: {
+      type: Object,
+      default: () => ({})
+    },
     rootSchema: {},
   },
   data() {
@@ -278,6 +281,9 @@ export default defineComponent({
     };
   },
   computed: {
+    store() {
+      return this.$root.$options.extension.store;
+    },
     cls() {
       return {
         "epc-widget-selected": this.schema.key === this.selectedSchema.key,
@@ -291,7 +297,6 @@ export default defineComponent({
   },
   created() {
     console.log(this.flatWidgets, this.schema, "+++++++++++++++++++++++");
-    console.log(this.store.$$drag);
   },
   methods: {
     getPlaceholderCls() {
@@ -319,6 +324,15 @@ export default defineComponent({
     },
     onViewSelect(schema) {
       this.$emit("on-select", schema);
+    },
+    onViewDelete (schema) {
+      this.$emit('on-delete', schema)
+    },
+    onViewCopy (schema) {
+      this.$emit('on-copy', schema)
+    },
+    onViewAdd (schema) {
+      this.$emit('on-add', schema)
     },
   },
 });

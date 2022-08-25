@@ -23,7 +23,7 @@ export default class GridSchema extends BaseSchema {
     this.option = {
       gutter: 12,
       align: 'top',
-      justify: 'start'
+      justify: 'space-between'
     }
     // this.style = {
     //   background: 'rgba(255, 255, 255, 0)',

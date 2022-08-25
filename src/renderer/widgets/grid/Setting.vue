@@ -1,28 +1,33 @@
 <template>
-  <SettingForm :store="store" :key-list="keyList"></SettingForm>
+  <SettingForm :store="store" :key-list="keyList">
+  </SettingForm>
 </template>
 <script>
 import settingExtend from '../../extends/setting'
-
 export default {
   extends: settingExtend,
+  data(){
+    return {
+      keyList:['key', 'label','gutter']
+    }
+  },
   methods: {
-    onMoveUp (index) {
+    onMoveUp(index) {
       const key = this.selectedSchema.key
       this.store.moveWidgetChild(key, index - 1, index)
     },
-    onMoveDown (index) {
+    onMoveDown(index) {
       const key = this.selectedSchema.key
       this.store.moveWidgetChild(key, index, index + 1)
     },
-    onRemove (index) {
+    onRemove(index) {
       const key = this.selectedSchema.key
       this.store.removeWidgetChild(key, index)
     },
-    onAdd (index) {
+    onAdd(index) {
       const key = this.selectedSchema.key
       this.store.addWidgetChild(key, index, { span: 12, list: [] })
-    }
-  }
+    },
+  },
 }
 </script>

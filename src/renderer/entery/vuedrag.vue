@@ -29,9 +29,10 @@ export default defineComponent({
       animation: 150,
       easing: "cubic-bezier(1, 0, 0, 1)",
       group: "g1",
-      onAdd: ({ oldIndex, newIndex,item}) => {
+      onAdd: ({ oldIndex, newIndex, item }) => {
+        console.log('onadd');
         list.splice(newIndex, 0, this.store.$$drag.list.splice(oldIndex, 1)[0]);
-        item.remove()
+        item.remove();
         console.log(oldIndex, newIndex, list);
       },
       onStart: (evt) => {
@@ -40,6 +41,7 @@ export default defineComponent({
         console.log(this.store.$$drag);
       },
       onEnd: ({ newIndex, oldIndex }) => {
+        this.store.cleanDragSchemaData()
         console.log("end");
       },
     });

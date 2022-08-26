@@ -122,9 +122,13 @@ export default defineComponent({
       animation: 150,
       easing: "cubic-bezier(1, 0, 0, 1)",
       group: { name: "g1" },
-      onAdd: ({ oldIndex, newIndex,item}) => {
-        this.childrenSchema.splice(newIndex, 0, this.store.$$drag.list.splice(oldIndex, 1)[0]);
-        item.remove()
+      onAdd: ({ oldIndex, newIndex, item }) => {
+        this.childrenSchema.splice(
+          newIndex,
+          0,
+          this.store.$$drag.list.splice(oldIndex, 1)[0]
+        );
+        item.remove();
       },
       onStart: (evt) => {
         this.store.setDragSchemaData({
@@ -132,8 +136,17 @@ export default defineComponent({
           index: evt.oldIndex,
         });
       },
-      onRemove: () => {
+      onUpdate: ({ newIndex, oldIndex }) => {
         console.log("remove");
+        this.childrenSchema.splice(
+          newIndex,
+          0,
+          this.childrenSchema.splice(oldIndex, 1)[0]
+        );
+      },
+      onEnd: ({ newIndex, oldIndex }) => {
+        this.store.cleanDragSchemaData();
+        console.log("end");
       },
     });
     console.log(this.rootSchema, "rootSchemarootSchemarootSchema");

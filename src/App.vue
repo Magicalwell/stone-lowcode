@@ -26,4 +26,14 @@ body {
     }
   }
 }
+
+::-webkit-scrollbar {
+  width: 8px;
+  height:8px;
+}
+::-webkit-scrollbar-thumb {
+  /*滚动条里面小方块*/
+  border-radius: 8px;
+  background: #f2f3f5;
+}
 </style>

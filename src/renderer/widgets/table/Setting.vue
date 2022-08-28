@@ -1,7 +1,7 @@
 <template>
   <div>
     <SettingForm :store="store">
-      <FormItem label="配置列" @click="logtest">
+      <FormItem label="配置列">
         <Table
           size="small"
           :columns="defaultRow"
@@ -18,6 +18,7 @@
         >
           <template #icon><PlusOutlined /></template>
         </Button>
+
         <small style="display: block"
           >注:目前静态数据，可配置的字段只有name、address、age</small
         >
@@ -29,8 +30,15 @@
       title="表格属性配置"
       :destroyOnClose="true"
     >
-      确认提交之后全量替换，这里也支持拖拽排序等
+      支持拖拽排序
       <Form :model="newRow" ref="newRow">
+        <FormItem label="是否显示序号">
+          <Switch
+            v-model:checked="indexStatus"
+            checked-children="显示"
+            un-checked-children="隐藏"
+          ></Switch
+        ></FormItem>
         <Space
           v-for="(item, index) in newRow.data"
           :key="index"
@@ -55,7 +63,18 @@
           >
             <Input v-model:value="item.dataIndex" placeholder="输入列字段" />
           </FormItem>
-          <MinusCircleOutlined @click="removeUser(user)" />
+          <FormItem>
+            <InputNumber
+              id="inputNumber"
+              v-model:value="item.width"
+              :min="60"
+              :max="1200"
+              placeholder="输入列宽"
+              :controls="false"
+            />
+            <!-- <Input v-model:value="item.width" placeholder="输入列宽" /> -->
+          </FormItem>
+          <MinusCircleOutlined @click="removeData(index)" />
         </Space>
         <FormItem>
           <Button type="dashed" block @click="addFormData">
@@ -72,7 +91,7 @@
   </div>
 </template>
 <script>
-import settingExtend from "../../extends/setting";
+import settingExtend from '../../extends/setting'
 import {
   FormItem,
   Table,
@@ -81,20 +100,21 @@ import {
   Form,
   Input,
   Space,
-} from "ant-design-vue";
-import { PlusOutlined, MinusCircleOutlined } from "@ant-design/icons-vue";
-import { markRaw } from "vue";
-
+  Switch,
+  InputNumber,
+} from 'ant-design-vue'
+import { PlusOutlined, MinusCircleOutlined } from '@ant-design/icons-vue'
+import { markRaw } from 'vue'
 const defaultCol = (index) => ({
-  type: "html",
+  type: 'html',
   title: `标题${index + 1}`,
-  key: "",
-  align: "left",
-});
+  key: '',
+  align: 'left',
+})
 const defaultRow = [
-  { title: "列标题", dataIndex: "title" },
-  { title: "列字段", dataIndex: "dataIndex" },
-];
+  { title: '列标题', dataIndex: 'title' },
+  { title: '列字段', dataIndex: 'dataIndex' },
+]
 export default {
   extends: settingExtend,
   components: {
@@ -103,6 +123,8 @@ export default {
     Modal: markRaw(Modal),
     Form: markRaw(Form),
     Space: markRaw(Space),
+    Switch: markRaw(Switch),
+    InputNumber: markRaw(InputNumber),
     Input,
     Button,
     PlusOutlined,
@@ -112,77 +134,99 @@ export default {
     return {
       defaultRow,
       visible: false,
+      indexStatus: true,
       newRow: { data: [] },
-    };
+    }
   },
   methods: {
     onMoveUp(index) {
-      const { key, option } = this.selectedSchema;
-      const columns = [...option.columns];
+      const { key, option } = this.selectedSchema
+      const columns = [...option.columns]
       columns.splice(
         index - 1,
         1,
         ...columns.splice(index, 1, columns[index - 1])
-      );
+      )
 
-      this.store.updateWidgetOption(key, { columns });
+      this.store.updateWidgetOption(key, { columns })
     },
 
     onMoveDown(index) {
-      const { key, option } = this.selectedSchema;
-      const columns = [...option.columns];
-      columns.splice(index, 1, ...columns.splice(index + 1, 1, columns[index]));
+      const { key, option } = this.selectedSchema
+      const columns = [...option.columns]
+      columns.splice(index, 1, ...columns.splice(index + 1, 1, columns[index]))
 
-      this.store.updateWidgetOption(key, { columns });
+      this.store.updateWidgetOption(key, { columns })
     },
 
     onDelete(index) {
-      const { key, option } = this.selectedSchema;
-      option.columns.splice(index, 1);
+      const { key, option } = this.selectedSchema
+      option.columns.splice(index, 1)
 
-      this.store.updateWidgetOption(key, { columns: option.columns });
+      this.store.updateWidgetOption(key, { columns: option.columns })
     },
 
     onAdd(index) {
-      const { key, option } = this.selectedSchema;
-      const defaultValue = defaultCol(index);
-      option.columns.splice(index + 1, 0, defaultValue);
+      const { key, option } = this.selectedSchema
+      const defaultValue = defaultCol(index)
+      option.columns.splice(index + 1, 0, defaultValue)
 
-      this.store.updateWidgetOption(key, { columns: option.columns });
+      this.store.updateWidgetOption(key, { columns: option.columns })
     },
 
     onSuccess(res) {
       // TODO: should check format about response
-      const { key, option: schemaOption } = this.selectedSchema;
-      const page = Object.assign({}, schemaOption.page, res.page);
+      const { key, option: schemaOption } = this.selectedSchema
+      const page = Object.assign({}, schemaOption.page, res.page)
       const option = {
         page,
         dynamicData: res.data,
-      };
+      }
 
-      this.store.updateWidgetOption(key, option);
+      this.store.updateWidgetOption(key, option)
     },
     showTableSetting() {
-      this.visible = true;
-      this.newRow.data = JSON.parse(
-        JSON.stringify(this.selectedSchema.option.columns)
-      );
+      this.visible = true
+      this.newRow.data =
+        this.selectedSchema.option.columns.length > 0
+          ? JSON.parse(JSON.stringify(this.selectedSchema.option.columns))
+          : []
+      if (
+        this.newRow.data[0] &&
+        this.newRow.data[0].key &&
+        this.newRow.data[0].key === 'index'
+      ) {
+        this.newRow.data.shift()
+        this.indexStatus = true
+      } else {
+        this.indexStatus = false
+      }
     },
     addFormData() {
-      this.newRow.data.push({ title: "", dataIndex: "", id: Date.now() });
+      this.newRow.data.push({ title: '', dataIndex: '', id: Date.now() })
     },
     handleOk() {
-      const tableValidate = this.$refs.newRow.validate();
+      const tableValidate = this.$refs.newRow.validate()
       tableValidate.then((val) => {
-        this.visible = false;
-        val.data.forEach((element) => {
-          this.selectedSchema.option.columns.push(element);
-        });
-      });
+        this.visible = false
+        if (this.indexStatus) {
+          this.newRow.data.unshift({
+            title: '序号',
+            customRender: ({ index }) => index + 1,
+            align: 'left',
+            key: 'index',
+            width:80
+          })
+        }
+        this.selectedSchema.option.columns = this.newRow.data
+      })
     },
-    logtest() {
-      console.log(this.selectedSchema.option.columns);
+    handleCancel() {
+      this.visible = false
+    },
+    removeData(index) {
+      this.newRow.data.splice(index, 1)
     },
   },
-};
+}
 </script>

@@ -16,6 +16,7 @@ export default class TableSchema extends BaseSchema {
           title: "序号",
           customRender: ({ index }) => index + 1,
           align: "left",
+          key:'index'
         },
       ],
       page: {

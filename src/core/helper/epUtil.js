@@ -9,6 +9,7 @@ import {
   formatDate,
 } from "./util";
 import TypeBuilder from "../store/TypeBuilder";
+import _ from "lodash";
 
 /**
  * 获取根 schema 的子schema列表
@@ -138,9 +139,9 @@ export function getSchema(_schema, stateStore = {}) {
   _store.dicts = storeFetchClean(stateStore.dicts);
   _store.apis = storeFetchClean(stateStore.apis);
 
-  _store = jsonClone(_store);
+  _store = _.cloneDeep(_store);
 
-  const schema = jsonClone(othersSchema);
+  const schema = _.cloneDeep(othersSchema);
   schema.store = _store;
   function clean(schema) {
     const option = schema.option || {};
@@ -162,6 +163,7 @@ export function getSchema(_schema, stateStore = {}) {
     }
   }
   clean(schema);
+  console.log(schema, "||||||||||||||||||||||||||||||||");
   return schema;
 }
 

@@ -33,6 +33,7 @@
             :span="item.span"
             :offset="item.offset"
           >
+          33333
             <template v-if="Array.isArray(item.list)">
               <!-- 区分渲染设计模式和预览模式 -->
               <template v-if="tab !== 'design'">
@@ -113,6 +114,7 @@
                 :span="item.span"
                 :offset="item.offset"
               >
+              666666666
                 <template v-if="Array.isArray(item.list) && tab !== 'design'">
                   <ep-widget-item
                     v-for="child in item.list"

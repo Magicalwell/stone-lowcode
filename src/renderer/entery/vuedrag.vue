@@ -8,19 +8,14 @@
 import { defineComponent } from "vue";
 import Sortable from "sortablejs";
 export default defineComponent({
-  props: {
-    group: {
-      type: Object,
-      default: () => ({ name: "g1" }),
-    },
-  },
+  props: {},
   computed: {
     store() {
       return this.$root.$options.extension.store;
     },
   },
   mounted() {
-    const { handle, draggable, ghostClass, list } = this.$attrs;
+    const { handle, draggable, ghostClass, list, group } = this.$attrs;
     const sortable = new Sortable(this.$refs.vuedrag, {
       handle,
       draggable,
@@ -28,21 +23,21 @@ export default defineComponent({
       sort: true,
       animation: 150,
       easing: "cubic-bezier(1, 0, 0, 1)",
-      group: "g1",
+      group,
       onAdd: ({ oldIndex, newIndex, item }) => {
-        console.log('onadd');
         list.splice(newIndex, 0, this.store.$$drag.list.splice(oldIndex, 1)[0]);
         item.remove();
-        console.log(oldIndex, newIndex, list);
       },
       onStart: (evt) => {
+        if (!group) return;
         this.store.setDragSchemaData({ list, index: evt.oldIndex });
-        console.log(list);
-        console.log(this.store.$$drag);
       },
       onEnd: ({ newIndex, oldIndex }) => {
-        this.store.cleanDragSchemaData()
+        this.store.cleanDragSchemaData();
         console.log("end");
+      },
+      onUpdate({ oldIndex, newIndex }) {
+        list.splice(newIndex, 0, list.splice(oldIndex, 1)[0]);
       },
     });
   },

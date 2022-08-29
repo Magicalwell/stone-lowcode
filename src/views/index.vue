@@ -138,11 +138,11 @@ export default defineComponent({
     },
   },
   beforeMount() {
+    // 合并panel和setting
     const ext = this.$root.$options.extension || {};
     Object.assign(this.panels, ext.panels);
     this.settings = ext.settings;
     this.design.view = ext.view || "pc";
-    console.log(this.settings, "settingssettingssettingssettings");
     this.setReady();
   },
 
@@ -175,7 +175,7 @@ export default defineComponent({
       const el = this.$refs[mode + "-" + view];
       const schema = this.store.getSchema();
       const { pc, h5 } = this[mode];
-      const ext = this.$root.$options.extension; // 拿到之前传过来的所有数据
+      const ext = this.$root.$options.extension; // 拿到之前传过来的所有数据，考虑也放在vuex中
       const { setRender, callPlugin, Render, widgets, component } = ext;
       this[mode].view = view;
       // if (!helper.include(VIEWS, view)) return;
@@ -193,7 +193,7 @@ export default defineComponent({
       const args = { el, mode: "edit" };
       // 设计模式
       if (mode === "design") {
-        this.store.initWidgets(_widgets); // 此处挂载了两次widgets为了兼容设计和渲染模式
+        this.store.initWidgets(_widgets); // 此处为预设的widgets列表，挂载了两次widgets为了兼容设计和渲染模式
         args.store = this.store;
         // 预览模式
       } else {

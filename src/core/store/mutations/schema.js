@@ -16,6 +16,7 @@ export default {
     });
     // 初始化 model
     state.rootSchema = Object.assign({}, state.rootSchema, _rootSchema);
+    console.log(state.rootSchema,_rootSchema,'state.rootSchemastate.rootSchemastate.rootSchemastate.rootSchema');
     this.commit(types.$ROOT_SCHEMA_FLAT, { rootSchema: state.rootSchema });  // 考虑将合并与赋值放在一个操作里面
   },
 };

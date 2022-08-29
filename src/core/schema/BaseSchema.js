@@ -6,6 +6,7 @@ import {
   jsonClone
 } from '../helper'
 
+import _ from 'lodash'
 // this prop list should be ignore when copy schema
 const IGNORE_PROP_LIST = ['list']
 
@@ -40,12 +41,12 @@ export default class BaseSchema {
         let item = schema[i]
         if (isArray(item)) {
           // item = Object.assign([], this[i], item)
-          item = jsonClone(item)
+          item = _.cloneDeep(item)
         } else if (isPlainObject(item)) {
           if (isPlainObject(this[i])) {
-            item = jsonClone({ ...this[i], ...item })
+            item = _.cloneDeep({ ...this[i], ...item })
           } else {
-            item = jsonClone(item)
+            item = _.cloneDeep(item)
           }
         }
         this[i] = item

@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "ant-design-vue": "^3.2.11",
+    "lodash": "^4.17.21",
     "sortablejs": "^1.15.0",
     "terser-webpack-plugin": "^5.3.5",
     "vue": "^3.0.0",

@@ -7,6 +7,7 @@ import {
   isNumber,
   isFunction
 } from '../../../helper'
+import _ from 'lodash'
 
 const getDefaultChildren = () => [
   { span: 12, list: [] },
@@ -40,7 +41,7 @@ export default class GridSchema extends BaseSchema {
     let { schema, widgets = {}, clone, dynamic } = props || {}
     if (isPlainObject(schema) && isNotEmptyString(schema.widget)) {
       // 避免影响到原schema对象，这里需要深度clone一份
-      schema = jsonClone(schema)
+      schema = _.cloneDeep(schema)
       const children = isArray(schema.children) ? schema.children : []
       if (!children.length) {
         children.push(getDefaultChildren())

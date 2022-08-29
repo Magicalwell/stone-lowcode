@@ -1,5 +1,5 @@
 <template>
-  <Table :columns="schema.option.columns" :data-source="tabled"></Table>
+  <Table :columns="schema.option.columns" :data-source="tabled" @click="showdata"></Table>
 </template>
 <script>
 import viewExtend from "../../extends/view";
@@ -92,6 +92,9 @@ export default {
         this.worker.terminate();
       };
     },
+    showdata(){
+      console.log(this.schema.option.columns);
+    }
   },
 };
 </script>

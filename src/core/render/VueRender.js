@@ -4,6 +4,7 @@ import { isArray, isFunction, isPlainObject, usePlugins } from "../helper";
 import Rule from "../rule";
 import Store from "../store";
 export default class Render {
+  // 渲染器的入口
   constructor(option) {
     const {
       el,
@@ -50,7 +51,6 @@ export default class Render {
     const { el, store, mode, component } = this;
     const extension = { store, $render: this, mode: option.mode || mode };
     const root = document.createElement("div");
-    console.log(store,'----------------------');
     el.appendChild(root);
     this.callPlugin("render", "beforeCreate", { ctx: this });
     // 这里通过h函数渲染出entry中的入口
@@ -67,10 +67,8 @@ export default class Render {
     console.log(this.$$origin);
     if (this.$$origin) {
       this.$$origin.unmount()
-      console.log('destroy1');
       if (!this.el.contains(this.$$origin.$el)) return
       this.el.removeChild(this.$$origin.$el)
-      console.log('destroy2');
     }
   }
 }

@@ -64,7 +64,6 @@ export default class Render {
     return ins;
   }
   destroy () {
-    console.log(this.$$origin);
     if (this.$$origin) {
       this.$$origin.unmount()
       if (!this.el.contains(this.$$origin.$el)) return
